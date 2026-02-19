@@ -1,0 +1,117 @@
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..1111111
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,17 @@
++# RAMORGA Engine — Implementation Layer
++
++This repository contains the executable implementation of RAMORGA:
++- C/G/S modules,
++- Field Engine,
++- Meniscus Engine,
++- runtime,
++- API,
++- integration layer,
++- system tests.
++
++This repository contains **no theory** and **no declarative architecture**.
++It implements the contracts defined in `ramorga-architecture`.
+
+diff --git a/01_runtime/README.md b/01_runtime/README.md
+new file mode 100644
+index 0000000..2222222
+--- /dev/null
++++ b/01_runtime/README.md
+@@ -0,0 +1,14 @@
++# 01_runtime
++
++Core runtime for RAMORGA:
++- initialization,
++- event loop,
++- state management,
++- scheduling,
++- lifecycle control.
+
+diff --git a/02_modules/README.md b/02_modules/README.md
+new file mode 100644
+index 0000000..3333333
+--- /dev/null
++++ b/02_modules/README.md
+@@ -0,0 +1,15 @@
++# 02_modules
++
++Executable implementations of:
++- C (Cognitive Tone),
++- G (Generative Flow),
++- S (Shape/Safety).
++
++Each module implements its contract from `ramorga-architecture/01_module_contracts`.
+
+diff --git a/03_field_engine/README.md b/03_field_engine/README.md
+new file mode 100644
+index 0000000..4444444
+--- /dev/null
++++ b/03_field_engine/README.md
+@@ -0,0 +1,14 @@
++# 03_field_engine
++
++Executable implementation of the Field Engine:
++- field propagation,
++- coherence dynamics,
++- tension loop integration,
++- module interaction.
+
+diff --git a/04_meniscus_engine/README.md b/04_meniscus_engine/README.md
+new file mode 100644
+index 0000000..5555555
+--- /dev/null
++++ b/04_meniscus_engine/README.md
+@@ -0,0 +1,14 @@
++# 04_meniscus_engine
++
++Executable implementation of the Homeostatic Meniscus:
++- regulatory functions,
++- modulation rules,
++- invariant enforcement.
+
+diff --git a/05_api/README.md b/05_api/README.md
+new file mode 100644
+index 0000000..6666666
+--- /dev/null
++++ b/05_api/README.md
+@@ -0,0 +1,13 @@
++# 05_api
++
++Public API for RAMORGA Engine:
++- input/output interfaces,
++- integration endpoints,
++- safety boundaries.
+
+diff --git a/06_integration/README.md b/06_integration/README.md
+new file mode 100644
+index 0000000..7777777
+--- /dev/null
++++ b/06_integration/README.md
+@@ -0,0 +1,13 @@
++# 06_integration
++
++Integration layer:
++- adapters,
++- connectors,
++- external system bindings.
+
+diff --git a/07_tests/README.md b/07_tests/README.md
+new file mode 100644
+index 0000000..8888888
+--- /dev/null
++++ b/07_tests/README.md
+@@ -0,0 +1,16 @@
++# 07_tests
++
++System tests for RAMORGA Engine:
++- module tests,
++- field engine tests,
++- meniscus tests,
++- integration tests,
++- invariant compliance tests.
