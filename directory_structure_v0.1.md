@@ -1,3 +1,10 @@
+# RAMORGA-ENGINE DIRECTORY STRUCTURE v0.1
+
+Struktura katalogów dla etapu:
+- "tylko teoria"
+- "tylko testy"
+- zero implementacji
+
 /ramorga-engine/
 │
 ├── engine/
