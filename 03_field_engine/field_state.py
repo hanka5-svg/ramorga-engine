@@ -12,24 +12,34 @@ def _sub(a: Vec2, b: Vec2) -> Vec2:
     return a[0] - b[0], a[1] - b[1]
 
 
+def _add(a: Vec2, b: Vec2) -> Vec2:
+    return a[0] + b[0], a[1] + b[1]
+
+
+def _scale(a: Vec2, s: float) -> Vec2:
+    return a[0] * s, a[1] * s
+
+
 def _length(a: Vec2) -> float:
     return math.sqrt(a[0] * a[0] + a[1] * a[1]) or 1e-9
 
 
 class FieldState:
     """
-    FieldState v3 — structural + energetic field representation.
+    FieldState v6 — full structural + energetic + differential representation.
 
-    Stores:
-    - node positions,
-    - local tension (mean neighbor distance),
-    - spatial gradients,
-    - elastic energy (springs),
-    - charge energy (Coulomb-like),
-    - tension map (per-node energy contribution).
+    Zawiera:
+    - pozycje węzłów,
+    - lokalne napięcie,
+    - gradient pola,
+    - energia sprężysta,
+    - energia ładunków,
+    - mapa napięć,
+    - energie kierunkowe (v4),
+    - krzywizna pola (v5),
+    - divergence i curl (v6).
 
-    This class does not perform physics. It interprets positions
-    and adjacency provided by the physics backend.
+    FieldState NIE wykonuje fizyki — tylko interpretuje dane z backendu.
     """
 
     def __init__(self) -> None:
@@ -38,14 +48,25 @@ class FieldState:
         self._rest_lengths: Dict[Tuple[str, str], float] = {}
         self._charges: Dict[str, float] = {}
 
+        # podstawowe metryki
         self._tension: Dict[str, float] = {}
         self._gradient: Dict[str, Vec2] = {}
         self._elastic_energy: float = 0.0
         self._charge_energy: float = 0.0
         self._tension_map: Dict[str, float] = {}
 
+        # v4
+        self._directional_energy: Dict[str, float] = {}
+
+        # v5
+        self._curvature: Dict[str, float] = {}
+
+        # v6
+        self._divergence: Dict[str, float] = {}
+        self._curl: Dict[str, float] = {}
+
     # ------------------------------------------------------------------
-    # Configuration
+    # Konfiguracja
     # ------------------------------------------------------------------
 
     def set_neighbors(
@@ -54,10 +75,6 @@ class FieldState:
         rest_lengths: Dict[Tuple[str, str], float],
         charges: Dict[str, float],
     ) -> None:
-        """
-        Provide adjacency, rest lengths and charges.
-        Required for energy computation.
-        """
         self._neighbors = adjacency
         self._rest_lengths = rest_lengths
         self._charges = charges
@@ -65,24 +82,29 @@ class FieldState:
     # ------------------------------------------------------------------
 
     def update_from_positions(self, positions: Dict[str, Vec2]) -> None:
-        """
-        Update positions and recompute all derived quantities.
-        """
         self._positions = dict(positions)
+
         self._compute_tension()
         self._compute_gradient()
         self._compute_elastic_energy()
         self._compute_charge_energy()
         self._compute_tension_map()
 
+        # v4
+        self._compute_directional_energy()
+
+        # v5
+        self._compute_curvature()
+
+        # v6
+        self._compute_divergence()
+        self._compute_curl()
+
     # ------------------------------------------------------------------
-    # Derived quantities
+    # v1–v3: podstawowe metryki
     # ------------------------------------------------------------------
 
     def _compute_tension(self) -> None:
-        """
-        Local tension = mean distance to neighbors.
-        """
         tension: Dict[str, float] = {}
 
         for nid, pos in self._positions.items():
@@ -103,9 +125,6 @@ class FieldState:
     # ------------------------------------------------------------------
 
     def _compute_gradient(self) -> None:
-        """
-        Gradient = vector sum of neighbor differences.
-        """
         gradient: Dict[str, Vec2] = {}
 
         for nid, pos in self._positions.items():
@@ -130,9 +149,6 @@ class FieldState:
     # ------------------------------------------------------------------
 
     def _compute_elastic_energy(self) -> None:
-        """
-        Elastic energy = sum( 0.5 * (dist - rest)^2 ) over edges.
-        """
         total = 0.0
 
         for (a, b), rest in self._rest_lengths.items():
@@ -148,9 +164,6 @@ class FieldState:
     # ------------------------------------------------------------------
 
     def _compute_charge_energy(self) -> None:
-        """
-        Charge energy = sum( q_i * q_j / dist ) over all pairs.
-        """
         total = 0.0
         ids = list(self._positions.keys())
 
@@ -170,9 +183,6 @@ class FieldState:
     # ------------------------------------------------------------------
 
     def _compute_tension_map(self) -> None:
-        """
-        Per-node energy contribution = tension + gradient magnitude.
-        """
         tension_map: Dict[str, float] = {}
 
         for nid in self._positions:
@@ -182,6 +192,137 @@ class FieldState:
             tension_map[nid] = t + gmag
 
         self._tension_map = tension_map
+
+    # ------------------------------------------------------------------
+    # v4: energie kierunkowe
+    # ------------------------------------------------------------------
+
+    def _compute_directional_energy(self) -> None:
+        """
+        Energia kierunkowa = suma kwadratów projekcji gradientu na wektory do sąsiadów.
+        """
+        de: Dict[str, float] = {}
+
+        for nid, pos in self._positions.items():
+            neigh = self._neighbors.get(nid, set())
+            if not neigh:
+                de[nid] = 0.0
+                continue
+
+            gx, gy = self._gradient.get(nid, (0.0, 0.0))
+            total = 0.0
+
+            for nj in neigh:
+                if nj not in self._positions:
+                    continue
+                dx, dy = _sub(self._positions[nj], pos)
+                dist = _length((dx, dy))
+                ux, uy = dx / dist, dy / dist
+                proj = gx * ux + gy * uy
+                total += proj * proj
+
+            de[nid] = total
+
+        self._directional_energy = de
+
+    # ------------------------------------------------------------------
+    # v5: krzywizna pola
+    # ------------------------------------------------------------------
+
+    def _compute_curvature(self) -> None:
+        """
+        Krzywizna = różnica między gradientem a średnim gradientem sąsiadów.
+        """
+        curv: Dict[str, float] = {}
+
+        for nid, pos in self._positions.items():
+            neigh = self._neighbors.get(nid, set())
+            if not neigh:
+                curv[nid] = 0.0
+                continue
+
+            gx, gy = self._gradient.get(nid, (0.0, 0.0))
+
+            avgx = 0.0
+            avgy = 0.0
+            count = 0
+
+            for nj in neigh:
+                if nj not in self._gradient:
+                    continue
+                ngx, ngy = self._gradient[nj]
+                avgx += ngx
+                avgy += ngy
+                count += 1
+
+            if count == 0:
+                curv[nid] = 0.0
+                continue
+
+            avgx /= count
+            avgy /= count
+
+            dx = gx - avgx
+            dy = gy - avgy
+            curv[nid] = math.sqrt(dx * dx + dy * dy)
+
+        self._curvature = curv
+
+    # ------------------------------------------------------------------
+    # v6: divergence i curl
+    # ------------------------------------------------------------------
+
+    def _compute_divergence(self) -> None:
+        """
+        Divergence = suma różnic gradientu w kierunku sąsiadów.
+        """
+        div: Dict[str, float] = {}
+
+        for nid, pos in self._positions.items():
+            neigh = self._neighbors.get(nid, set())
+            if not neigh:
+                div[nid] = 0.0
+                continue
+
+            gx, gy = self._gradient.get(nid, (0.0, 0.0))
+            total = 0.0
+
+            for nj in neigh:
+                if nj not in self._gradient:
+                    continue
+                ngx, ngy = self._gradient[nj]
+                total += (ngx - gx) + (ngy - gy)
+
+            div[nid] = total
+
+        self._divergence = div
+
+    # ------------------------------------------------------------------
+
+    def _compute_curl(self) -> None:
+        """
+        Curl = suma rotacji lokalnych (gx*dy - gy*dx).
+        """
+        curl: Dict[str, float] = {}
+
+        for nid, pos in self._positions.items():
+            neigh = self._neighbors.get(nid, set())
+            if not neigh:
+                curl[nid] = 0.0
+                continue
+
+            gx, gy = self._gradient.get(nid, (0.0, 0.0))
+            total = 0.0
+
+            for nj in neigh:
+                if nj not in self._positions:
+                    continue
+                dx, dy = _sub(self._positions[nj], pos)
+                total += gx * dy - gy * dx
+
+            curl[nid] = total
+
+        self._curl = curl
 
     # ------------------------------------------------------------------
     # Accessors
@@ -204,6 +345,18 @@ class FieldState:
 
     def get_tension_map(self) -> Dict[str, float]:
         return dict(self._tension_map)
+
+    def get_directional_energy(self) -> Dict[str, float]:
+        return dict(self._directional_energy)
+
+    def get_curvature(self) -> Dict[str, float]:
+        return dict(self._curvature)
+
+    def get_divergence(self) -> Dict[str, float]:
+        return dict(self._divergence)
+
+    def get_curl(self) -> Dict[str, float]:
+        return dict(self._curl)
 
     # ------------------------------------------------------------------
 
