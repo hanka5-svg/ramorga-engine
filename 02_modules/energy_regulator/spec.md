@@ -2,22 +2,28 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- stabilizację energii pola,
-- kompensację skoków energii,
-- utrzymanie homeostazy energetycznej.
+- regulację poziomu energii na podstawie napięć,
+- utrzymanie energii w zakresie [E_min, E_max],
+- stabilizację pola.
 
 ## Wejścia
-- `FieldState`
-- `TensionDelta`
+- `energy_level`,
+- `tension_map`,
+- parametry regulacyjne (wzmocnienia, progi).
 
 ## Wyjścia
-- `EnergyAdjustment`
-- `EnergyStabilityFlag` (np. STABLE / OVERLOADED / DEPLETED)
+- zaktualizowany `energy_level`,
+- `EnergyStabilityFlag`.
 
 ## Zależności
-- logiczne: field_state, tension_loop
-- współpraca z field_state przy aktualizacji stanu
+- tension_loop (dostarczane napięcia),
+- field_state.
 
-## Testy (powiązanie)
-- test_energy_stability.md → stabilność energii przy różnych TensionDelta
-- test_regulation_step.md → poprawne sprzężenie z tension_loop
+## Kontrakt wykonawczy
+- energia nie może wyjść poza dopuszczalny zakres,
+- deterministyczny w test_mode,
+- brak efektów ubocznych.
+
+## Powiązanie z testami
+- test_regulation_step.md — poprawna regulacja energii,
+- test_energy_stability.md — stabilność przy wielu krokach.
