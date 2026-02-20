@@ -1,0 +1,178 @@
+# RAMORGA‑ENGINE — PipelineV13 State Machine
+
+Dokument definiuje formalny automat stanów dla PipelineV13.  
+Opisuje stany, przejścia, warunki oraz dopuszczalne sekwencje wykonania.
+
+---
+
+# 1. Typ automatu
+
+PipelineV13 jest deterministycznym automatem stanów:
+
+- skończony zbiór stanów,
+- deterministyczne przejścia,
+- brak cykli nieskończonych (poza kontrolowaną pętlą multi_step),
+- brak ukrytych stanów.
+
+---
+
+# 2. Zbiór stanów
+
+## 2.1 Stany główne
+
+- `S_INIT_REQUESTED` — żądanie inicjalizacji
+- `S_READY` — stan gotowości (posiadamy ważny FieldState)
+- `S_SINGLE_STEP_REQUESTED` — żądanie pojedynczego kroku
+- `S_MULTI_STEP_REQUESTED` — żądanie wielu kroków
+- `S_STEP_RUNNING` — wykonywany jest krok regulacji
+- `S_SNAPSHOT_PENDING` — oczekujące wykonanie snapshotu
+- `S_COMPLETED` — wykonanie zakończone
+- `S_ERROR` — błąd nieusuwalny
+
+## 2.2 Stany wewnętrzne kroku
+
+W ramach `S_STEP_RUNNING` istnieje sekwencja podstanów:
+
+- `P_TENSION_LOOP`
+- `P_ENERGY_REGULATOR`
+- `P_ENTROPIC_MODULATOR`
+- `P_RITUAL_DETECTOR`
+
+(plus opcjonalny snapshot po kroku)
+
+---
+
+# 3. Zdarzenia wejściowe
+
+- `EV_INIT(mode="init")`
+- `EV_RUN_SINGLE(mode="single_step")`
+- `EV_RUN_MULTI(mode="multi_step", steps > 0)`
+- `EV_STEP_DONE` — zakończono krok
+- `EV_SNAPSHOT_FLAG(snapshot=True)`
+- `EV_ERROR` — błąd w module lub walidacji
+- `EV_DONE` — zakończenie całej sekwencji
+
+---
+
+# 4. Przejścia stanów (wysoki poziom)
+
+## 4.1 Inicjalizacja
+
+- `START → S_INIT_REQUESTED` (EV_INIT)
+- `S_INIT_REQUESTED → S_READY`  
+  jeśli `FieldStateManager.init()` zakończy się poprawnie  
+  w przeciwnym razie: `S_INIT_REQUESTED → S_ERROR`
+
+## 4.2 Single step
+
+- `S_READY → S_SINGLE_STEP_REQUESTED` (EV_RUN_SINGLE)
+- `S_SINGLE_STEP_REQUESTED → S_STEP_RUNNING`
+- `S_STEP_RUNNING → S_SNAPSHOT_PENDING` (jeśli snapshot=True)
+- `S_STEP_RUNNING → S_COMPLETED` (jeśli snapshot=False)
+- `S_SNAPSHOT_PENDING → S_COMPLETED`
+- dowolny z powyższych → `S_ERROR` (EV_ERROR)
+
+## 4.3 Multi step
+
+- `S_READY → S_MULTI_STEP_REQUESTED` (EV_RUN_MULTI, steps > 0)
+- `S_MULTI_STEP_REQUESTED → S_STEP_RUNNING`
+- `S_STEP_RUNNING → S_MULTI_STEP_REQUESTED`  
+  jeśli `remaining_steps > 0` i brak snapshotu pośredniego
+- `S_STEP_RUNNING → S_SNAPSHOT_PENDING`  
+  jeśli `remaining_steps == 0` i `snapshot=True`
+- `S_STEP_RUNNING → S_COMPLETED`  
+  jeśli `remaining_steps == 0` i `snapshot=False`
+- `S_SNAPSHOT_PENDING → S_COMPLETED`
+- dowolny z powyższych → `S_ERROR` (EV_ERROR)
+
+---
+
+# 5. Automat kroku regulacji
+
+W stanie `S_STEP_RUNNING` wykonywana jest deterministyczna sekwencja:
+
+P_TENSION_LOOP
+→ P_ENERGY_REGULATOR
+→ P_ENTROPIC_MODULATOR
+→ P_RITUAL_DETECTOR
+→ (opcjonalnie snapshot)
+→ EV_STEP_DONE
+
+## 5.1 Przejścia wewnętrzne
+
+- `P_TENSION_LOOP → P_ENERGY_REGULATOR`
+- `P_ENERGY_REGULATOR → P_ENTROPIC_MODULATOR`
+- `P_ENTROPIC_MODULATOR → P_RITUAL_DETECTOR`
+- `P_RITUAL_DETECTOR → (S_SNAPSHOT_PENDING | S_STEP_RUNNING zakończony)`
+- dowolny podstan → `S_ERROR` (EV_ERROR)
+
+---
+
+# 6. Warunki poprawności przejść
+
+- `EV_INIT` dozwolone tylko z `START`
+- `EV_RUN_SINGLE` / `EV_RUN_MULTI` dozwolone tylko z `S_READY`
+- `steps` w `EV_RUN_MULTI` musi być `>= 1`
+- `state` musi być nie-None dla trybów innych niż `init`
+- po każdym przejściu z `S_STEP_RUNNING` muszą być spełnione niezmienniki stanu
+
+---
+
+# 7. Diagram stanów (wysoki poziom)
+
+```text
+          +-------------------+
+          |      START        |
+          +---------+---------+
+                    |
+          EV_INIT   |
+                    v
+          +-------------------+
+          |  S_INIT_REQUESTED |
+          +---------+---------+
+            ok |     | err
+               |     v
+               |   S_ERROR
+               v
+          +-------------------+
+          |      S_READY      |
+          +----+---------+----+
+               |         |
+   EV_RUN_SINGLE         | EV_RUN_MULTI
+               v         v
+      +----------------+  +----------------------+
+      |S_SINGLE_STEP_  |  | S_MULTI_STEP_       |
+      |   REQUESTED    |  |   REQUESTED         |
+      +--------+-------+  +----------+----------+
+               |                     |
+               v                     v
+          +-------------------------------+
+          |         S_STEP_RUNNING        |
+          +--------+----------------------+
+                   |
+                   | EV_STEP_DONE
+                   v
+          +-------------------------------+
+          |  S_SNAPSHOT_PENDING (opt.)   |
+          +--------+----------------------+
+                   |
+                 EV_DONE
+                   v
+          +-------------------+
+          |    S_COMPLETED    |
+          +-------------------+
+
+W dowolnym stanie: EV_ERROR → S_ERROR
+
+# 8. Własności automatu
+
+deterministyczny (brak niejednoznacznych przejść),
+skończony zbiór stanów,
+brak ukrytych trybów,
+brak „magicznych” skoków — każde przejście ma zdarzenie i warunek,
+pełna zgodność z execution_flow.md, state_invariants.md i data_contracts.md.
+
+# 9. Podsumowanie
+state_machine.md formalizuje zachowanie PipelineV13 jako automatu stanów:
+stany, zdarzenia, przejścia, warunki i zakończenia.
+Dokument jest podstawą implementacji metody PipelineV13.run() oraz testów T1–T4.
