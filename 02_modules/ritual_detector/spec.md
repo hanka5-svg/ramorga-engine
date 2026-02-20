@@ -2,21 +2,28 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- wykrywanie pęknięć rytuału (rupture events),
-- ocenę integralności rytuału (warstwa Goffmana),
-- klasyfikację eventów rytualnych.
+- wykrywanie aktywacji rytuałów,
+- analizę stanu pola i opcjonalnych zdarzeń (`EventInput`),
+- ustawianie `ritual_flags`.
 
 ## Wejścia
-- `FieldState`
-- `EventInput` (zdarzenia z otoczenia, np. sekwencje zachowań)
+- pełny `FieldState`,
+- opcjonalnie: `EventInput`.
 
 ## Wyjścia
-- `RitualStatus` (np. OK / DEGRADED / BROKEN)
-- `RitualFailureEvent` (sygnał dla entropic_modulator)
+- `ritual_flags`,
+- metadane aktywacji.
 
 ## Zależności
-- logiczne: entropic_modulator, field_state
-- brak implementacji (analiza teoretyczna + testy scenariuszy)
+- field_state,
+- energy_regulator,
+- tension_loop.
 
-## Testy (powiązanie)
-- (do dodania) testy scenariuszy pęknięcia rytuału
+## Kontrakt wykonawczy
+- zero fałszywych aktywacji w test_mode,
+- deterministyczny,
+- brak modyfikacji innych pól poza `ritual_flags`.
+
+## Powiązanie z testami
+- test_regulation_step.md — brak aktywacji przy stanie bazowym,
+- test_energy_stability.md — brak fałszywych rytuałów.
