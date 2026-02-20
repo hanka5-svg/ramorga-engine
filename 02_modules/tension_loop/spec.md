@@ -2,22 +2,27 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- obliczanie napięcia pola,
-- regulację napięcia w czasie,
-- wykrywanie oscylacji napięcia.
+- aktualizację `tension_map`,
+- modelowanie lokalnych i globalnych napięć,
+- przygotowanie danych dla regulatora energii.
 
 ## Wejścia
-- `FieldState`
-- parametry regulacyjne (np. wagi, progi stabilności)
+- `tension_map`,
+- parametry regulacyjne (progi, wagi).
 
 ## Wyjścia
-- `TensionDelta`
-- `TensionStabilityFlag` (np. STABLE / UNSTABLE / OSCILLATING)
+- zaktualizowany `tension_map`,
+- opcjonalne flagi stabilności napięcia.
 
 ## Zależności
-- logiczne: field_state, energy_regulator
-- brak implementacji (stub na etapie teorii + testów)
+- field_state (struktura danych).
 
-## Testy (powiązanie)
-- test_regulation_step.md → poprawne wyliczenie TensionDelta
-- test_energy_stability.md → wpływ napięcia na stabilność energii
+## Kontrakt wykonawczy
+- brak modyfikacji innych pól stanu,
+- deterministyczny w test_mode,
+- brak losowości,
+- brak efektów ubocznych.
+
+## Powiązanie z testami
+- test_regulation_step.md — poprawna aktualizacja napięć,
+- test_energy_stability.md — wpływ napięć na energię.
