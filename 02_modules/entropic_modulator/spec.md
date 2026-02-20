@@ -2,21 +2,28 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- modulację entropii pola,
-- miękki reset (soft reset) w odpowiedzi na pęknięcia rytuału,
-- integrację „humoru” jako operatora regulacyjnego.
+- modulację `entropy_signature`,
+- stabilizację entropii względem energii,
+- zapobieganie chaotycznym oscylacjom.
 
 ## Wejścia
-- `RitualFailureEvent`
-- `FieldState`
+- `entropy_signature`,
+- `energy_level`,
+- parametry modulacji.
 
 ## Wyjścia
-- `EntropyAdjustment`
-- `FieldResetSignal` (dla field_state / pipeline)
+- zaktualizowana `entropy_signature`,
+- opcjonalne flagi stabilności entropii.
 
 ## Zależności
-- logiczne: ritual_detector, field_state
-- współpraca z pipeline_v13 przy obsłudze eventów
+- energy_regulator (energia jako wejście),
+- field_state.
 
-## Testy (powiązanie)
-- (do dodania) testy reakcji na RitualFailureEvent
+## Kontrakt wykonawczy
+- deterministyczny w test_mode,
+- brak chaotycznych zmian,
+- brak efektów ubocznych.
+
+## Powiązanie z testami
+- test_regulation_step.md — poprawna modulacja,
+- test_energy_stability.md — brak dryfu entropii.
