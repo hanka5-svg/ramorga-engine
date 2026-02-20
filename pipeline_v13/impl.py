@@ -13,6 +13,9 @@ from typing import Any, Dict, Optional, Tuple
 
 from field_state.impl import FieldState, FieldStateManager, FieldStateError
 
+# NOWE: opcjonalny moduł energy_regulator
+from energy_regulator.impl import EnergyRegulator, EnergyRegulatorParams
+
 
 class PipelineError(Exception):
     """Błąd sekwencji wykonawczej lub trybu pipeline."""
@@ -58,11 +61,20 @@ class PipelineV13:
     - run(mode="multi_step", state, params, steps, snapshot=False) -> (FieldState, Optional[dict])
     """
 
-    def __init__(self, fsm: FieldStateManager) -> None:
+    def __init__(
+        self,
+        fsm: FieldStateManager,
+        *,
+        energy_regulator: Optional[EnergyRegulator] = None,
+    ) -> None:
         if fsm is None:
             raise PipelineError("FieldStateManager is required")
+
         self.fsm = fsm
         self.snapshot_manager = SnapshotManager()
+
+        # NOWE: zewnętrzny moduł energy_regulator
+        self.energy_regulator = energy_regulator
 
     # ------------------------------------------------------------------ #
     # API GŁÓWNE
@@ -200,9 +212,27 @@ class PipelineV13:
         tension_loop → energy_regulator → entropic_modulator → ritual_detector
         """
 
+        # 1. TENSION LOOP (minimalny, dopóki nie podmienimy)
         s1 = self._run_tension_loop(state, params.get("tension", {}))
-        s2 = self._run_energy_regulator(s1, params.get("energy", {}))
+
+        # 2. ENERGY REGULATOR — PODMIANA NA MODUŁ ZEWNĘTRZNY
+        if self.energy_regulator is not None:
+            s2 = self.energy_regulator.run(
+                state=s1,
+                tension_map=s1.tension_map,
+                params=EnergyRegulatorParams(
+                    min_energy=params.get("energy", {}).get("energy_min", self.fsm.DEFAULT_ENERGY_MIN),
+                    max_energy=params.get("energy", {}).get("energy_max", self.fsm.DEFAULT_ENERGY_MAX),
+                    gain=params.get("energy", {}).get("gain", 1.0),
+                ),
+            )
+        else:
+            s2 = self._run_energy_regulator(s1, params.get("energy", {}))
+
+        # 3. ENTROPY (minimalny placeholder)
         s3 = self._run_entropic_modulator(s2, params.get("entropy", {}))
+
+        # 4. RITUALS (minimalny placeholder)
         s4 = self._run_ritual_detector(s3, params.get("rituals", {}), event_input)
 
         return s4
@@ -218,10 +248,6 @@ class PipelineV13:
     ) -> FieldState:
         """
         Minimalna, deterministyczna implementacja tension_loop.
-
-        Tu tylko zachowujemy mapę napięć (lub lekko ją modyfikujemy w sposób
-        deterministyczny, jeśli kiedyś będzie potrzeba).
-        Na razie: no-op na tension_map.
         """
         return FieldState(
             energy_level=state.energy_level,
@@ -236,11 +262,7 @@ class PipelineV13:
         energy_params: Dict[str, Any],
     ) -> FieldState:
         """
-        Minimalna, deterministyczna implementacja energy_regulator.
-
-        Prosty model:
-        - zwiększamy energię o stałą wartość (domyślnie 1.0),
-        - clamp do [E_min, E_max].
+        Minimalna implementacja energy_regulator (fallback).
         """
         delta = float(energy_params.get("delta", 1.0))
         e_min = float(energy_params.get("energy_min", self.fsm.DEFAULT_ENERGY_MIN))
@@ -261,13 +283,6 @@ class PipelineV13:
         state: FieldState,
         entropy_params: Dict[str, Any],
     ) -> FieldState:
-        """
-        Minimalna, deterministyczna implementacja entropic_modulator.
-
-        Prosty model:
-        - zapisujemy aktualny poziom energii w sygnaturze entropii,
-        - brak losowości.
-        """
         entropy_signature = dict(state.entropy_signature)
         entropy_signature["energy_level"] = state.energy_level
 
@@ -284,16 +299,7 @@ class PipelineV13:
         ritual_params: Dict[str, Any],
         event_input: Optional[Dict[str, Any]],
     ) -> FieldState:
-        """
-        Minimalna, deterministyczna implementacja ritual_detector.
-
-        Prosty model:
-        - brak aktywnych rytuałów (wszystko False),
-        - zależność tylko od state + event_input (tu: ignorujemy event_input).
-        """
         ritual_flags = dict(state.ritual_flags)
-
-        # Można tu kiedyś dodać logikę, na razie: wszystko False.
         for k in ritual_flags.keys():
             ritual_flags[k] = False
 
