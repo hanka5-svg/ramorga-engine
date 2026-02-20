@@ -13,7 +13,7 @@ from typing import Any, Dict, Optional, Tuple
 
 from field_state.impl import FieldState, FieldStateManager, FieldStateError
 
-# NOWE: import modułu energy_regulator
+from tension_loop.impl import TensionLoop
 from energy_regulator.impl import EnergyRegulator, EnergyRegulatorParams
 
 
@@ -65,6 +65,7 @@ class PipelineV13:
         self,
         fsm: FieldStateManager,
         *,
+        tension_loop: Optional[TensionLoop] = None,
         energy_regulator: Optional[EnergyRegulator] = None,
     ) -> None:
         if fsm is None:
@@ -73,7 +74,8 @@ class PipelineV13:
         self.fsm = fsm
         self.snapshot_manager = SnapshotManager()
 
-        # NOWE: zewnętrzny moduł energy_regulator
+        # Zewnętrzne moduły wykonawcze (opcjonalne)
+        self.tension_loop = tension_loop
         self.energy_regulator = energy_regulator
 
     # ------------------------------------------------------------------ #
@@ -212,10 +214,18 @@ class PipelineV13:
         tension_loop → energy_regulator → entropic_modulator → ritual_detector
         """
 
-        # 1. TENSION LOOP
-        s1 = self._run_tension_loop(state, params.get("tension", {}))
+        # 1. TENSION LOOP — moduł zewnętrzny lub fallback
+        tension_cfg = params.get("tension", {})
 
-        # 2. ENERGY REGULATOR — PODMIANA NA MODUŁ ZEWNĘTRZNY
+        if self.tension_loop is not None:
+            s1 = self.tension_loop.run(
+                state=state,
+                params=tension_cfg,
+            )
+        else:
+            s1 = self._run_tension_loop(state, tension_cfg)
+
+        # 2. ENERGY REGULATOR — moduł zewnętrzny lub fallback
         energy_cfg = params.get("energy", {})
 
         if self.energy_regulator is not None:
@@ -240,7 +250,7 @@ class PipelineV13:
         return s4
 
     # ------------------------------------------------------------------ #
-    # MODUŁY (MINIMALNE, DETERMINISTYCZNE ZACHOWANIE)
+    # MODUŁY FALLBACK (MINIMALNE, DETERMINISTYCZNE)
     # ------------------------------------------------------------------ #
 
     def _run_tension_loop(
