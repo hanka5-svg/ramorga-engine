@@ -1,3 +1,25 @@
+from .tension_loop import TensionLoop
+from .field_state import FieldState
+from .field_engine_physics import FieldEnginePhysics
+
+class FieldEngine:
+    def __init__(self, initial_state: Optional[FieldState] = None) -> None:
+        self._state = initial_state or FieldState()
+        self._physics: Optional[FieldEnginePhysics] = None
+        self._loop = TensionLoop()
+
+    def attach_physics(self, physics: FieldEnginePhysics) -> None:
+        self._physics = physics
+        self._loop.attach(physics, self._state)
+
+    def step(self, steps: int = 1) -> None:
+        if self._physics is None:
+            raise RuntimeError("Physics backend not attached.")
+
+        for _ in range(steps):
+            self._physics.step(1)
+            self._loop.step()
+
 from .field_state import FieldState
 from __future__ import annotations
 from typing import Any, Dict, Optional, Protocol
