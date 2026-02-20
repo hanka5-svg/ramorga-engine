@@ -2,21 +2,24 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- generowanie snapshotów stanu pola,
-- archiwizację snapshotów,
-- porównywanie snapshotów (np. dla testów stabilności).
+- deterministyczną serializację stanu,
+- odtwarzanie stanu (restore),
+- wsparcie dla testów i multi_step.
 
 ## Wejścia
-- `FieldState`
-- `PipelineStep` (numer kroku / faza)
+- pełny `FieldState`.
 
 ## Wyjścia
-- `Snapshot`
-- `SnapshotDiff` (porównanie dwóch snapshotów)
+- `Snapshot` (serializacja),
+- wynik restore (dla testów).
 
 ## Zależności
-- logiczne: field_state, pipeline_v13
-- używany przez testy w 07_tests/
+- field_state (struktura danych).
 
-## Testy (powiązanie)
-- test_snapshot.md → poprawne generowanie i porównywanie snapshotów
+## Kontrakt wykonawczy
+- snapshot = pełna, deterministyczna serializacja,
+- restore = identyczność bitowa,
+- brak efektów ubocznych.
+
+## Powiązanie z testami
+- test_snapshot.md — poprawność snapshotów i restore.
