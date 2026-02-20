@@ -2,25 +2,28 @@
 
 ## Rola modułu
 Moduł odpowiedzialny za:
-- reprezentację stanu pola (FieldState),
-- aktualizację stanu po kroku pipeline,
-- udostępnianie stanu innym modułom.
+- definicję struktury stanu pola (`FieldState`),
+- inicjalizację stanu,
+- walidację integralności stanu,
+- operacje pomocnicze (np. merge, clone).
 
 ## Wejścia
-- `TensionDelta` (z tension_loop)
-- `EnergyAdjustment` (z energy_regulator)
-- sygnały regulacyjne z pipeline_v13
+- parametry inicjalizacyjne (baseline energii, mapa napięć, sygnatura entropii),
+- opcjonalne wartości nadpisujące (dla testów).
 
 ## Wyjścia
-- `FieldState` (aktualny)
-- `FieldStatePrev` (poprzedni, opcjonalnie)
-- dane do snapshot_manager
+- poprawnie skonstruowany `FieldState`,
+- błędy walidacji przy niepoprawnych danych.
 
 ## Zależności
-- logiczne: tension_loop, energy_regulator, snapshot_manager
-- brak zależności implementacyjnych (etap: teoria + testy)
+- brak zależności od innych modułów.
 
-## Testy (powiązanie)
-- test_init.md → poprawna inicjalizacja FieldState
-- test_regulation_step.md → poprawna aktualizacja po jednym kroku
-- test_snapshot.md → poprawna współpraca ze snapshot_manager
+## Kontrakt wykonawczy
+- `init(params)` tworzy kompletny stan,
+- `validate(state)` zwraca błąd lub true,
+- brak efektów ubocznych,
+- deterministyczny w każdym trybie.
+
+## Powiązanie z testami
+- test_init.md — poprawna inicjalizacja,
+- test_regulation_step.md — poprawność wejścia do pipeline.
