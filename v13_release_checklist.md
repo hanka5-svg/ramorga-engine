@@ -1,156 +1,139 @@
-# V13 Release Checklist
-# RAMORGA ENGINE — Release & Verification Layer
+# V13 Release Checklist — Final Verification List
+# RAMORGA ENGINE — Release Layer
 # MBP HAI 2.0 + Patch | ATML | Continuity Model | Loop RAMORGI
 
 ## 1. Cel dokumentu
-Dokument definiuje kompletną checklistę wymaganą do wydania stabilnej wersji V13.
-Obejmuje:
-- wymagania implementacyjne,
-- wymagania testowe,
-- wymagania dokumentacyjne,
-- wymagania integracyjne,
-- kryteria gotowości (Release Readiness Criteria).
+Dokument stanowi **skróconą checklistę** do finalnej weryfikacji przed oznaczeniem stabilnego wydania:
 
-Checklistę należy przejść w całości przed oznaczeniem release tagiem `v13.0.0`.
+**v13.0.0 — Final Release**
+
+Checklistę stosuje się po przejściu:
+- stabilizacji,
+- pre‑release,
+- RC1,
+- final release gate.
 
 ---
 
-## 2. Wymagania implementacyjne
+## 2. Implementacja — MUST PASS
 
-### 2.1. PipelineV13
-- [ ] pełna implementacja `PipelineV13.step()`
-- [ ] integracja LOAD → EXECUTE_PIPELINE → EXECUTE_FIELD_ENGINE → SAVE
-- [ ] obsługa błędów zgodnie z `error_model_contract.md`
-- [ ] brak regulacji pola w pipeline
+### 2.1. DataBridge
+- [ ] load działa deterministycznie  
+- [ ] save działa deterministycznie  
+- [ ] roundtrip snapshot ↔ field_state stabilny  
+- [ ] brak utraty danych  
 
 ### 2.2. Field Engine
-- [ ] pełna implementacja `FieldEngine.step()`
-- [ ] integracja regulatorów w kolejności: tension → energy → entropy
-- [ ] walidacja inwariantów regulacji
-- [ ] brak zależności od V12
+- [ ] integracja z pipeline_v13  
+- [ ] regulator chain stabilny  
+- [ ] brak skoków regulacji  
+- [ ] brak naruszeń Continuity Model  
 
-### 2.3. Regulatory
-- [ ] tension_loop.run()
-- [ ] energy_regulator.adjust()
-- [ ] entropic_modulator.modulate()
-- [ ] testy jednostkowe dla każdego regulatora
+### 2.3. MeniscusEngine
+- [ ] receive/normalize/respond kompletne  
+- [ ] integracja z pipeline_v13  
+- [ ] brak błędów INIT → END  
 
-### 2.4. MeniscusEngine
-- [ ] implementacja receive/validate/normalize/respond
-- [ ] pełna zgodność z ATML
-- [ ] integracja z PipelineV13
-
-### 2.5. DataBridge
-- [ ] implementacja load(snapshot)
-- [ ] implementacja save(field_state)
-- [ ] pełna zgodność z `ltm_snapshot_spec.md`
-
-### 2.6. V12 (LTM + drift)
-- [ ] stabilna serializacja snapshotu
-- [ ] stabilna deserializacja snapshotu
-- [ ] implementacja dryfu zgodnie z `drift_parameter_spec.md`
+### 2.4. V12 Runtime
+- [ ] regulatory V12 wyłączone  
+- [ ] drift stabilny  
+- [ ] snapshot zgodny z ATML  
 
 ---
 
-## 3. Wymagania testowe
+## 3. Testy — MUST PASS
 
-### 3.1. Testy jednostkowe (T1)
-- [ ] regulatory
-- [ ] field_state
-- [ ] drift
-- [ ] DataBridge
-- [ ] pipeline utils
+### 3.1. Sekwencja
+- [ ] test_execution_sequence  
+- [ ] test_load_execute_save  
 
-### 3.2. Testy integracyjne (T2)
-- [ ] MeniscusEngine ↔ PipelineV13
-- [ ] PipelineV13 ↔ Field Engine
-- [ ] Field Engine ↔ regulatory
-- [ ] PipelineV13 ↔ DataBridge ↔ V12
+### 3.2. DataBridge
+- [ ] test_roundtrip_snapshot  
+- [ ] test_load_mapping  
+- [ ] test_save_mapping  
 
-### 3.3. Testy przepływu (T3)
-- [ ] pełna sekwencja INIT → END
-- [ ] test_load_execute_save
-- [ ] test_execution_sequence
+### 3.3. Regulatory
+- [ ] test_regulator_chain  
+- [ ] test_regulation_invariants  
+- [ ] test_no_v12_regulation  
 
-### 3.4. Testy automatu stanów (T4)
-- [ ] test_state_sequence
-- [ ] test_state_transitions
-- [ ] test_error_transitions
+### 3.4. Automat stanów
+- [ ] test_state_sequence  
+- [ ] test_state_transitions  
+- [ ] test_error_transitions  
 
-### 3.5. Testy ciągłości
-- [ ] test_roundtrip_snapshot
-- [ ] test_roundtrip_field_state
-- [ ] test_timestamp_monotonicity
-- [ ] test_no_v12_regulation
+### 3.5. Ciągłość
+- [ ] test_roundtrip_field_state  
+- [ ] test_timestamp_monotonicity  
+- [ ] test_drift_continuity  
 
 ---
 
-## 4. Wymagania dokumentacyjne
+## 4. Dokumentacja — MUST PASS
 
-### 4.1. Dokumenty kontraktowe
-- [ ] pipeline_v13_contract.md
-- [ ] field_engine_contract.md
-- [ ] meniscus_contract.md
-- [ ] regulation_bridge.md
-- [ ] execution_bridge.md
-- [ ] v12_v13_data_bridge.md
-- [ ] ltm_drift_contract.md
-- [ ] error_model_contract.md
+### 4.1. Synchronizacja
+- [ ] execution_flow.md  
+- [ ] state_machine.md  
+- [ ] v13_release_checklist.md (ten dokument)  
 
-### 4.2. Dokumenty specyfikacji
-- [ ] ltm_snapshot_spec.md
-- [ ] drift_parameter_spec.md
-- [ ] field_state_contract.md
-
-### 4.3. Dokumenty architektury
-- [ ] state_machine_alignment.md
-- [ ] integration_flow_v13.md
-- [ ] pipeline_v13_flowchart.md
-- [ ] module_map_v13.md
-- [ ] dependency_graph_v13.md
-
-### 4.4. Dokumenty testowe
-- [ ] test_matrix_v13.md
-- [ ] coverage_alignment.md
-- [ ] regression_suite_v13.md
+### 4.2. Potwierdzenie
+- [ ] pipeline_v13_contract.md  
+- [ ] field_engine_contract.md  
+- [ ] integration_flow_v13.md  
+- [ ] v12_v13_data_bridge.md  
+- [ ] execution_bridge.md  
+- [ ] regulation_bridge.md  
 
 ---
 
-## 5. Kryteria gotowości (Release Readiness Criteria)
+## 5. Stabilność — MUST PASS
 
-### 5.1. Implementacja
-- [ ] wszystkie moduły V13 kompletne
-- [ ] DataBridge w pełni działający
-- [ ] brak zależności cyklicznych
-- [ ] brak wywołań regulatorów poza Field Engine
+### 5.1. Snapshot
+- [ ] brak niespójności  
+- [ ] brak utraty parametrów  
+- [ ] brak błędów serializacji  
 
-### 5.2. Testy
-- [ ] 100% testów R1 (core regression) przechodzi
-- [ ] 90% testów R2–R4 przechodzi
-- [ ] brak regresji w testach integracyjnych
-- [ ] brak naruszeń inwariantów
+### 5.2. Drift
+- [ ] drift_rate stabilny  
+- [ ] drift_bounds respektowane  
+- [ ] brak skoków wartości  
 
-### 5.3. Dokumentacja
-- [ ] wszystkie kontrakty aktualne
-- [ ] wszystkie specyfikacje aktualne
-- [ ] wszystkie przepływy aktualne
-
-### 5.4. Stabilność
-- [ ] snapshot roundtrip stabilny
-- [ ] drift stabilny
-- [ ] brak błędów krytycznych w logach
+### 5.3. Regulator Chain
+- [ ] deterministyczność  
+- [ ] brak naruszeń kolejności  
+- [ ] brak skoków regulacji  
 
 ---
 
-## 6. Status implementacji (bieżący)
-- pipeline_v13: częściowy  
-- Field Engine: istnieje, wymaga integracji  
-- regulatory: istnieją, częściowo pokryte testami  
-- MeniscusEngine: skeleton  
-- DataBridge: brak  
-- V12: istnieje, wymaga synchronizacji  
-- testy: brak pokrycia sekwencji  
-- dokumentacja: w trakcie uzupełniania  
+## 6. Jakość i logi — MUST PASS
+- [ ] brak błędów krytycznych  
+- [ ] brak ostrzeżeń regulatorów  
+- [ ] brak ostrzeżeń snapshotu  
+- [ ] brak ostrzeżeń driftu  
+- [ ] brak błędów ATML  
 
 ---
 
+## 7. Kryteria finalne — v13.0.0
+Aby oznaczyć **v13.0.0**, wszystkie poniższe muszą być spełnione:
+
+- [ ] 100% implementacji  
+- [ ] 100% testów sekwencji  
+- [ ] 100% testów DataBridge  
+- [ ] 100% testów regulatorów  
+- [ ] 100% testów snapshotu i driftu  
+- [ ] 100% testów automatu stanów  
+- [ ] 100% synchronizacji dokumentacji  
+- [ ] brak naruszeń Continuity Model  
+- [ ] brak błędów krytycznych  
+- [ ] pipeline INIT → END działa deterministycznie  
+
+---
+
+## 8. Podsumowanie
+Checklistę stosuje się jako **ostatni krok** przed oznaczeniem stabilnego wydania V13.  
+Po odhaczeniu wszystkich pozycji można bezpiecznie oznaczyć:
+
+**→ v13.0.0 — Final Release**
+
+---
