@@ -1,181 +1,164 @@
-# Execution Bridge: PipelineV12 ↔ PipelineV13
-# RAMORGA ENGINE — Implementation Layer
+# Execution Bridge — V12 ↔ V13 Execution Layer
+# RAMORGA ENGINE — Bridge Specification
 # MBP HAI 2.0 + Patch | ATML | Continuity Model | Loop RAMORGI
 
 ## 1. Cel dokumentu
-Dokument definiuje formalny most wykonania pomiędzy:
-- PipelineV12 (01_runtime/) — warstwa pamięci i dryfu,
-- PipelineV13 (pipeline_v13/) — główny pipeline wykonania,
-- Field Engine (03_field_engine/) — warstwa regulacji pola.
+Execution Bridge definiuje formalny model przepływu wykonania pomiędzy:
+- V12 (LTM + drift),
+- DataBridge,
+- PipelineV13,
+- Field Engine,
+- MeniscusEngine.
 
-Most wykonania określa:
+Bridge określa:
 - kolejność kroków,
-- punkty wywołań,
-- zasady synchronizacji,
-- wymagane interfejsy,
-- inwarianty wykonania.
+- punkty integracji,
+- zasady LOAD/EXECUTE/SAVE,
+- inwarianty wykonania,
+- wymagania implementacyjne.
 
 ---
 
 ## 2. Lokalizacja modułów w repo
-### 2.1. V12 — runtime
-
-01_runtime/
-
-### 2.2. V13 — pipeline modularny
 
 pipeline_v13/
-
-### 2.3. Field Engine
-
+01_runtime/
 03_field_engine/
-tension_loop/
-energy_regulator/
-field_state/
-src/ramorga_engine/entropic_modulator.py
-
-### 2.4. Meniscus Engine (wejście/wyjście)
-
 04_meniscus_engine/
-05_api/
-06_integration/
+data_bridge/
+ltm_snapshot_spec.md
+integration_flow_v13.md
+state_machine_alignment.md
 
 ---
 
 ## 3. Model wykonania (Execution Model)
-### 3.1. Architektura docelowa
 
-[API/Integration]
+### 3.1. Główna sekwencja
+
+INIT (Meniscus)
 ↓
-04_meniscus_engine/
+LOAD (V12 → V13)
 ↓
-pipeline_v13/
+EXECUTE_PIPELINE (PipelineV13)
 ↓
-03_field_engine/
+EXECUTE_FIELD_ENGINE (Field Engine)
 ↓
-01_runtime/ (LTM + drift)
+SAVE (V13 → V12)
+↓
+RESPOND (Meniscus)
+↓
+END
 
 ### 3.2. Zasada nadrzędna
-PipelineV13 jest **jedynym** pipeline wykonania.  
-PipelineV12 jest **wyłącznie** warstwą pamięci i dryfu.
+Execution Bridge jest **jedynym** źródłem prawdy dla sekwencji LOAD/EXECUTE/SAVE.
 
 ---
 
-## 4. Punkty wywołań (Execution Hooks)
-### 4.1. HOOK 1 — LOAD (V12 → V13)
-Wywoływany przed każdym krokiem pipeline V13.
+## 4. Definicje kroków
 
-snapshot = V12.LTM.read(state_id)
+### 4.1. LOAD (V12 → V13)
+
+snapshot = LTM.read()
 field_state = DataBridge.load(snapshot)
+**Wymagania:**
+- snapshot musi być kompletny,
+- field_state musi być zgodny z ATML,
+- brak modyfikacji snapshotu.
 
-### 4.2. HOOK 2 — EXECUTE (V13 → Field Engine)
-Główna faza wykonania.
+---
+
+### 4.2. EXECUTE_PIPELINE (PipelineV13)
 
 field_state = PipelineV13.step(input_payload, field_state)
+**Wymagania:**
+- brak regulacji pola,
+- brak wywołań regulatorów,
+- brak dostępu do V12.
+
+---
+
+### 4.3. EXECUTE_FIELD_ENGINE (Field Engine)
+
 field_state = FieldEngine.step(field_state)
-
-### 4.3. HOOK 3 — SAVE (V13 → V12)
-Wywoływany po zakończeniu kroku regulacji.
-
-snapshot = DataBridge.save(field_state)
-V12.LTM.write(snapshot)
+**Wymagania:**
+- pełny łańcuch regulatorów,
+- kolejność: tension → energy → entropy,
+- brak dostępu do V12.
 
 ---
 
-## 5. Kolejność kroków wykonania
-### 5.1. Sekwencja pełnego cyklu
+### 4.4. SAVE (V13 → V12)
 
-1. MeniscusEngine.receive(input_payload)
-
-2. LOAD:
-snapshot = V12.LTM.read()
-field_state = DataBridge.load(snapshot)
-
-3. EXECUTE:
-field_state = PipelineV13.step()
-field_state = FieldEngine.step()
-
-4. SAVE:
 snapshot = DataBridge.save(field_state)
-V12.LTM.write(snapshot)
-
-5. MeniscusEngine.respond(output_payload)
-
----
-
-## 6. Interfejsy wymagane
-### 6.1. V12 (01_runtime/)
-
-LTM.read(state_id) → snapshot
 LTM.write(snapshot)
-Drift.apply(parameters) → parameters'
-
-### 6.2. V13 (pipeline_v13/)
-
-PipelineV13.step(input_payload, field_state) → field_state'
-
-### 6.3. Field Engine (03_field_engine/)
-
-FieldEngine.step(field_state) → field_state'
-
-### 6.4. DataBridge
-
-DataBridge.load(snapshot) → field_state
-DataBridge.save(field_state) → snapshot
-
-### 6.5. Meniscus Engine
-
-MeniscusEngine.receive(input_payload)
-MeniscusEngine.respond(output_payload)
+**Wymagania:**
+- snapshot musi być odwracalny (roundtrip),
+- brak częściowych zapisów,
+- brak modyfikacji drift_parameters przez V13.
 
 ---
 
-## 7. Inwarianty wykonania
-### 7.1. Inwarianty sekwencji
-- LOAD musi poprzedzać EXECUTE.
-- SAVE musi następować po EXECUTE.
-- MeniscusEngine jest jedyną warstwą wejścia/wyjścia.
+## 5. Punkty integracji
 
-### 7.2. Inwarianty danych
-- field_state musi być spójny z snapshotem.
-- snapshot musi być kompletny przed SAVE.
-- brak częściowych zapisów.
+### 5.1. MeniscusEngine → PipelineV13
+- wejście: normalized_payload  
+- brak dostępu do V12 i regulatorów  
 
-### 7.3. Inwarianty regulacji
-- V12 nie wykonuje żadnej regulacji.
-- Field Engine jest jedyną warstwą regulacji.
+### 5.2. PipelineV13 → Field Engine
+- wywołanie FieldEngine.step()  
+- brak regulacji w pipeline  
 
----
+### 5.3. Field Engine → Regulatory
+- wywołania sekwencyjne  
+- brak równoległości  
 
-## 8. Wymagania implementacyjne
-### 8.1. Wymagane moduły
-- DataBridge (nowy moduł)
-- aktualizacja pipeline_v13/ o HOOK LOAD/SAVE
-- aktualizacja execution_flow.md
-
-### 8.2. Wymagane testy
-- test_execution_sequence
-- test_load_execute_save
-- test_invariants_execution
-- test_meniscus_entry_exit
+### 5.4. PipelineV13 → DataBridge → V12
+- LOAD przed pipeline  
+- SAVE po Field Engine  
 
 ---
 
-## 9. Status implementacji
-- V12: kompletna warstwa runtime
-- V13: pipeline modularny — wymaga integracji HOOK LOAD/SAVE
-- Field Engine: kompletna warstwa regulacji
-- Meniscus: skeleton — wymaga integracji z pipeline V13
-- Dokumentacja: wymaga synchronizacji
+## 6. Inwarianty Execution Bridge
+
+### 6.1. Inwarianty sekwencji
+- LOAD zawsze przed EXECUTE_PIPELINE  
+- EXECUTE_FIELD_ENGINE zawsze po EXECUTE_PIPELINE  
+- SAVE zawsze po EXECUTE_FIELD_ENGINE  
+- RESPOND zawsze po SAVE  
+
+### 6.2. Inwarianty danych
+- snapshot zgodny z ltm_snapshot_spec.md  
+- field_state zgodny z field_state_contract.md  
+- brak null / NaN  
+
+### 6.3. Inwarianty wykonania
+- brak wywołań regulatorów poza Field Engine  
+- brak dostępu do V12 poza DataBridge  
+- brak modyfikacji snapshotu w V13  
+
+### 6.4. Inwarianty ciągłości
+- brak utraty request_id  
+- brak utraty parametrów  
+- brak pomijania regulatorów  
 
 ---
 
-## 10. Działania wymagane
-1. Dodanie HOOK LOAD/SAVE do pipeline_v13/.
-2. Implementacja DataBridge.load/save.
-3. Aktualizacja execution_flow.md.
-4. Integracja MeniscusEngine → PipelineV13.
-5. Dodanie testów sekwencji wykonania.
-6. Synchronizacja state_machine.md z Execution Bridge.
+## 7. Wymagania implementacyjne
+1. PipelineV13 musi wywoływać FieldEngine.step() po logice pipeline.  
+2. DataBridge musi implementować load/save zgodnie ze specyfikacją.  
+3. V12 musi zapewniać stabilny snapshot.  
+4. MeniscusEngine musi inicjalizować INIT i finalizować RESPOND.  
+5. Testy muszą pokrywać pełną sekwencję Execution Bridge.  
+
+---
+
+## 8. Status implementacji
+- pipeline_v13: częściowy  
+- Field Engine: istnieje, wymaga integracji  
+- regulatory: istnieją  
+- DataBridge: brak implementacji  
+- V12: istnieje, wymaga synchronizacji snapshotu  
+- testy: brak pokrycia sekwencji  
 
 ---
