@@ -7,34 +7,38 @@ on:
 jobs:
   enforce-ramorga-guards:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Verify required RAMORGA guard tags
+      - name: Load required guards from GUARDS.md
+        id: load-guards
         run: |
-          REQUIRED_GUARDS=(
-            NO_SINGLE_DECISION_POINT
-            ASYNC_VOICE_MODEL
-            SILENCE_IS_VALID_SIGNAL
-            STATE_RATE_LIMIT
-            COOLDOWN_REQUIRED_AFTER_INTENSITY
-            NO_PUNITIVE_FEEDBACK
-            GLITCH_IS_INFORMATION
-            NO_AUTO_ROLLBACK
-            REFLECTIVE_LOGGING
-            CONTINUOUS_SIGNAL_PREFERENCE
-            NO_HARD_THRESHOLDS_IN_AFFECTIVE_LAYER
-            LATENCY_TOLERANT_PROTOCOLS
-            CARNIVAL_MODE_REQUIRED
-            NO_CRITICAL_ACTIONS_BEFORE_PLAY
-            HUMOR_AND_ABSURD_TESTS
-          )
+          if [ ! -f GUARDS.md ]; then
+            echo "❌ GUARDS.md not found"
+            exit 1
+          fi
 
-          for GUARD in "${REQUIRED_GUARDS[@]}"; do
-            if ! grep -R "@ramorga-guard: $GUARD" .; then
-              echo "❌ Missing RAMORGA guard: $GUARD"
+          grep '^- `' GUARDS.md \
+            | sed 's/- `//;s/`//' \
+            > /tmp/required_guards.txt
+
+          if [ ! -s /tmp/required_guards.txt ]; then
+            echo "❌ No guards found in GUARDS.md"
+            exit 1
+          fi
+
+          echo "Loaded guards:"
+          cat /tmp/required_guards.txt
+
+      - name: Verify presence of all @ramorga-guard tags
+        run: |
+          while read GUARD; do
+            if ! grep -R "@ramorga-guard: $GUARD" . >/dev/null 2>&1; then
+              echo "❌ Missing @ramorga-guard tag for invariant: $GUARD"
               exit 1
             fi
-          done
+          done < /tmp/required_guards.txt
 
-          echo "✅ All RAMORGA guards present"
+          echo "✅ All RAMORGA guard tags present"
