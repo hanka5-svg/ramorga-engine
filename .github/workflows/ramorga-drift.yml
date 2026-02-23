@@ -1,8 +1,12 @@
-name: RAMORGA Architecture Drift Check
+name: RAMORGA Architecture Drift Check (Pinned)
 
 on:
   pull_request:
     branches: [ "main" ]
+
+env:
+  RAMORGA_ARCH_REPO: hanka5-svg/ramorga-architecture
+  RAMORGA_ARCH_TAG: v0.3.0
 
 jobs:
   detect-drift:
@@ -12,20 +16,28 @@ jobs:
       - name: Checkout engine
         uses: actions/checkout@v4
 
-      - name: Checkout architecture
+      - name: Checkout pinned architecture
         uses: actions/checkout@v4
         with:
-          repository: hanka5-svg/ramorga-architecture
+          repository: ${{ env.RAMORGA_ARCH_REPO }}
+          ref: ${{ env.RAMORGA_ARCH_TAG }}
           path: ramorga-architecture
 
-      - name: Extract invariants from architecture
+      - name: Verify architecture tag exists
+        run: |
+          if [ ! -f ramorga-architecture/README.md ]; then
+            echo "❌ Architecture README not found at pinned tag"
+            exit 1
+          fi
+
+      - name: Extract invariants from pinned architecture
         run: |
           grep '^-\s*`' ramorga-architecture/README.md \
             | sed 's/- `//;s/`//' \
             | sort > /tmp/architecture_invariants.txt
 
           if [ ! -s /tmp/architecture_invariants.txt ]; then
-            echo "❌ No invariants found in ramorga-architecture"
+            echo "❌ No invariants found in pinned architecture"
             exit 1
           fi
 
@@ -40,22 +52,21 @@ jobs:
             exit 1
           fi
 
-      - name: Compare architecture invariants vs engine guards
+      - name: Compare pinned architecture invariants vs engine guards
         run: |
-          echo "Checking for missing guards..."
           MISSING=$(comm -23 /tmp/architecture_invariants.txt /tmp/engine_guards.txt)
+          EXTRA=$(comm -13 /tmp/architecture_invariants.txt /tmp/engine_guards.txt)
+
           if [ -n "$MISSING" ]; then
-            echo "❌ Missing guards for invariants:"
+            echo "❌ Missing guards for pinned architecture invariants:"
             echo "$MISSING"
             exit 1
           fi
 
-          echo "Checking for extra guards..."
-          EXTRA=$(comm -13 /tmp/architecture_invariants.txt /tmp/engine_guards.txt)
           if [ -n "$EXTRA" ]; then
-            echo "❌ Guards without architectural invariant:"
+            echo "❌ Guards without invariant in pinned architecture:"
             echo "$EXTRA"
             exit 1
           fi
 
-          echo "✅ No drift detected between architecture and engine"
+          echo "✅ No drift detected against pinned architecture tag"
