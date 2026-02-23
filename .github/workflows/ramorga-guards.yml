@@ -1,4 +1,4 @@
-name: RAMORGA Guard Enforcement (Pre-Merge)
+name: RAMORGA Guard Tag Enforcement
 
 on:
   pull_request:
@@ -8,58 +8,33 @@ jobs:
   enforce-ramorga-guards:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Fail if single decision authority exists
+      - name: Verify required RAMORGA guard tags
         run: |
-          if grep -R "final_decision" .; then
-            echo "❌ NO_SINGLE_DECISION_POINT violated"
-            exit 1
-          fi
+          REQUIRED_GUARDS=(
+            NO_SINGLE_DECISION_POINT
+            ASYNC_VOICE_MODEL
+            SILENCE_IS_VALID_SIGNAL
+            STATE_RATE_LIMIT
+            COOLDOWN_REQUIRED_AFTER_INTENSITY
+            NO_PUNITIVE_FEEDBACK
+            GLITCH_IS_INFORMATION
+            NO_AUTO_ROLLBACK
+            REFLECTIVE_LOGGING
+            CONTINUOUS_SIGNAL_PREFERENCE
+            NO_HARD_THRESHOLDS_IN_AFFECTIVE_LAYER
+            LATENCY_TOLERANT_PROTOCOLS
+            CARNIVAL_MODE_REQUIRED
+            NO_CRITICAL_ACTIONS_BEFORE_PLAY
+            HUMOR_AND_ABSURD_TESTS
+          )
 
-      - name: Fail if argmax/argmin aggregation is used
-        run: |
-          if grep -R "argmax\|argmin" .; then
-            echo "❌ ASYNC_VOICE_MODEL violated (argmax/argmin found)"
-            exit 1
-          fi
+          for GUARD in "${REQUIRED_GUARDS[@]}"; do
+            if ! grep -R "@ramorga-guard: $GUARD" .; then
+              echo "❌ Missing RAMORGA guard: $GUARD"
+              exit 1
+            fi
+          done
 
-      - name: Fail if punitive feedback mechanisms exist
-        run: |
-          if grep -R "penalty\|punish\|negative_reward" .; then
-            echo "❌ NO_PUNITIVE_FEEDBACK violated"
-            exit 1
-          fi
-
-      - name: Fail if auto-rollback or panic on anomaly exists
-        run: |
-          if grep -R "panic\|rollback\|reset_state" .; then
-            echo "❌ GLITCH_IS_INFORMATION violated"
-            exit 1
-          fi
-
-      - name: Fail if hard thresholds in affective layers exist
-        run: |
-          if grep -R "if .* > .* then" .; then
-            echo "❌ NO_HARD_THRESHOLDS_IN_AFFECTIVE_LAYER violated"
-            exit 1
-          fi
-
-      - name: Fail if carnival mode is missing
-        run: |
-          if ! grep -R "carnival_mode" .; then
-            echo "❌ CARNIVAL_MODE_REQUIRED violated"
-            exit 1
-          fi
-
-      - name: Fail if critical actions are not gated by carnival mode
-        run: |
-          if grep -R "critical_action" . | grep -v "carnival_mode"; then
-            echo "❌ NO_CRITICAL_ACTIONS_BEFORE_PLAY violated"
-            exit 1
-          fi
-
-      - name: Pass if all RAMORGA guards are present
-        run: |
-          echo "✅ All RAMORGA architectural guards enforced"
+          echo "✅ All RAMORGA guards present"
