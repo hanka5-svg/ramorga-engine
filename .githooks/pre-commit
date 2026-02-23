@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+REQUIRED_GUARDS=$(grep '^- `' ramorga-engine/GUARDS.md | sed 's/- `//;s/`//')
+
+for GUARD in $REQUIRED_GUARDS; do
+  if ! grep -R "@ramorga-guard: $GUARD" ramorga-engine/src >/dev/null 2>&1; then
+    echo "❌ Missing @ramorga-guard tag for invariant: $GUARD"
+    exit 1
+  fi
+done
+
+echo "✅ All RAMORGA guard tags present"
