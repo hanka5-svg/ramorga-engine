@@ -1,0 +1,61 @@
+name: RAMORGA Architecture Drift Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  detect-drift:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout engine
+        uses: actions/checkout@v4
+
+      - name: Checkout architecture
+        uses: actions/checkout@v4
+        with:
+          repository: hanka5-svg/ramorga-architecture
+          path: ramorga-architecture
+
+      - name: Extract invariants from architecture
+        run: |
+          grep '^-\s*`' ramorga-architecture/README.md \
+            | sed 's/- `//;s/`//' \
+            | sort > /tmp/architecture_invariants.txt
+
+          if [ ! -s /tmp/architecture_invariants.txt ]; then
+            echo "❌ No invariants found in ramorga-architecture"
+            exit 1
+          fi
+
+      - name: Extract guards from GUARDS.md
+        run: |
+          grep '^-\s*`' GUARDS.md \
+            | sed 's/- `//;s/`//' \
+            | sort > /tmp/engine_guards.txt
+
+          if [ ! -s /tmp/engine_guards.txt ]; then
+            echo "❌ No guards found in GUARDS.md"
+            exit 1
+          fi
+
+      - name: Compare architecture invariants vs engine guards
+        run: |
+          echo "Checking for missing guards..."
+          MISSING=$(comm -23 /tmp/architecture_invariants.txt /tmp/engine_guards.txt)
+          if [ -n "$MISSING" ]; then
+            echo "❌ Missing guards for invariants:"
+            echo "$MISSING"
+            exit 1
+          fi
+
+          echo "Checking for extra guards..."
+          EXTRA=$(comm -13 /tmp/architecture_invariants.txt /tmp/engine_guards.txt)
+          if [ -n "$EXTRA" ]; then
+            echo "❌ Guards without architectural invariant:"
+            echo "$EXTRA"
+            exit 1
+          fi
+
+          echo "✅ No drift detected between architecture and engine"
