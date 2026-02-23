@@ -8,6 +8,13 @@ Each invariant **must** be represented by at least one explicit
 
 ---
 
+## Epistemic Integrity
+
+- `NO_EPISTEMIC_BOUNDARY_CROSSING`
+  - src/guards/epistemicBoundary.ts
+
+---
+
 ## Polyphony
 
 - `NO_SINGLE_DECISION_POINT`
