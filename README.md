@@ -167,3 +167,7 @@ It **prevents decision-making** until all invariants are satisfied.
 
 Any change to guard behavior is **breaking by default** and must track
 the corresponding version of `ramorga-architecture`.
+
+---
+
+This engine version is contractually aligned with ramorga-architecture v0.4.0 (see tag v0.4.0-arch).
