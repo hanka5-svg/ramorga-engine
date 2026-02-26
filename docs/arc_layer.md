@@ -204,7 +204,14 @@ def test_arc_non_enforcement():
 
 ---
 
-## 12. Status: v0.2
+## 12. Wolność w Polu
+ARC Field i GuardChain **współdefiniują wolność** jako:
+- **ARC**: *"Możesz iść, dokąd chcesz"* (ramy),
+- **GuardChain**: *"Pokażę Ci, gdzie ziemia jest stabilna"* (inwarianty).
+
+---
+
+## 13 . Status: v0.2
 Pole normatywne zdefiniowane
 Kompatybilne z:
 
