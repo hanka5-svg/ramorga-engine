@@ -22,3 +22,4 @@ DataBridge.save(field_state, metadata) → None
 - nie filtrować treści,
 - nie zmieniać routing_share, glitch_log, carnival_log, safety_log.
 
+---
