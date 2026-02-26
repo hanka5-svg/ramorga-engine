@@ -25,3 +25,4 @@ FieldEngine.step(field_state) → field_state
 - FIELD.STATE.*
 - FIELD.SHM.\* (zgodnie z 02.90 + 04.50)
 - FIELD.SAFETY.\* (inwariant pola, nie policy agenta)
+
