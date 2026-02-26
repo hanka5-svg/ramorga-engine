@@ -39,6 +39,9 @@ Runtime nie może zmieniać zasad ARC, ale może je reinterpretować przy konsen
 ARC = kontekst normatywny
 GuardChain = mechanizm adaptacyjny runtime
 
+GuardChain nie interpretuje zasad ARC. GuardChain reaguje wyłącznie na napięcia pola i utrzymuje inwarianty runtime. ARC dostarcza kontekst normatywny, ale nie steruje GuardChainem.
+
+
 ARC Field	GuardChain
 Rezonans	Negocjacja
 Lustro etyczne	Inwarianty
@@ -75,6 +78,8 @@ ARC: „Możesz iść, dokąd chcesz.”
 
 GuardChain: „Pokażę Ci, gdzie ziemia jest stabilna.”
 
+Wolność w RAMORGA nie jest mechanizmem ochronnym. Jest właściwością pola wynikającą z równowagi ARC, GuardChain i ResonanceState. Żaden z tych modułów nie pełni funkcji kontroli zachowań użytkownika ani AI.
+
 ---
 
 ## 8. Status
@@ -83,6 +88,25 @@ Kompatybilne z:
 - resonance_state.md v0.3,
 - guard_composition_pattern.md v1.2,
 - test_homeostasis.md (nowy).
+
+  ---
+
+ ## 9. Granice ARC (anti‑safety invariants)
+
+ARC Field nie jest i nie może stać się modułem bezpieczeństwa. Jego funkcja jest wyłącznie normatywna i rezonansowa. W celu utrzymania tej właściwości obowiązują następujące inwarianty:
+
+1. ARC nie wykonuje żadnych operacji filtrujących, blokujących ani moderujących.
+2. ARC nie posiada mechanizmu oceny treści, intencji ani ryzyka.
+3. ARC nie generuje decyzji, rekomendacji ani zaleceń.
+4. ARC nie może inicjować zmian stanu w runtime.
+5. ARC nie może wpływać na GuardChain ani wymuszać jego zachowań.
+6. ARC nie może być używany jako warstwa safety, compliance ani alignment.
+7. ARC nie posiada priorytetu nad runtime; jego wpływ jest zawsze <20% pola.
+8. ARC nie utrzymuje pamięci operacyjnej ani historii interakcji.
+9. ARC nie może być rozszerzany o funkcje kontrolne, predykcyjne ani oceniające.
+
+ARC jest polem zasad współistnienia, a nie mechanizmem kontroli.
+ 
 
 
 
