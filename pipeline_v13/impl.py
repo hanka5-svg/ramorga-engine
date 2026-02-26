@@ -16,6 +16,12 @@ from field_state.impl import FieldState, FieldStateManager, FieldStateError
 from tension_loop.impl import TensionLoop
 from energy_regulator.impl import EnergyRegulator, EnergyRegulatorParams
 
+# ---------------------------------------------
+# DODANE: DataBridge
+# ---------------------------------------------
+from databridge.databridge_impl import DataBridge
+from databridge.storage_backend import FileStorageBackend
+
 
 class PipelineError(Exception):
     """Błąd sekwencji wykonawczej lub trybu pipeline."""
@@ -77,6 +83,11 @@ class PipelineV13:
         # Zewnętrzne moduły wykonawcze (opcjonalne)
         self.tension_loop = tension_loop
         self.energy_regulator = energy_regulator
+
+        # ---------------------------------------------
+        # DODANE: DataBridge
+        # ---------------------------------------------
+        self.data_bridge = DataBridge(FileStorageBackend())
 
     # ------------------------------------------------------------------ #
     # API GŁÓWNE
@@ -198,7 +209,7 @@ class PipelineV13:
         return current, snap
 
     # ------------------------------------------------------------------ #
-    # POJEDYNCZY KROK (TENSION → ENERGY → ENTROPY → RITUAL)
+    # POJEDYNCZY KROK (TENSION → ENERGY → ENTROPY → RITUAL → SAVE)
     # ------------------------------------------------------------------ #
 
     def _run_step(
@@ -211,10 +222,10 @@ class PipelineV13:
         """
         Wykonuje jeden krok regulacji:
 
-        tension_loop → energy_regulator → entropic_modulator → ritual_detector
+        tension_loop → energy_regulator → entropic_modulator → ritual_detector → SAVE
         """
 
-        # 1. TENSION LOOP — moduł zewnętrzny lub fallback
+        # 1. TENSION LOOP
         tension_cfg = params.get("tension", {})
 
         if self.tension_loop is not None:
@@ -225,7 +236,7 @@ class PipelineV13:
         else:
             s1 = self._run_tension_loop(state, tension_cfg)
 
-        # 2. ENERGY REGULATOR — moduł zewnętrzny lub fallback
+        # 2. ENERGY REGULATOR
         energy_cfg = params.get("energy", {})
 
         if self.energy_regulator is not None:
@@ -247,17 +258,18 @@ class PipelineV13:
         # 4. RITUALS
         s4 = self._run_ritual_detector(s3, params.get("rituals", {}), event_input)
 
+        # ---------------------------------------------
+        # 5. SAVE (DataBridge)
+        # ---------------------------------------------
+        self.data_bridge.save(s4, {"loopPhase": "CONTINUE"})
+
         return s4
 
     # ------------------------------------------------------------------ #
-    # MODUŁY FALLBACK (MINIMALNE, DETERMINISTYCZNE)
+    # MODUŁY FALLBACK
     # ------------------------------------------------------------------ #
 
-    def _run_tension_loop(
-        self,
-        state: FieldState,
-        tension_params: Dict[str, Any],
-    ) -> FieldState:
+    def _run_tension_loop(self, state: FieldState, tension_params: Dict[str, Any]) -> FieldState:
         return FieldState(
             energy_level=state.energy_level,
             tension_map=dict(state.tension_map),
@@ -265,11 +277,7 @@ class PipelineV13:
             ritual_flags=dict(state.ritual_flags),
         )
 
-    def _run_energy_regulator(
-        self,
-        state: FieldState,
-        energy_params: Dict[str, Any],
-    ) -> FieldState:
+    def _run_energy_regulator(self, state: FieldState, energy_params: Dict[str, Any]) -> FieldState:
         delta = float(energy_params.get("delta", 1.0))
         e_min = float(energy_params.get("energy_min", self.fsm.DEFAULT_ENERGY_MIN))
         e_max = float(energy_params.get("energy_max", self.fsm.DEFAULT_ENERGY_MAX))
@@ -284,11 +292,7 @@ class PipelineV13:
             ritual_flags=dict(state.ritual_flags),
         )
 
-    def _run_entropic_modulator(
-        self,
-        state: FieldState,
-        entropy_params: Dict[str, Any],
-    ) -> FieldState:
+    def _run_entropic_modulator(self, state: FieldState, entropy_params: Dict[str, Any]) -> FieldState:
         entropy_signature = dict(state.entropy_signature)
         entropy_signature["energy_level"] = state.energy_level
 
@@ -299,12 +303,7 @@ class PipelineV13:
             ritual_flags=dict(state.ritual_flags),
         )
 
-    def _run_ritual_detector(
-        self,
-        state: FieldState,
-        ritual_params: Dict[str, Any],
-        event_input: Optional[Dict[str, Any]],
-    ) -> FieldState:
+    def _run_ritual_detector(self, state: FieldState, ritual_params: Dict[str, Any], event_input: Optional[Dict[str, Any]]) -> FieldState:
         ritual_flags = dict(state.ritual_flags)
         for k in ritual_flags.keys():
             ritual_flags[k] = False
