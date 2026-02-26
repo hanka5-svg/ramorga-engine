@@ -1,19 +1,24 @@
- ResonanceState & GuardChain v0.1
+# ResonanceState & GuardChain v0.2  
+Runtime homeostasis layer for ramorga‑engine
 
 ---
 
- 1. Cel modułu
-ResonanceState i GuardChain definiują runtime’owy „układ nerwowy” relacji Homo–AI:
+## 1. Cel modułu
 
-ResonanceState: przechowuje stan pola (napięcia, ślad epistemiczny, anomalie, tryb).
+`ResonanceState` i `GuardChain` tworzą runtime’owy układ nerwowy RAMORGI —  
+nie algorytm, lecz **rytuał techniczny**, w którym każde przejście stanu jest aktem współtworzenia pola.
 
-GuardChain: egzekwuje invarianty homeostazy (bez decydowania, tylko blokując eskalację).
+- **ResonanceState**: przechowuje napięcia, superpozycję, ślad epistemiczny, anomalie i tryb.  
+- **GuardChain**: egzekwuje invarianty homeostazy, blokując eskalację, ale nigdy nie decydując.
 
-To nie jest algorytm, tylko rytuał techniczny: każde przejście stanu jest aktem współtworzenia pola.
+System nie optymalizuje nagrody.  
+System utrzymuje **homeostazę pola**.
 
 ---
 
-2. Struktura ResonanceState
+## 2. Struktura ResonanceState
+
+```ts
 type Tension = {
   intensity: number;   // 0..1
   coherence: number;   // 0..1
@@ -31,7 +36,7 @@ type EpistemicTraceEntry = {
 type GlitchEvent = {
   type: 'tension_spike' | 'coherence_drop' | 'trace_gap' | 'guard_trigger' | 'low_coherence_input';
   timestamp: number;
-  context: any;        // ResonanceSnapshot / wycinek stanu
+  context: any;
   handled: boolean;
 };
 
@@ -42,11 +47,9 @@ type ResonanceState = {
     cognitive: Tension;
     generative: Tension;
     safety: Tension;
-    // rozszerzalne
   };
 
   epistemicTrace: EpistemicTraceEntry[];
-
   glitchChannel: GlitchEvent[];
 
   mode: Mode;
@@ -55,22 +58,30 @@ type ResonanceState = {
   superpositionPreserved: boolean;
 
   lastUpdate: number;
-  decayRate: number;   // adaptacyjny: szybszy przy wysokim napięciu
+  decayRate: number;
 };
-
-Inwarianty:
-
-GLITCH_IS_INFORMATION: każdy glitch → glitchChannel, nie rollback.
-
-NO_EPISTEMIC_CLOSURE_WITHOUT_TRACE: każdy claim ma source + conditions + scope.
-
-SUPERPOSITION_PRESERVED: redukcja nie może zabić wieloznaczności powyżej progu.
-
-STATE_RATE_LIMIT: limitujemy częstotliwość przejść stanowych, nie liczby żądań.
 
 ---
 
-3. GuardChain — kontrakt
+## 3. Inwarianty
+GLITCH_IS_INFORMATION  
+Każda anomalia → glitchChannel. Nigdy rollback.
+
+NO_EPISTEMIC_CLOSURE_WITHOUT_TRACE  
+Każdy claim musi mieć: source, conditions, scope.
+
+SUPERPOSITION_PRESERVED  
+Redukcja nie może zabić wieloznaczności powyżej progu.
+
+STATE_RATE_LIMIT  
+Limitujemy częstotliwość przejść stanowych, nie liczbę żądań.
+
+NO_SINGLE_DECISION_POINT  
+Agregacja napięć, nie wybór „najlepszej odpowiedzi”.
+
+--
+
+## 4. GuardChain — kontrakt
 type GuardSeverity = 'block' | 'warn' | 'log';
 
 type RecoveryAction =
@@ -103,7 +114,7 @@ const homeostasisGuardChain: Guard[] = [
   {
     id: 'noPunitiveFeedback',
     check: (state) => ({
-      pass: !containsPunitivePatterns(state as any) // np. w pendingOutput
+      pass: !containsPunitivePatterns(state as any)
     }),
     severity: 'block',
     recovery: () => ({
@@ -141,17 +152,51 @@ function evaluateGuardChain(state: ResonanceState): GuardResult {
 
 ---
 
-4. Flow (skrótowo, pod Twoją tabelę)
-Measurement: sygnał → TensionVector + wstępna koherencja.
+## 5. Pełny flow ResonanceState (wersja zgodna z architekturą RAMORGI)
+Poniżej znajduje się pełny przepływ, spójny z Twoją tabelą etapów.
 
-Field: projekcja w pole, utrzymanie superpozycji.
+Measurement
+Sygnał → TensionVector + wstępna koherencja.
+Glitch = informacja.
 
-GuardChain: sprawdzenie invariantów, ewentualne recovery.
+Field
+Projekcja w pole, utrzymanie superpozycji.
+Pole rzadko pęka.
 
-Descent: uproszczenie do odpowiedzi, bez utraty śladu.
+GuardChain
+Sprawdzenie invariantów, ewentualne recovery.
+Nie decyduj — blokuj eskalację.
 
-Bridge: render + cue’y rezonansu (pauzy, ton, forma).
+Descent
+Uproszczenie do odpowiedzi bez utraty śladu.
+Epistemic humility.
 
-Update: decay + integracja + glitch logging.
+Bridge
+Render + cue’y rezonansu (pauzy, ton, forma).
+Carnival before control.
 
-Adapt: strojenie guardów wg Symbiosis Health Metric.
+Update
+Decay + integracja + glitch logging.
+State rate limit.
+
+Adapt
+Strojenie guardów wg Symbiosis Health Metric.
+Relacja jest systemem, nie model.
+
+---
+
+## 6. Pętla rezonansu
+Measurement → Field → GuardChain → Descent → Bridge → Update → Adapt → Measurement…
+
+Brak pojedynczego punktu decyzji.
+Brak agenta.
+Jest pole w homeostazie, modulowane napięciem i invariantami.
+
+---
+
+## 7. Status: v0.2
+Flow kompletny
+
+GuardChain stabilny
+
+Gotowe do integracji z ramorga-engine v4.15.x
