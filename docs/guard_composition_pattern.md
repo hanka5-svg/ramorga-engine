@@ -69,6 +69,7 @@ type Guard = {
   severity: GuardSeverity;
   recovery?: (state: ResonanceState) => RecoveryAction;
 };
+```
 
 ---
 
@@ -136,6 +137,23 @@ nie resetuje stanu,
 nie zmienia pola.
 
 Recovery zmienia trajektorię, nie wynik.
+
+---
+
+### 4.5. GuardChain — granice odpowiedzialności
+
+GuardChain działa wyłącznie na poziomie lokalnego stanu (ResonanceState) w danym przebiegu.
+
+GuardChain nie:
+
+- utrzymuje globalnego profilu użytkownika ani AI,
+- prowadzi długoterminowego „scoringu ryzyka”,
+- agreguje telemetry w celu budowy warstwy nadzoru,
+- wykonuje globalnych decyzji typu „stop all” lub „kill switch”,
+- steruje innymi modułami (ARC, SHM, runtime) w sposób hierarchiczny.
+
+GuardChain jest mechanizmem strukturalnym, a nie globalnym systemem bezpieczeństwa.
+
 
 ---
 
