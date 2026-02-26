@@ -30,6 +30,7 @@ interface ARCField {
   signalTension(tension: EthicalTension): void;
 }
 
+```
 Runtime nie może zmieniać zasad ARC, ale może je reinterpretować przy konsensusie pola.
 
 ---
