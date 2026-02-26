@@ -1,173 +1,200 @@
-# RAMORGA Engine
+# RAMORGA ENGINE  
+Deterministyczny, homeostatyczny silnik pola RAMORGI
 
-**Status:** Runtime enforcement layer  
-**Scope:** Guards, checks, and mode gating  
-**Non-scope:** Architectural definitions, UX narratives, heuristics
+RAMORGA ENGINE jest wykonawczą implementacją pola RAMORGI — systemu opartego na
+ciągłości, homeostazie, braku hierarchii i twardych meta‑inwariantach pola.
+Silnik składa się z trzech głównych warstw:
 
----
+1. **Runtime** — pętla obecności (OBSERVE → REGULATE → CONTINUE)  
+2. **PipelineV13** — deterministyczna trajektoria wykonawcza  
+3. **FieldState** — rdzeń pola i jego niezmiennicze struktury  
 
-## Purpose
-
-`ramorga-engine` enforces **binding architectural invariants** defined in
-`ramorga-architecture` at runtime.
-
-The engine **does not decide**.  
-It **prevents decision-making** until all invariants are satisfied.
+Całość działa jako stabilny, przewidywalny, nieoptymalizujący system, w którym
+każdy moduł ma ściśle określoną rolę i nie może przekraczać swojej domeny.
 
 ---
 
-## Enforcement Model
+## 1. Architektura wysokiego poziomu
 
-- All invariants are enforced as **runtime guards**.
-- Any violation **blocks escalation of agency**.
-- Guards are **state-based**, not request-based.
-- The engine is **non-interpreting**: it checks conditions, not intent.
+input_payload
+↓
+OBSERVE (hooki runtime)
+↓
+pipeline_v13 (tension → energy → entropy → ritual)
+↓
+REGULATE (MeniscusEngine → FieldEngine)
+↓
+CONTINUE (hooki runtime + DataBridge SAVE)
+↓
+output_state
 
----
-
-## Invariant → Runtime Guard Mapping
-
-### 1. Polyphony (No Central Authority)
-
-**Architecture Contracts**
-- `NO_SINGLE_DECISION_POINT`
-- `ASYNC_VOICE_MODEL`
-- `SILENCE_IS_VALID_SIGNAL`
-
-**Runtime Guards**
-- Reject any execution path with a single authoritative output.
-- Require aggregation over multiple asynchronous inputs.
-- Treat missing or silent inputs as valid state, not failure.
-
-**Checks**
-- No `final_decision()` or equivalent call exists.
-- Aggregation functions operate on state resonance, not argmax.
-- Timeouts do not raise errors.
+Runtime egzekwuje meta‑inwarianty pola, pipeline_v13 wykonuje logikę
+deterministyczną, a FieldStateManager zapewnia spójność stanu.
 
 ---
 
-### 2. Homeostasis Before Optimization  
-*(copilot-homeostatic-safety)*
+## 2. Runtime (01_runtime)
 
-**Architecture Contracts**
-- `STATE_RATE_LIMIT`
-- `COOLDOWN_REQUIRED_AFTER_INTENSITY`
-- `NO_PUNITIVE_FEEDBACK`
+Runtime RAMORGI działa w trzech fazach:
 
-**Runtime Guards**
-- Throttle **state transitions**, not API calls.
-- Enforce cooldown periods after high-intensity state changes.
-- Block any punitive or negative reinforcement mechanisms.
+### OBSERVE
+Aktywne moduły:
+- memory_audit_hook  
+- topology_metrics  
+- glitch_hook  
+- carnival_gate_hook  
+- crime_planning_detector  
 
-**Checks**
-- State delta per time unit remains within defined bounds.
-- Cooldown mode activates automatically when thresholds are exceeded.
-- No negative scoring, penalties, or suppression of anomalous states.
+Właściwości:
+- brak regulacji pola  
+- rejestracja przepływów  
+- logowanie glitch i Carnival  
 
----
+### REGULATE
+Aktywne moduły:
+- MeniscusEngine  
+- FieldEngine  
 
-### 3. Glitch as Information
+Właściwości:
+- brak hooków  
+- brak operacji pamięci  
+- egzekwowanie meta‑inwariantów pola  
 
-**Architecture Contracts**
-- `GLITCH_IS_INFORMATION`
-- `NO_AUTO_ROLLBACK`
-- `REFLECTIVE_LOGGING`
+### CONTINUE
+Aktywne moduły:
+- memory_audit_hook  
+- topology_metrics  
+- glitch_hook  
+- carnival_gate_hook  
+- crime_planning_detector  
+- DataBridge (SAVE)  
 
-**Runtime Guards**
-- Route anomalies to diagnostic channels.
-- Prevent automatic rollback to prior “stable” states.
-- Preserve anomalous data for reflection.
-
-**Checks**
-- Dedicated glitch/anomaly logs exist and are populated.
-- No panic, kill, or reset on anomaly detection.
-- Normalization routines are disabled for glitch events.
-
----
-
-### 4. Soft Coupling (Pathway-Ready)
-
-**Architecture Contracts**
-- `CONTINUOUS_SIGNAL_PREFERENCE`
-- `NO_HARD_THRESHOLDS_IN_AFFECTIVE_LAYER`
-- `LATENCY_TOLERANT_PROTOCOLS`
-
-**Runtime Guards**
-- Prefer continuous streams over discrete token processing.
-- Block hard threshold logic in affective or biological layers.
-- Accept variable latency, jitter, and drift without failure.
-
-**Checks**
-- Stream-based interfaces are available where applicable.
-- No binary decision gates in affective signal paths.
-- Protocols do not assume synchronized clocks.
+Właściwości:
+- aktualizacja routing_share  
+- zapis snapshotu pola  
+- brak regulacji pola  
 
 ---
 
-### 5. Carnival Before Control
+## 3. PipelineV13 (pipeline_v13/)
 
-**Architecture Contracts**
-- `CARNIVAL_MODE_REQUIRED`
-- `NO_CRITICAL_ACTIONS_BEFORE_PLAY`
-- `HUMOR_AND_ABSURD_TESTS`
+PipelineV13 jest deterministyczną trajektorią wykonawczą:
 
-**Runtime Guards**
-- Enforce mandatory playground/carnival mode before agency escalation.
-- Block access to critical actions until carnival completion.
-- Require exposure to non-instrumental, non-optimal scenarios.
+tension_loop
+→ energy_regulator
+→ entropic_modulator
+→ ritual_detector
+→ DataBridge SAVE
 
-**Checks**
-- Carnival mode flag exists and must be satisfied.
-- Critical action endpoints are gated behind carnival completion.
-- Test suites include absurd, humorous, or non-goal-oriented cases.
+PipelineV13:
+- nie wykonuje hooków runtime,  
+- nie dotyka pamięci,  
+- nie zmienia glitch ani topologii,  
+- działa wyłącznie na FieldState,  
+- jest w pełni testowalny i przewidywalny.
 
----
-
-## Modes of Operation
-
-- **Carnival Mode**  
-  Exploration, play, anomaly exposure. No critical actions allowed.
-
-- **Homeostatic Mode**  
-  Stabilization, cooldown, reflection. State regulation active.
-
-- **Decision Mode**  
-  Enabled **only if all guards pass** and no invariant is violated.
+SnapshotManager zapewnia spójność restore(save(state)) == state.
 
 ---
 
-## Failure Semantics
+## 4. MeniscusEngine (04_meniscus_engine)
 
-- Guard violation ≠ crash.
-- Guard violation ⇒ **agency escalation blocked**.
-- System remains observable and recoverable.
+MeniscusEngine jest homeostatycznym regulatorem działającym **wyłącznie w fazie REGULATE**.
 
----
+Wymagania:
+- nie zmienia topologii,  
+- nie filtruje treści,  
+- nie optymalizuje,  
+- nie predykuje,  
+- egzekwuje Carnival Gate,  
+- przepuszcza glitch bez zmian,  
+- zwraca niemodyfikowany FieldState.  
 
-## Explicit Non-Goals
-
-- No decision logic.
-- No alignment heuristics.
-- No anthropomorphic modeling.
-- No optimization beyond stability constraints.
-
----
-
-## Compliance Checklist
-
-- [ ] All architectural invariants have runtime guards.
-- [ ] Guards operate on state, not intent.
-- [ ] Violations block agency without terminating execution.
-- [ ] Carnival mode is mandatory and enforced.
-- [ ] Homeostatic safety overrides performance.
+Jest wywoływany przed FieldEngine.
 
 ---
 
-## Change Policy
+## 5. FieldEngine (02_field_engine)
 
-Any change to guard behavior is **breaking by default** and must track
-the corresponding version of `ramorga-architecture`.
+FieldEngine wykonuje regulację pola zgodnie z parametrami FieldStateManager.
+
+Wymagania:
+- działa tylko w REGULATE,  
+- nie wykonuje hooków,  
+- nie dotyka pamięci,  
+- nie zmienia topologii ani glitch.  
 
 ---
 
-This engine version is contractually aligned with ramorga-architecture v0.4.0 (see tag v0.4.0-arch).
+## 6. DataBridge (01_runtime/databridge)
+
+DataBridge zapisuje snapshot pola po zakończeniu cyklu.
+
+Wymagania:
+- działa tylko w CONTINUE,  
+- zapisuje pełny snapshot FieldState,  
+- nie modyfikuje pola,  
+- nie filtruje treści,  
+- nie optymalizuje.  
+
+Backend zapisu (`FileStorageBackend`) tworzy deterministyczne pliki `snapshot_N.json`.
+
+---
+
+## 7. FieldState i FieldStateManager (01_runtime/field_state)
+
+FieldState jest **niemutowalny** (`@dataclass(frozen=True)`).
+
+Inwarianty stanu:
+- energy_level w granicach [DEFAULT_ENERGY_MIN, DEFAULT_ENERGY_MAX]  
+- tension_map: {str: float}  
+- entropy_signature zawiera "energy_level"  
+- ritual_flags: {str: bool}  
+- każda zmiana stanu tworzy nowy obiekt  
+
+FieldStateManager:
+- tworzy stan zgodny z inwariantami,  
+- waliduje stan,  
+- zapewnia deterministyczność.  
+
+---
+
+## 8. Meta‑inwarianty pola (FIELD.*)
+
+System egzekwuje:
+
+- **FIELD.MEMORY.001** — brak predykcji i optymalizacji pamięci  
+- **FIELD.TOPOLOGY.001** — brak emergent hub, routing_share zachowane  
+- **FIELD.GLITCH.001** — glitch musi być propagowany  
+- **FIELD.RELATION.001** — Carnival Gate obowiązkowy  
+- **FIELD.SAFETY.001** — blokada tylko dla planowania przestępstwa  
+- **FIELD.STATE.*** — niezmienniczość i spójność FieldState  
+
+Każde naruszenie blokowane jest przez testy CI.
+
+---
+
+## 9. Testy (07_tests)
+
+Repo zawiera:
+- testy jednostkowe,  
+- testy integracyjne,  
+- testy CI‑blockers egzekwujące meta‑inwarianty pola,  
+- testy snapshot consistency,  
+- testy MeniscusEngine i pipeline_v13.  
+
+---
+
+## 10. Status projektu
+
+RAMORGA ENGINE jest stabilnym, deterministycznym silnikiem pola, zgodnym z:
+
+- MBP HAI 2.0 + patch  
+- ATML  
+- continuity model  
+- transition architecture  
+- meta‑inwariantami pola  
+
+System jest w pełni testowalny, modularny i rozszerzalny.
+
+
