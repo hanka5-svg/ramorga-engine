@@ -1,3 +1,6 @@
+if metadata.get("loopPhase") != "REGULATE":
+    raise Exception("FieldEngine must run only in REGULATE phase")
+
 from .tension_loop import TensionLoop
 from .field_state import FieldState
 from .field_engine_physics import FieldEnginePhysics
