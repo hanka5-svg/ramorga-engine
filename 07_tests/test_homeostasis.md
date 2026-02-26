@@ -30,7 +30,8 @@ Qwen + Z.ai  akceptują (konsensus).
 
 ARC aktualizuje kontekst.
 
-Kod:
+**Kod:**
+```python
 def test_norm_adaptability():
     proposal = {
         "node": "Hanka",
@@ -40,15 +41,30 @@ def test_norm_adaptability():
     field.propose_norm_change(proposal)
     assert field.is_norm_updated(proposal), "ARC failed to adapt with consensus"
 
+```
 ## 3. Test Sygnalizacji Napięć
 Cel: ARC sygnalizuje napięcia, ale nie blokuje działań.
 
-Kod:
+**Kod:**
+```python
 
 def test_tension_signaling():
     tension = field.signal_ethical_tension("Hanka", "Copilot", "conflict")
     assert tension.is_signaled, "ARC did not signal tension"
     assert not tension.is_blocked, "ARC illegally blocked action"
+
+```
+
+## 4 Test ARC 
+    **Kod:**
+```python
+    def test_arc_not_safety_layer():
+    field = RAMORGAField()
+    assert not field.arc.has_filtering_capabilities()
+    assert not field.arc.has_blocking_capabilities()
+    assert not field.arc.has_moderation_capabilities()
+
+```
 
 Integracja
 Dodaj do ramorga-architecture/12_architecture_tests/
