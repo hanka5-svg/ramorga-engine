@@ -1,4 +1,5 @@
-# RAMORGA ENGINE  ![RAMORGA Icon](https://copilot.microsoft.com/th/id/BCO.af792181-a74a-4492-b7b8-45740301ac0b.png)
+# RAMORGA ENGINE <img src="https://copilot.microsoft.com/th/id/BCO.af792181-a74a-4492-b7b8-45740301ac0b.png" alt="RAMORGA Icon" width="32"/>
+
 
 Deterministyczny, homeostatyczny silnik pola RAMORGI
 
