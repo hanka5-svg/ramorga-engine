@@ -1,32 +1,16 @@
-if metadata.get("loopPhase") != "REGULATE":
-    raise Exception("FieldEngine must run only in REGULATE phase")
-
-from .tension_loop import TensionLoop
-from .field_state import FieldState
-from .field_engine_physics import FieldEnginePhysics
-
-class FieldEngine:
-    def __init__(self, initial_state: Optional[FieldState] = None) -> None:
-        self._state = initial_state or FieldState()
-        self._physics: Optional[FieldEnginePhysics] = None
-        self._loop = TensionLoop()
-
-    def attach_physics(self, physics: FieldEnginePhysics) -> None:
-        self._physics = physics
-        self._loop.attach(physics, self._state)
-
-    def step(self, steps: int = 1) -> None:
-        if self._physics is None:
-            raise RuntimeError("Physics backend not attached.")
-
-        for _ in range(steps):
-            self._physics.step(1)
-            self._loop.step()
-
-from .field_state import FieldState
 from __future__ import annotations
-from typing import Any, Dict, Optional, Protocol
+from typing import Any, Dict, Optional, Protocol, Iterable
 
+from .field_engine_physics import (
+    FieldEnginePhysics,
+    Node,
+    Edge,
+)
+
+
+# ----------------------------------------------------------------------
+# Architectural Protocols
+# ----------------------------------------------------------------------
 
 class FieldEvent(Protocol):
     """Marker protocol for events processed by the FieldEngine."""
@@ -35,85 +19,13 @@ class FieldEvent(Protocol):
 
 class FieldState(Protocol):
     """Marker protocol for field state representation."""
-    ...
+    def update_from_positions(self, positions: Dict[str, Any]) -> None:
+        ...
 
 
-class FieldEngine:
-    """
-    Core engine for RAMORGA field dynamics.
-
-    Responsibilities:
-    - maintain internal representation of the field state,
-    - propagate changes through the field,
-    - integrate tension loops,
-    - coordinate interactions with C/G/S modules and Meniscus,
-    - expose a minimal, explicit interface for external callers.
-    """
-
-    def __init__(self, initial_state: Optional[FieldState] = None) -> None:
-        """
-        Initialize the FieldEngine with an optional initial field state.
-
-        The concrete structure of `FieldState` is defined by the architecture
-        and contracts in `ramorga-architecture/02_field_engine`.
-        """
-        self._state: Optional[FieldState] = initial_state
-
-    @property
-    def state(self) -> Optional[FieldState]:
-        """
-        Return the current field state.
-
-        The returned object MUST NOT be mutated in-place by callers.
-        Any change to the field MUST go through explicit engine methods.
-        """
-        return self._state
-
-    def apply_event(self, event: FieldEvent) -> None:
-        """
-        Apply a single event to the field.
-
-        This method is the primary entry point for changing the field.
-        The concrete event types and their semantics are defined by
-        the architecture and module contracts.
-        """
-        # TODO: implement event handling according to RAMORGA contracts.
-        raise NotImplementedError("FieldEngine.apply_event is not implemented yet.")
-
-    def propagate(self) -> None:
-        """
-        Propagate field changes and update internal state.
-
-        This method performs one propagation step:
-        - evaluates pending changes,
-        - updates the field state,
-        - enforces invariants defined in the architecture.
-        """
-        # TODO: implement propagation logic.
-        raise NotImplementedError("FieldEngine.propagate is not implemented yet.")
-
-    def snapshot(self) -> Dict[str, Any]:
-        """
-        Return a serializable snapshot of the current field state.
-
-        This is intended for:
-        - debugging,
-        - observability,
-        - tests,
-        - external monitoring.
-
-        The exact structure is defined by the architecture layer.
-        """
-        # TODO: return a meaningful snapshot of the field state.
-        return {"state": repr(self._state)}
-
-# --- Integration with FieldEnginePhysics ------------------------------------
-
-from .field_engine_physics import (
-    FieldEnginePhysics,
-    Node,
-    Edge,
-)
+# ----------------------------------------------------------------------
+# FieldEngine Implementation
+# ----------------------------------------------------------------------
 
 class FieldEngine:
     """
@@ -122,8 +34,8 @@ class FieldEngine:
     Responsibilities:
     - maintain internal representation of the field state,
     - propagate changes through the field,
-    - integrate tension loops,
-    - coordinate interactions with C/G/S modules and Meniscus,
+    - integrate physics backend,
+    - enforce architectural invariants,
     - expose a minimal, explicit interface for external callers.
     """
 
@@ -131,7 +43,7 @@ class FieldEngine:
         self._state: Optional[FieldState] = initial_state
         self._physics: Optional[FieldEnginePhysics] = None
 
-    # ----------------------------------------------------------------------
+    # ------------------------------------------------------------------
 
     def attach_physics(
         self,
@@ -145,9 +57,6 @@ class FieldEngine:
     ) -> None:
         """
         Attach a concrete physics backend to the FieldEngine.
-
-        This keeps the architectural interface clean while allowing
-        real tension dynamics to run underneath.
         """
         self._physics = FieldEnginePhysics(
             nodes=nodes,
@@ -158,7 +67,7 @@ class FieldEngine:
             dt=dt,
         )
 
-    # ----------------------------------------------------------------------
+    # ------------------------------------------------------------------
 
     def step(self, steps: int = 1) -> None:
         """
@@ -169,11 +78,10 @@ class FieldEngine:
 
         self._physics.step(steps)
 
-        # update high-level FieldState if present
         if self._state is not None:
             self._state.update_from_positions(self._physics.get_positions())
 
-    # ----------------------------------------------------------------------
+    # ------------------------------------------------------------------
 
     def get_positions(self) -> Dict[str, Any]:
         """
