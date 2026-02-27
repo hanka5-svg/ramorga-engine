@@ -1,4 +1,5 @@
-# RAMORGA ENGINE  
+# RAMORGA ENGINE  ![RAMORGA Icon](https://copilot.microsoft.com/th/id/BCO.af792181-a74a-4492-b7b8-45740301ac0b.png)
+
 Deterministyczny, homeostatyczny silnik pola RAMORGI
 
 RAMORGA ENGINE jest wykonawczą implementacją pola RAMORGI — systemu opartego na
