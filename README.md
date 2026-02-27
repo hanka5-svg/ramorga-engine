@@ -199,4 +199,16 @@ RAMORGA ENGINE jest stabilnym, deterministycznym silnikiem pola, zgodnym z:
 
 System jest w pełni testowalny, modularny i rozszerzalny.
 
+---
+
+## Architecture Dependencies
+
+The RAMORGA Engine executes the architecture defined in the companion repository:
+
+- `ramorga-architecture/02_field_engine/02.90-symbiosis-health-metric.md`
+- `ramorga-architecture/02_field_engine/META_LOOP.md`
+- `ramorga-architecture/04_invariants/field_invariants.md`
+
+The engine MUST NOT violate field-level invariants.  
+Architecture defines the rules; the engine performs the steps.
 
