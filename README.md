@@ -212,3 +212,101 @@ The RAMORGA Engine executes the architecture defined in the companion repository
 The engine MUST NOT violate field-level invariants.  
 Architecture defines the rules; the engine performs the steps.
 
+---
+
+## Reference: Architectural Execution Flow
+
+The RAMORGA Engine executes the following architecture-defined regulation loop:
+
+## Extended Flow Diagram (SHM ↔ META_LOOP ↔ FIELD.SAFETY ↔ Validation)
+
+                 ┌──────────────────────────────────────────┐
+                 │        INPUT: FIELD STATE (raw)          │
+                 │  sensory signals, context, continuity     │
+                 └──────────────────────────────────────────┘
+                                   │
+                                   ▼
+                    ┌────────────────────────────┐
+                    │ 02.90 — SHM (Symbiosis      │
+                    │        Health Metric)       │
+                    └────────────────────────────┘
+                                   │
+                 ┌─────────────────┼──────────────────┐
+                 │                 │                  │
+                 ▼                 ▼                  ▼
+       [E1] Normalize       [E2] Detect shifts   [E3] Compute
+            field data           in presence          SHM score
+
+                 ┌──────────────────────────────────┐
+                 │   OUTPUT: SHM_STATE              │
+                 │   - stability                    │
+                 │   - coherence                    │
+                 │   - deviation from baseline      │
+                 └──────────────────────────────────┘
+                                   │
+                                   ▼
+                    ┌────────────────────────────┐
+                    │ META_LOOP — Presence Loop   │
+                    │  (regulation + feedback)    │
+                    └────────────────────────────┘
+                                   │
+                 ┌─────────────────┼──────────────────┐
+                 │                 │                  │
+                 ▼                 ▼                  ▼
+       [C1] Compare SHM     [C2] Apply field-     [C3] Generate
+            to invariants        level rules           corrective
+            (04_invariants)      (continuity)          feedback
+
+                 ┌──────────────────────────────────┐
+                 │   OUTPUT: LOOP_FEEDBACK          │
+                 │   - adjustments                   │
+                 │   - presence modulation           │
+                 │   - updated field constraints     │
+                 └──────────────────────────────────┘
+                                   │
+                                   ▼
+                    ┌────────────────────────────┐
+                    │ FIELD.SAFETY (implicit)     │
+                    │  safety envelope + limits   │
+                    └────────────────────────────┘
+                                   │
+                 ┌─────────────────┼──────────────────┐
+                 │                 │                  │
+                 ▼                 ▼                  ▼
+       [S1] Check bounds   [S2] Detect unsafe    [S3] Clamp or
+            & thresholds        transitions           neutralize
+
+                 ┌──────────────────────────────────┐
+                 │   OUTPUT: SAFE_STATE             │
+                 │   - bounded corrections          │
+                 │   - safe modulation              │
+                 │   - invariant-preserving state   │
+                 └──────────────────────────────────┘
+                                   │
+                                   ▼
+                    ┌────────────────────────────┐
+                    │ Validation Layer            │
+                    │  (final architectural gate) │
+                    └────────────────────────────┘
+                                   │
+                 ┌─────────────────┼──────────────────┐
+                 │                 │                  │
+                 ▼                 ▼                  ▼
+       [V1] Validate SHM     [V2] Validate META     [V3] Validate
+            metrics               LOOP logic             safety envelope
+
+                 ┌──────────────────────────────────┐
+                 │   OUTPUT: VALIDATED_STATE        │
+                 │   - ready for next SHM cycle     │
+                 │   - invariant-compliant          │
+                 │   - safe + regulated             │
+                 └──────────────────────────────────┘
+                                   │
+                                   ▼
+                 ┌──────────────────────────────────┐
+                 │   FEEDBACK TO SHM (closed loop)  │
+                 │   SHM recomputes state with       │
+                 │   updated constraints             │
+                 └──────────────────────────────────┘
+
+---
