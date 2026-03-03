@@ -1,14 +1,13 @@
 # RAMORGA ENGINE <img src="https://copilot.microsoft.com/th/id/BCO.af792181-a74a-4492-b7b8-45740301ac0b.png" alt="RAMORGA Icon" width="32"/>
 
-# Important  
+# Important
 Do not start here.
-This repository assumes that architectural and ethical decisions have already been made elsewhere.
-Before reading or using this code, read:
 
-ramorga-architecture/HOW_TO_READ.md
+Before reading or using this repository, read:
+- ../ramorga-architecture/HOW_TO_READ.md
+- ../ramorga-architecture/SYSTEM_NOTE.md
 
-ramorga-architecture/SYSTEM_NOTE.md
-
+---
 
 Deterministyczny, homeostatyczny silnik pola RAMORGI
 
