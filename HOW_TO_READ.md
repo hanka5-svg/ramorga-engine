@@ -55,3 +55,5 @@ Jeśli implementacja wymaga naruszenia inwariantu — nie szukaj obejścia. Zwr�
 - niemożliwość osadzenia RAMORGI w tym konkretnym polu
 
 W każdym przypadku — pętla zwrotna do architekta, nie samodzielna decyzja.
+
+Brak możliwości implementacji bez naruszenia inwariantu jest poprawnym wynikiem procesu.
