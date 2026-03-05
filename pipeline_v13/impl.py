@@ -1,3 +1,8 @@
+# Calibration note:
+# This pipeline is aligned with the empirical spectral archetype HFS (Hanka Field Signature).
+# See: ../field_archetypes.md
+
+
 # pipeline_v13/impl.py
 # Pełna implementacja PipelineV13 zgodna z:
 # - state_invariants.md
