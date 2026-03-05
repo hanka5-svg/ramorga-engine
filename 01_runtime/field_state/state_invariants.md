@@ -21,5 +21,10 @@ ritual_flags jest słownikiem {str: bool}
 ### FIELD.STATE.IMMUTABILITY.001
 Każda zmiana stanu tworzy nowy obiekt FieldState.
 
+### Archetyp odniesienia
+FieldState jest kalibrowany względem archetypu spektralnego HFS (Hanka Field Signature):
+[../../field_archetypes.md](../../field_archetypes.md)
+HFS dostarcza empirycznego profilu cyklu S0–S4 oraz wektorów V0–V4, które stanowią punkt odniesienia dla stabilności i przejść FieldState.
+
 ## 3. Status
 Inwarianty obowiązują w init(), validate() i update().
