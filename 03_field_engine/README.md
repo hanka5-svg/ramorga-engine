@@ -1,3 +1,6 @@
+![RAMORGA Spectral Module](https://img.shields.io/badge/RAMORGA-Spectral%20Engine%20%E2%9C%93-111111?style=for-the-badge&logo=github)
+
+
 ### Field Engine
 Mechanics of coherence and interference in spectral systems
 
