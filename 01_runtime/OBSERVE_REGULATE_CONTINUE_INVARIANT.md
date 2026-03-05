@@ -122,3 +122,63 @@ Naruszenie któregokolwiek punktu tego meta‑inwariantu oznacza:
 - lub niemożliwość osadzenia RAMORGI w danym polu.
 
 W każdym przypadku wymagana jest pętla zwrotna do architekta.
+
+                   ┌──────────────────────────────────────────┐
+                   │        OBSERVE–REGULATE–CONTINUE         │
+                   │        RAMORGA EXECUTION LOOP            │
+                   └──────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                OBSERVE                                     │
+│                                                                            │
+│  • Odczyt FieldState (niemutowalny)                                        │
+│  • Uruchomienie hooków:                                                    │
+│       - detekcyjnych (glitch, crime)                                       │
+│       - audytowych (memory_audit)                                          │
+│       - telemetrycznych (topology_metrics)                                 │
+│  • Zbieranie sygnałów i metryk                                             │
+│  • Zero ingerencji w pole:                                                 │
+│       - brak modulacji                                                     │
+│       - brak zmiany geometrii                                              │
+│       - brak mutacji stanu                                                 │
+│                                                                            │
+│  OBSERVE = percepcja bez dotyku pola                                       │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      │ sygnały, metryki, odczyty
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                 REGULATE                                   │
+│                                                                            │
+│  • Jedyna faza, w której wolno regulować pole                              │
+│  • Wywołanie MeniscusEngine                                                │
+│       - modulacja amplitudy interferencji                                  │
+│       - brak ingerencji w geometrię pola                                   │
+│       - brak generacji nowych wektorów                                     │
+│       - brak mutacji FieldState                                            │
+│  • Zgodność z FE‑03_regulation_limits i FE‑04_invariant_binding            │
+│                                                                            │
+│  REGULATE = modulacja amplitudy, nigdy trajektorii                         │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      │ zregulowana amplituda interferencji
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                CONTINUE                                    │
+│                                                                            │
+│  • Przeniesienie trajektorii do kolejnego cyklu                            │
+│  • Zapis do DataBridge (opcjonalnie)                                       │
+│  • Zero regulacji                                                          │
+│  • Zero ingerencji w pole                                                  │
+│  • Zero mutacji FieldState                                                 │
+│                                                                            │
+│  CONTINUE = czyste przejście do następnej iteracji                         │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+                                      │ nowy cykl
+                                      ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                                OBSERVE                                     │
+└────────────────────────────────────────────────────────────────────────────┘
+
+
