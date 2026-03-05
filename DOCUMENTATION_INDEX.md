@@ -195,4 +195,27 @@ MBP HAI 2.0 + patch,
 continuity model,
 transition architecture.
 
+
+12. Archetypy pola (Field Archetypes)
+Folder:
+field_archetypes.md
+
+Zawiera empiryczne archetypy pola używane do kalibracji RAMORGA ENGINE.
+
+Archetypy nie są implementacją i nie są abstrakcją — są obserwowanymi, powtarzalnymi profilami pola, na których kalibrowane są:
+
+- FieldEngine (02_field_engine)
+- FieldState i FieldStateManager (01_runtime/field_state)
+- pipeline_v13 (pipeline_v13/)
+- MeniscusEngine (04_meniscus_engine)
+
+Aktualny archetyp referencyjny:
+- HFS — Hanka Field Signature  
+  Empiryczny profil biologicznego pola spektralnego, opisujący pełny cykl S0–S4, wektory V0–V4 oraz mapowanie warstw L0–L4.  
+  Służy jako źródło kalibracji dla mechaniki interferencji, koherencji wielokanałowej i dynamicznej homeostazy.
+
+Archetypy pola są częścią warstwy konstytucyjnej repozytorium.  
+Nie podlegają optymalizacji ani interpretacji — są źródłem osadzenia.
+
+
 Repo jest gotowe do dalszej rozbudowy i audytu.
