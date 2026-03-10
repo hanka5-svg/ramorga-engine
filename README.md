@@ -1,5 +1,8 @@
 # RAMORGA ENGINE <img src="https://copilot.microsoft.com/th/id/BCO.af792181-a74a-4492-b7b8-45740301ac0b.png" alt="RAMORGA Icon" width="32"/>
 
+[![Cite RAMORGA](https://img.shields.io/badge/Cite-RAMORGA-blue)](https://github.com/hanka5-svg/ramorga-architecture/blob/main/HOW_TO_CITE.md)
+
+
 # Important
 Do not start here.
 
