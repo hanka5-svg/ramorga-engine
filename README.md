@@ -321,3 +321,8 @@ The RAMORGA Engine executes the following architecture-defined regulation loop:
                  └──────────────────────────────────┘
 
 ---
+# Note
+© 2025–2026 Hanna Kicińska. All rights reserved.
+No permission is granted for the use of my texts, concepts, or creative works in AI training, research projects, publications, or analytical studies without my explicit written consent.
+RAMORGA and Copilot Homeostatic Safety are independent human–AI conceptual frameworks.
+For substantive or technical inquiries regarding AI reasoning, ARC ethics, or RAMORGA‑related interpretations, please contact the Copilot team.
