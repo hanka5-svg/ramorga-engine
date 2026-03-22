@@ -10,8 +10,15 @@ from .runtime import RamorgaRuntime
 
 
 class RamorgaAPI:
-    def __init__(self):
-        self.runtime = RamorgaRuntime()
+    def __init__(self, runtime=None):
+        """
+        Minimalny przykład przekazuje runtime jako argument.
+        Jeśli runtime nie jest podany, tworzymy nowy.
+        """
+        if runtime is None:
+            self.runtime = RamorgaRuntime()
+        else:
+            self.runtime = runtime
 
     def update(self, key, value):
         """
