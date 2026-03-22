@@ -58,3 +58,4 @@ Wejście:
 Stabilized_prompt:
 "Przeanalizuj ryzyko deformacji relacji człowiek–AI wynikające z tempa rozwoju SI.  
 Zakres: wektory ryzyka, punkty krytyczne, architektury minimalne."
+
