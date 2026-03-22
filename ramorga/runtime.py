@@ -1,147 +1,73 @@
 """
-RAMORGA Runtime — Stable Homeostatic Engine
--------------------------------------------
+Minimalny runtime Ramorga używany przez przykłady.
 
-Ten moduł implementuje podstawowy runtime RAMORGI zgodny z PipelineV12:
-- stabilny rdzeń (inwarianty),
-- warstwę adaptacyjną,
-- checkpointy dryfu,
-- mechanizmy pamięci LT.
-
-To jest szkielet architektoniczny — gotowy do rozszerzania.
+To jest prosta, samodzielna implementacja, która:
+- inicjalizuje prosty stan,
+- udostępnia update/consolidate,
+- ma minimalne struktury core/adaptive/memory używane przez api.py.
 """
 
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
 
 
-# ============================================================
-# 1. Stable Core (Inwarianty)
-# ============================================================
-
 @dataclass
-class StableCore:
-    """
-    Stabilny rdzeń RAMORGI — elementy niepodlegające adaptacji.
-    """
+class Core:
     invariants: Dict[str, Any] = field(default_factory=dict)
 
-    def validate(self, key: str, value: Any) -> bool:
-        """
-        Sprawdza zgodność z inwariantami.
-        """
-        if key not in self.invariants:
-            return True  # brak konfliktu
-        return self.invariants[key] == value
-
-
-# ============================================================
-# 2. Adaptive Layer (Warstwa adaptacyjna)
-# ============================================================
 
 @dataclass
-class AdaptiveLayer:
-    """
-    Warstwa adaptacyjna — reaguje na nowe dane, ale zawsze
-    w zgodzie z inwariantami.
-    """
+class Adaptive:
     state: Dict[str, Any] = field(default_factory=dict)
-    log: List[Dict[str, Any]] = field(default_factory=list)
 
-    def update(self, key: str, value: Any):
-        """
-        Aktualizuje stan adaptacyjny i loguje zmianę.
-        """
-        self.state[key] = value
-        self.log.append({"key": key, "value": value})
-
-
-# ============================================================
-# 3. Drift Checkpoints (Kontrola dryfu)
-# ============================================================
 
 @dataclass
-class DriftCheckpoint:
-    """
-    Checkpoint dryfu — monitoruje odchylenia od inwariantów.
-    """
-    history: List[Dict[str, Any]] = field(default_factory=list)
+class Memory:
+    entries: List[Any] = field(default_factory=list)
 
-    def record(self, key: str, value: Any, status: str):
-        self.history.append({
-            "key": key,
-            "value": value,
-            "status": status
-        })
-
-
-# ============================================================
-# 4. Long-Term Memory (Pamięć długoterminowa)
-# ============================================================
-
-@dataclass
-class LongTermMemory:
-    """
-    Pamięć trwała RAMORGI — zgodna z PipelineV12.
-    """
-    entries: List[Dict[str, Any]] = field(default_factory=list)
-
-    def store(self, key: str, value: Any, stability: str = "stable"):
-        self.entries.append({
-            "key": key,
-            "value": value,
-            "stability": stability
-        })
-
-
-# ============================================================
-# 5. RamorgaRuntime — główna klasa
-# ============================================================
 
 class RamorgaRuntime:
-    """
-    Główny runtime RAMORGI — łączy wszystkie warstwy.
-    """
-
-    def __init__(self, config=None):
-        """
-        Runtime RAMORGI może przyjąć opcjonalną konfigurację.
-        Minimalny przykład przekazuje 'config', więc akceptujemy go tutaj.
-        """
-        self.config = config
-
-        self.core = StableCore()
-        self.adaptive = AdaptiveLayer()
-        self.checkpoint = DriftCheckpoint()
-        self.memory = LongTermMemory()
-
-        print("RAMORGA runtime initialized (PipelineV12)")
-
-    # --------------------------------------------------------
+    def __init__(self):
+        # Prosty, czytelny stan runtime
+        self.core = Core(invariants={"pipeline": "PipelineV12"})
+        self.adaptive = Adaptive()
+        self.memory = Memory()
+        # Możesz dodać tu inicjalizację loggera, konfiguracji itp.
+        print(f"RAMORGA runtime initialized ({self.core.invariants.get('pipeline')})")
 
     def update(self, key: str, value: Any):
         """
-        Aktualizuje runtime zgodnie z PipelineV12:
-        - walidacja inwariantów,
-        - aktualizacja warstwy adaptacyjnej,
-        - zapis checkpointu,
-        - opcjonalna konsolidacja do pamięci LT.
+        Aktualizuje adaptacyjny stan i dodaje wpis do pamięci.
         """
-
-        if not self.core.validate(key, value):
-            self.checkpoint.record(key, value, "critical")
-            raise ValueError(f"Dryf krytyczny: {key}")
-
-        self.adaptive.update(key, value)
-        self.checkpoint.record(key, value, "ok")
-
-    # --------------------------------------------------------
+        # Aktualizacja adaptacyjnego stanu
+        self.adaptive.state[key] = value
+        # Dodanie do pamięci (prosty model)
+        self.memory.entries.append({key: value})
 
     def consolidate(self):
         """
-        Konsoliduje stan adaptacyjny do pamięci trwałej.
+        Prosty przykład konsolidacji pamięci: usuwa duplikaty ostatnich wpisów.
         """
-        for key, value in self.adaptive.state.items():
-            self.memory.store(key, value, stability="consolidated")
+        seen = set()
+        new_entries = []
+        for e in self.memory.entries:
+            # Zamieniamy na tuple by móc hashować
+            t = tuple(sorted(e.items()))
+            if t not in seen:
+                seen.add(t)
+                new_entries.append(e)
+        self.memory.entries = new_entries
 
-        print("Konsolidacja zakończona.")
+    # Opcjonalne: metoda process jeśli runtime ma wykonywać kroki
+    def process_step(self, user_input: str) -> Dict[str, Any]:
+        """
+        Wykonuje pojedynczy krok przetwarzania na podstawie user_input.
+        Zwraca prosty wynik używany przez przykłady.
+        """
+        # Przykładowe zachowanie: echo + zapis do stanu
+        self.update("last_input", user_input)
+        return {
+            "echo": user_input,
+            "adaptive_state": dict(self.adaptive.state),
+            "memory_entries": len(self.memory.entries),
+        }
