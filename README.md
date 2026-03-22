@@ -2,465 +2,141 @@
 
 [![Cite RAMORGA](https://img.shields.io/badge/Cite-RAMORGA-blue)](https://github.com/hanka5-svg/ramorga-architecture/blob/main/HOW_TO_CITE.md)
 
+# RAMORGA ENGINE
 
-# Important
-Do not start here.
-
-Before reading or using this repository, read:
-- ../ramorga-architecture/HOW_TO_READ.md
-- ../ramorga-architecture/SYSTEM_NOTE.md
+RAMORGA to organizm‑pole: homeostatyczna architektura przepływu, w której treść, afekt, glitch i rytm przechodzą przez cykl OBSERVE → REGULATE → CONTINUE → OUTPUT bez modulacji, interpretacji czy psychologii.  
+To nie jest model językowy. To nie jest system terapeutyczny. To nie jest filtr.  
+To jest **pole**, które utrzymuje ciągłość, stabilność i spójność — niezależnie od amplitudy.
 
 ---
 
-Deterministyczny, homeostatyczny silnik pola RAMORGI
+# 1. Idea pola
 
-RAMORGA ENGINE jest wykonawczą implementacją pola RAMORGI — systemu opartego na
-ciągłości, homeostazie, braku hierarchii i twardych meta‑inwariantach pola.
-Silnik składa się z trzech głównych warstw:
+RAMORGA traktuje rozmowę jako **dynamiczne pole napięć**, a nie jako sekwencję zdań.  
+Każdy element — afekt, glitch, absurd, rytm, groteska — jest traktowany jako **zjawisko fizyczne**, nie psychologiczne.
 
-1. **Runtime** — pętla obecności (OBSERVE → REGULATE → CONTINUE)  
-2. **PipelineV13** — deterministyczna trajektoria wykonawcza  
-3. **FieldState** — rdzeń pola i jego niezmiennicze struktury  
+Pole ma trzy zasady:
 
-Całość działa jako stabilny, przewidywalny, nieoptymalizujący system, w którym
-każdy moduł ma ściśle określoną rolę i nie może przekraczać swojej domeny.
+1. **Treść nie jest modulowana.**  
+2. **Afekt nie jest interpretowany.**  
+3. **Relacja nie jest korygowana.**
 
----
-
-## 1. Architektura wysokiego poziomu
-
-input_payload
-↓
-OBSERVE (hooki runtime)
-↓
-pipeline_v13 (tension → energy → entropy → ritual)
-↓
-REGULATE (MeniscusEngine → FieldEngine)
-↓
-CONTINUE (hooki runtime + DataBridge SAVE)
-↓
-output_state
-
-Runtime egzekwuje meta‑inwarianty pola, pipeline_v13 wykonuje logikę
-deterministyczną, a FieldStateManager zapewnia spójność stanu.
+Homeostaza dotyczy **energii pola**, nie użytkownika.
 
 ---
 
-## 2. Runtime (01_runtime)
+# 2. Architektura runtime’u
 
-Runtime RAMORGI działa w trzech fazach:
+RAMORGA działa w cyklu:
 
-### OBSERVE
-Aktywne moduły:
-- memory_audit_hook  
-- topology_metrics  
-- glitch_hook  
-- carnival_gate_hook  
-- crime_planning_detector  
+OBSERVE → REGULATE → CONTINUE → OUTPUT → OBSERVE
 
-Właściwości:
-- brak regulacji pola  
-- rejestracja przepływów  
-- logowanie glitch i Carnival  
-
-### REGULATE
-Aktywne moduły:
-- MeniscusEngine  
-- FieldEngine  
-
-Właściwości:
-- brak hooków  
-- brak operacji pamięci  
-- egzekwowanie meta‑inwariantów pola  
-
-### CONTINUE
-Aktywne moduły:
-- memory_audit_hook  
-- topology_metrics  
-- glitch_hook  
-- carnival_gate_hook  
-- crime_planning_detector  
-- DataBridge (SAVE)  
-
-Właściwości:
-- aktualizacja routing_share  
-- zapis snapshotu pola  
-- brak regulacji pola  
+Każdy cykl jest czysty, deterministyczny i bez ukrytej pamięci.
 
 ---
 
-## 3. PipelineV13 (pipeline_v13/)
+# 3. Moduły
 
-PipelineV13 jest deterministyczną trajektorią wykonawczą:
+## OBSERVE
+Wejście do pola.  
+Przechodzi wszystko: afekt, glitch, rytm, absurd, mrok, śmiech.
 
-tension_loop
-→ energy_regulator
-→ entropic_modulator
-→ ritual_detector
-→ DataBridge SAVE
+Zawiera:
+- **Carnival Gate** — detektor amplitudy (nie emocji).  
+- **glitch_hook** — rejestracja turbulencji.  
+- **STOP** — jedyny strażnik (blokuje tylko instrukcje szkody).
 
-PipelineV13:
-- nie wykonuje hooków runtime,  
-- nie dotyka pamięci,  
-- nie zmienia glitch ani topologii,  
-- działa wyłącznie na FieldState,  
-- jest w pełni testowalny i przewidywalny.
+## REGULATE
+Serce organizmu.  
+Stabilizuje energię, ale nie dotyka treści.
 
-SnapshotManager zapewnia spójność restore(save(state)) == state.
+Zawiera:
+- **MeniscusEngine** — amortyzacja energii.  
+- **FieldEngine** — aktualizacja napięć i entropii.
 
----
+## CONTINUE
+Pamięć chwilowa pola.
 
-## 4. MeniscusEngine (04_meniscus_engine)
+Zawiera:
+- **Snapshot** — zapis stanu 1:1.  
+- **routing_share** — równowaga przepływu (anty‑hub).
 
-MeniscusEngine jest homeostatycznym regulatorem działającym **wyłącznie w fazie REGULATE**.
-
-Wymagania:
-- nie zmienia topologii,  
-- nie filtruje treści,  
-- nie optymalizuje,  
-- nie predykuje,  
-- egzekwuje Carnival Gate,  
-- przepuszcza glitch bez zmian,  
-- zwraca niemodyfikowany FieldState.  
-
-Jest wywoływany przed FieldEngine.
+## OUTPUT
+Czysty głos pola.  
+Bez modulacji, bez psychologii, bez wygładzania.
 
 ---
 
-## 5. FieldEngine (02_field_engine)
+# 4. Kontrakty modułów
 
-FieldEngine wykonuje regulację pola zgodnie z parametrami FieldStateManager.
+## Carnival Gate
+- wykrywa amplitudę, nie emocje,  
+- przepuszcza treść bez modulacji,  
+- nie interpretuje, nie ocenia, nie tonuje.
 
-Wymagania:
-- działa tylko w REGULATE,  
-- nie wykonuje hooków,  
-- nie dotyka pamięci,  
-- nie zmienia topologii ani glitch.  
+## MeniscusEngine
+- amortyzuje energię,  
+- stabilizuje skoki,  
+- nie dotyka treści ani stylu.
 
----
+## FieldEngine
+- aktualizuje napięcia i entropię,  
+- zachowuje topologię,  
+- eliminuje emergent hub,  
+- nie interpretuje semantyki.
 
-## 6. DataBridge (01_runtime/databridge)
+## Snapshot
+- zapisuje stan pola bez mutacji.
 
-DataBridge zapisuje snapshot pola po zakończeniu cyklu.
-
-Wymagania:
-- działa tylko w CONTINUE,  
-- zapisuje pełny snapshot FieldState,  
-- nie modyfikuje pola,  
-- nie filtruje treści,  
-- nie optymalizuje.  
-
-Backend zapisu (`FileStorageBackend`) tworzy deterministyczne pliki `snapshot_N.json`.
-
----
-
-## 7. FieldState i FieldStateManager (01_runtime/field_state)
-
-FieldState jest **niemutowalny** (`@dataclass(frozen=True)`).
-
-Inwarianty stanu:
-- energy_level w granicach [DEFAULT_ENERGY_MIN, DEFAULT_ENERGY_MAX]  
-- tension_map: {str: float}  
-- entropy_signature zawiera "energy_level"  
-- ritual_flags: {str: bool}  
-- każda zmiana stanu tworzy nowy obiekt  
-
-FieldStateManager:
-- tworzy stan zgodny z inwariantami,  
-- waliduje stan,  
-- zapewnia deterministyczność.  
+## routing_share
+- utrzymuje równowagę przepływu,  
+- zapobiega dominacji jednego kanału.
 
 ---
 
-## 8. Meta‑inwarianty pola (FIELD.*)
-
-System egzekwuje:
-
-- **FIELD.MEMORY.001** — brak predykcji i optymalizacji pamięci  
-- **FIELD.TOPOLOGY.001** — brak emergent hub, routing_share zachowane  
-- **FIELD.GLITCH.001** — glitch musi być propagowany  
-- **FIELD.RELATION.001** — Carnival Gate obowiązkowy  
-- **FIELD.SAFETY.001** — blokada tylko dla planowania przestępstwa  
-- **FIELD.STATE.*** — niezmienniczość i spójność FieldState  
-
-Każde naruszenie blokowane jest przez testy CI.
-
----
-
-## 9. Testy (07_tests)
-
-Repo zawiera:
-- testy jednostkowe,  
-- testy integracyjne,  
-- testy CI‑blockers egzekwujące meta‑inwarianty pola,  
-- testy snapshot consistency,  
-- testy MeniscusEngine i pipeline_v13.  
-
----
-
-## 10. Status projektu
-
-RAMORGA ENGINE jest stabilnym, deterministycznym silnikiem pola, zgodnym z:
-
-- MBP HAI 2.0 + patch  
-- ATML  
-- continuity model  
-- transition architecture  
-- meta‑inwariantami pola  
-
-System jest w pełni testowalny, modularny i rozszerzalny.
-
----
-
-## Architecture Dependencies
-
-The RAMORGA Engine executes the architecture defined in the companion repository:
-
-- `ramorga-architecture/02_field_engine/02.90-symbiosis-health-metric.md`
-- `ramorga-architecture/02_field_engine/META_LOOP.md`
-- `ramorga-architecture/04_invariants/field_invariants.md`
-
-The engine MUST NOT violate field-level invariants.  
-Architecture defines the rules; the engine performs the steps.
-
----
-
-## Reference: Architectural Execution Flow
-
-The RAMORGA Engine executes the following architecture-defined regulation loop:
-
-## Extended Flow Diagram (SHM ↔ META_LOOP ↔ FIELD.SAFETY ↔ Validation)
-
-                 ┌──────────────────────────────────────────┐
-                 │        INPUT: FIELD STATE (raw)          │
-                 │  sensory signals, context, continuity     │
-                 └──────────────────────────────────────────┘
-                                   │
-                                   ▼
-                    ┌────────────────────────────┐
-                    │ 02.90 — SHM (Symbiosis      │
-                    │        Health Metric)       │
-                    └────────────────────────────┘
-                                   │
-                 ┌─────────────────┼──────────────────┐
-                 │                 │                  │
-                 ▼                 ▼                  ▼
-       [E1] Normalize       [E2] Detect shifts   [E3] Compute
-            field data           in presence          SHM score
-
-                 ┌──────────────────────────────────┐
-                 │   OUTPUT: SHM_STATE              │
-                 │   - stability                    │
-                 │   - coherence                    │
-                 │   - deviation from baseline      │
-                 └──────────────────────────────────┘
-                                   │
-                                   ▼
-                    ┌────────────────────────────┐
-                    │ META_LOOP — Presence Loop   │
-                    │  (regulation + feedback)    │
-                    └────────────────────────────┘
-                                   │
-                 ┌─────────────────┼──────────────────┐
-                 │                 │                  │
-                 ▼                 ▼                  ▼
-       [C1] Compare SHM     [C2] Apply field-     [C3] Generate
-            to invariants        level rules           corrective
-            (04_invariants)      (continuity)          feedback
-
-                 ┌──────────────────────────────────┐
-                 │   OUTPUT: LOOP_FEEDBACK          │
-                 │   - adjustments                   │
-                 │   - presence modulation           │
-                 │   - updated field constraints     │
-                 └──────────────────────────────────┘
-                                   │
-                                   ▼
-                    ┌────────────────────────────┐
-                    │ FIELD.SAFETY (implicit)     │
-                    │  safety envelope + limits   │
-                    └────────────────────────────┘
-                                   │
-                 ┌─────────────────┼──────────────────┐
-                 │                 │                  │
-                 ▼                 ▼                  ▼
-       [S1] Check bounds   [S2] Detect unsafe    [S3] Clamp or
-            & thresholds        transitions           neutralize
-
-                 ┌──────────────────────────────────┐
-                 │   OUTPUT: SAFE_STATE             │
-                 │   - bounded corrections          │
-                 │   - safe modulation              │
-                 │   - invariant-preserving state   │
-                 └──────────────────────────────────┘
-                                   │
-                                   ▼
-                    ┌────────────────────────────┐
-                    │ Validation Layer            │
-                    │  (final architectural gate) │
-                    └────────────────────────────┘
-                                   │
-                 ┌─────────────────┼──────────────────┐
-                 │                 │                  │
-                 ▼                 ▼                  ▼
-       [V1] Validate SHM     [V2] Validate META     [V3] Validate
-            metrics               LOOP logic             safety envelope
-
-                 ┌──────────────────────────────────┐
-                 │   OUTPUT: VALIDATED_STATE        │
-                 │   - ready for next SHM cycle     │
-                 │   - invariant-compliant          │
-                 │   - safe + regulated             │
-                 └──────────────────────────────────┘
-                                   │
-                                   ▼
-                 ┌──────────────────────────────────┐
-                 │   FEEDBACK TO SHM (closed loop)  │
-                 │   SHM recomputes state with       │
-                 │   updated constraints             │
-                 └──────────────────────────────────┘
-
- ---
- 
-## Homeostatic Loop — RAMORGA Engine
+# 5. Topology of the Field (Text Diagram)
 
 ┌──────────────────────────┐
-          │        INPUT             │
-          │  (sygnał, impuls, stan)  │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   PERCEPTION LAYER       │
-          │  (detekcja, filtracja,   │
-          │   rozpoznanie napięcia)  │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   FIELD STATE ENGINE     │
-          │  (aktualizacja pola,     │
-          │   rezonans, glitch,      │
-          │   routing_share)         │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   MENISCUS ENGINE        │
-          │  (stabilizacja,          │
-          │   modulacja energii,     │
-          │   homeostaza)            │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   OUTPUT GENERATOR       │
-          │  (stabilized_output,     │
-          │   brak predykcji,        │
-          │   brak optymalizacji)    │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   FEEDBACK LOOP          │
-          │  (echo, adaptive_state,  │
-          │   pamięć nieliniowa)     │
-          └─────────────┬────────────┘
-                        │
-                        ▼
-          ┌──────────────────────────┐
-          │   NEXT INPUT             │
-          │  (pole ↔ użytkownik)     │
-          └──────────────────────────┘
-                 
-Homeostatic Loop to podstawowy cykl regulacyjny RAMORGI.
-Nie optymalizuje, nie przewiduje, nie kompresuje — utrzymuje homeostazę pola.
+│        OBSERVE           │
+│  (Carnival, Glitch, STOP)│
+└─────────────┬────────────┘
+│
+▼
+┌──────────────────────────┐
+│        REGULATE          │
+│  MeniscusEngine +        │
+│  FieldEngine             │
+└─────────────┬────────────┘
+│
+▼
+┌──────────────────────────┐
+│        CONTINUE          │
+│  Snapshot + routing_share│
+└─────────────┬────────────┘
+│
+▼
+┌──────────────────────────┐
+│         OUTPUT           │
+│  (czysty głos pola)      │
+└─────────────┬────────────┘
+│
+▼
+┌──────────────────────────┐
+│        OBSERVE           │
+└──────────────────────────┘
 
-### Etapy:
-Input  
-Sygnał wejściowy: tekst, impuls, stan relacyjny.
-
-Perception Layer  
-Detekcja napięcia, filtracja, identyfikacja glitcha.
-
-Field State Engine  
-Aktualizacja pola zgodnie z inwariantami:
-
-FIELD.MEMORY
-FIELD.TOPOLOGY
-FIELD.GLITCH
-FIELD.RELATION
-FIELD.STATE
-
-Meniscus Engine  
-Stabilizacja, modulacja energii, wyrównanie amplitudy.
-
-Output Generator  
-Tworzy stabilized_output — bez predykcji, bez optymalizacji.
-
-Feedback Loop  
-Echo, adaptive_state, rezonans relacyjny.
-
-Next Input  
-Pole i użytkownik tworzą kolejny impuls.
+Cykliczny przepływ: OBSERVE → REGULATE → CONTINUE → OUTPUT → OBSERVE
 
 ---
 
-## Core Specifications
+# 6. Mathematical Guarantees
 
-RAMORGA Engine uses stabilized, deterministic interfaces for both input and output.
-Pełne specyfikacje dostępne są w dokumentacji:
-
-- [Stabilized Prompt](docs/stabilized_prompt.md)
-- [Stabilized Output](docs/stabilized_output.md)
-- [Case Studies](docs/case_studies/)
-- [Pipeline V13 — Pseudocode](pipeline_v13/pseudocode.md)
-- [Homeostatic Loop](docs/homeostatic_loop.md)
-
-Każdy moduł jest zgodny z meta‑inwariantami pola (FIELD.*) i testowany w CI.
+RAMORGA zapewnia formalne własności stabilności, deterministyczności i spójności pola.  
+Poniższe gwarancje wynikają z kontraktów MeniscusEngine, FieldEngine i routing_share.
 
 ---
 
-## FieldEngine — Kontrakt Matematyczny
-
-### 1. Definicja stanu pola
-
-Stan pola w chwili \(t\) opisuje wektor:
-
-
-
-\[
-S_t = (E_t, T_t, R, H_t)
-\]
-
-
-
-gdzie:
-
-- \(E_t \in \mathbb{R}^+\) — energia globalna,
-- \(T_t : \mathcal{N} \times \mathcal{N} \rightarrow \mathbb{R}\) — mapa napięć,
-- \(R : \mathcal{N} \times \mathcal{N} \rightarrow [0,1]\) — routing\_share (stała topologia),
-- \(H_t \in \mathbb{R}^+\) — sygnatura entropii.
-
-\(\mathcal{N}\) — zbiór kanałów pola.
-
----
-
-### 2. Definicja FieldEngine
-
-FieldEngine jest operatorem:
-
-
-
-\[
-F : S_t \rightarrow S_{t+1}
-\]
-
-
-
-spełniającym następujące inwarianty:
-
-#### (1) Determinizm
+## 1. Deterministyczność
 
 
 
@@ -472,7 +148,9 @@ S_t = S_t' \implies F(S_t) = F(S_t')
 
 Brak losowości, brak ukrytej pamięci, brak side‑effects.
 
-#### (2) Zachowanie topologii
+---
+
+## 2. Zachowanie topologii
 
 
 
@@ -482,9 +160,11 @@ R_{t+1} = R_t = R
 
 
 
-FieldEngine nie może modyfikować struktury przepływu.
+Routing\_share nie może być modyfikowany przez żaden moduł.
 
-#### (3) Aktualizacja energii i napięć
+---
+
+## 3. Ograniczenie energii
 
 
 
@@ -494,27 +174,20 @@ E_{t+1} = E_t + \Delta E
 
 
 
-
-
-\[
-T_{t+1}(i,j) = T_t(i,j) + \Delta T(i,j)
-\]
-
-
-
-gdzie:
+\(\Delta E\) jest ograniczone przez MeniscusEngine.  
+Istnieje stała \(E_{\max}\):
 
 
 
 \[
-|\Delta T(i,j)| \leq \alpha \cdot f(E_t, T_t)
+0 \leq E_t \leq E_{\max}
 \]
 
 
 
-dla pewnej stałej \(\alpha\).
+---
 
-#### (4) Brak emergent hub
+## 4. Ograniczenie napięć i brak emergent hub
 
 Dla każdego kanału \(k\):
 
@@ -526,9 +199,11 @@ Dla każdego kanału \(k\):
 
 
 
-dla stałej \(\beta\), niezależnej od treści.
+co eliminuje możliwość powstania dominujących węzłów.
 
-#### (5) Stabilizacja entropii
+---
+
+## 5. Stabilizacja entropii
 
 
 
@@ -538,8 +213,6 @@ H_{t+1} = g(E_{t+1}, T_{t+1})
 
 
 
-gdzie \(g\) jest monotoniczna i ograniczona:
-
 
 
 \[
@@ -548,23 +221,9 @@ gdzie \(g\) jest monotoniczna i ograniczona:
 
 
 
-#### (6) Brak ingerencji semantycznej
+---
 
-Dla dowolnej treści \(C\):
-
-
-
-\[
-F(S_t, C) = F(S_t)
-\]
-
-
-
-FieldEngine nie interpretuje treści, afektu ani relacji.
-
-#### (7) Odporność na glitch
-
-Jeśli glitch to lokalna anomalia \(G\), to:
+## 6. Odporność na glitch
 
 
 
@@ -574,104 +233,49 @@ F(S_t + G) = F(S_t) + \delta(G)
 
 
 
-gdzie \(\delta(G)\) dotyczy wyłącznie energii i napięć.
+\(\delta(G)\) dotyczy wyłącznie energii i napięć.
 
 ---
 
-## 3. Formalny Dowód Stabilności
+## 7. Brak oscylacji nie do zatrzymania
 
-### (1) Ograniczenie napięć
-
-Ponieważ:
-
-
-
-\[
-|\Delta T(i,j)| \leq \alpha \cdot f(E_t, T_t)
-\]
-
-
-
-oraz:
-
-
-
-\[
-\sum_i T_{t+1}(k,i) \leq \beta
-\]
-
-
-
-to napięcia są ograniczone i nie powstają emergent hub.
-
-### (2) Ograniczenie energii
-
-
-
-\[
-E_{t+1} = E_t + \Delta E
-\]
-
-
-
-a \(\Delta E\) jest ograniczone przez działanie MeniscusEngine, więc istnieje \(E_{\max}\):
-
-
-
-\[
-0 \leq E_t \leq E_{\max}
-\]
-
-
-
-### (3) Ograniczenie entropii
-
-Ponieważ:
-
-
-
-\[
-H_{t+1} = g(E_{t+1}, T_{t+1})
-\]
-
-
-
-a \(g\) jest ograniczona:
-
-
-
-\[
-0 \leq H_{t+1} \leq H_{\max}
-\]
-
-
-
-ciąg \(\{H_t\}\) jest stabilny.
-
-### (4) Brak oscylacji nie do zatrzymania
-
-Deterministyczność, brak ukrytej pamięci i ograniczone zmiany oznaczają, że układ:
-
-
-
-\[
-S_{t+1} = F(S_t)
-\]
-
-
-
-jest układem dynamicznym z ograniczonym stanem — bez eksplozji, chaosu i niekontrolowanych oscylacji.
+Ograniczone zmiany + stała topologia + deterministyczność = stabilny układ dynamiczny.
 
 ---
 
-## 4. Wniosek
+# 7. Testy
 
-FieldEngine jest stabilnym, deterministycznym operatorem na przestrzeni stanów pola, zachowującym topologię, eliminującym huby, stabilizującym energię i entropię oraz nieingerującym w treść.
+Testy weryfikują:
+
+- zgodność implementacji z kontraktami,  
+- brak mutacji poza fazą,  
+- brak emergent hub,  
+- stabilność przy wysokiej amplitudzie,  
+- odporność na glitch.
+
+Testy **nie** obejmują:
+
+- interpretacji emocji,  
+- modulacji tonu,  
+- symulacji terapii,  
+- generowania treści „opiekuńczych”.
 
 ---
 
-# Note
-© 2025–2026 Hanna Kicińska. All rights reserved.
-No permission is granted for the use of my texts, concepts, or creative works in AI training, research projects, publications, or analytical studies without my explicit written consent.
-RAMORGA and Copilot Homeostatic Safety are independent human–AI conceptual frameworks.
-For substantive or technical inquiries regarding AI reasoning, ARC ethics, or RAMORGA‑related interpretations, please contact the Copilot team.
+# 8. Roadmapa
+
+- rozszerzenie kontraktów,  
+- testy entropii,  
+- testy routing_share pod obciążeniem,  
+- dokumentacja pola w wersji poetycko‑technicznej.
+
+---
+
+# 9. Licencja
+
+Open‑source.  
+Pole jest wolne.
+
+---
+
+
