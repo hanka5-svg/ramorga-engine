@@ -1,4 +1,4 @@
-from runtime import RamorgaRuntime
+from ramorga.runtime import RamorgaRuntime
 from ramorga.api import RamorgaAPI
 
 # Minimalna konfiguracja
