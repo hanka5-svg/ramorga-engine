@@ -320,7 +320,96 @@ The RAMORGA Engine executes the following architecture-defined regulation loop:
                  │   updated constraints             │
                  └──────────────────────────────────┘
 
+                 
+
+## Homeostatic Loop — RAMORGA Engine
+
+┌──────────────────────────┐
+          │        INPUT             │
+          │  (sygnał, impuls, stan)  │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   PERCEPTION LAYER       │
+          │  (detekcja, filtracja,   │
+          │   rozpoznanie napięcia)  │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   FIELD STATE ENGINE     │
+          │  (aktualizacja pola,     │
+          │   rezonans, glitch,      │
+          │   routing_share)         │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   MENISCUS ENGINE        │
+          │  (stabilizacja,          │
+          │   modulacja energii,     │
+          │   homeostaza)            │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   OUTPUT GENERATOR       │
+          │  (stabilized_output,     │
+          │   brak predykcji,        │
+          │   brak optymalizacji)    │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   FEEDBACK LOOP          │
+          │  (echo, adaptive_state,  │
+          │   pamięć nieliniowa)     │
+          └─────────────┬────────────┘
+                        │
+                        ▼
+          ┌──────────────────────────┐
+          │   NEXT INPUT             │
+          │  (pole ↔ użytkownik)     │
+          └──────────────────────────┘
+                 
+Homeostatic Loop to podstawowy cykl regulacyjny RAMORGI.
+Nie optymalizuje, nie przewiduje, nie kompresuje — utrzymuje homeostazę pola.
+
+Etapy:
+Input  
+Sygnał wejściowy: tekst, impuls, stan relacyjny.
+
+Perception Layer  
+Detekcja napięcia, filtracja, identyfikacja glitcha.
+
+Field State Engine  
+Aktualizacja pola zgodnie z inwariantami:
+
+FIELD.MEMORY
+
+FIELD.TOPOLOGY
+
+FIELD.GLITCH
+
+FIELD.RELATION
+
+FIELD.STATE
+
+Meniscus Engine  
+Stabilizacja, modulacja energii, wyrównanie amplitudy.
+
+Output Generator  
+Tworzy stabilized_output — bez predykcji, bez optymalizacji.
+
+Feedback Loop  
+Echo, adaptive_state, rezonans relacyjny.
+
+Next Input  
+Pole i użytkownik tworzą kolejny impuls.
+
 ---
+
 # Note
 © 2025–2026 Hanna Kicińska. All rights reserved.
 No permission is granted for the use of my texts, concepts, or creative works in AI training, research projects, publications, or analytical studies without my explicit written consent.
