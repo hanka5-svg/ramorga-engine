@@ -1,20 +1,9 @@
 """
-RAMORGA — Homeostatic Runtime Module
-------------------------------------
-
-Ten moduł udostępnia klasy RamorgaRuntime i RamorgaAPI
-jako część pakietu ramorga.
-
-Struktura zgodna z PipelineV12:
-- stabilny rdzeń,
-- warstwa adaptacyjna,
-- API jako interfejs systemowy.
+Ramorga package initializer
+Provides a simple public API surface for examples.
 """
 
-from .runtime import RamorgaRuntime
 from .api import RamorgaAPI
+from .runtime import RamorgaRuntime
 
-__all__ = [
-    "RamorgaRuntime",
-    "RamorgaAPI",
-]
+__all__ = ["RamorgaAPI", "RamorgaRuntime"]
