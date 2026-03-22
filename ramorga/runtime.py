@@ -104,19 +104,18 @@ class RamorgaRuntime:
     """
 
     def __init__(self, config=None):
-    """
-    Runtime RAMORGI może przyjąć opcjonalną konfigurację.
-    Minimalny przykład przekazuje 'config', więc akceptujemy go tutaj.
-    """
-    self.config = config
+        """
+        Runtime RAMORGI może przyjąć opcjonalną konfigurację.
+        Minimalny przykład przekazuje 'config', więc akceptujemy go tutaj.
+        """
+        self.config = config
 
-    self.core = StableCore()
-    self.adaptive = AdaptiveLayer()
-    self.checkpoint = DriftCheckpoint()
-    self.memory = LongTermMemory()
+        self.core = StableCore()
+        self.adaptive = AdaptiveLayer()
+        self.checkpoint = DriftCheckpoint()
+        self.memory = LongTermMemory()
 
-    print("RAMORGA runtime initialized (PipelineV12)")
-
+        print("RAMORGA runtime initialized (PipelineV12)")
 
     # --------------------------------------------------------
 
@@ -146,8 +145,3 @@ class RamorgaRuntime:
             self.memory.store(key, value, stability="consolidated")
 
         print("Konsolidacja zakończona.")
-
-
-# ============================================================
-# Koniec modułu
-# ============================================================
