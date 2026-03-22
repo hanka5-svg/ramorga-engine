@@ -103,7 +103,7 @@ class RamorgaRuntime:
     Główny runtime RAMORGI — łączy wszystkie warstwy.
     """
 
-    def __init__(self):
+    def __init__(self, config=None):
         self.core = StableCore()
         self.adaptive = AdaptiveLayer()
         self.checkpoint = DriftCheckpoint()
