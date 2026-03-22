@@ -40,6 +40,7 @@ RAMORGA zwraca:
 Wejście:
 "Zrób audyt RAMORGA-ENGINE."
 
+
 Stabilized_prompt:
 "Przeanalizuj repozytorium RAMORGA-ENGINE.  
 Zakres: struktura, mocne elementy, braki, rekomendacje."
