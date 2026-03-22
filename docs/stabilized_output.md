@@ -110,7 +110,18 @@ Stabilized Output jest używany w:
 
 ---
 
-## 7. Status
+## 7. FIELD.* invariants
+
+This interface MUST NOT violate:
+- FIELD.MEMORY.001
+- FIELD.TOPOLOGY.001
+- FIELD.GLITCH.001
+- FIELD.RELATION.001
+- FIELD.STATE.*
+
+---
+
+## 8. Status
 
 Specyfikacja stabilna.  
 Gotowa do implementacji i audytu.
