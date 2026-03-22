@@ -140,6 +140,9 @@ PipelineV13 enforces:
 
 ---
 
+PipelineV13 is called only from the REGULATE phase of the runtime loop.
+
+
 ## 6. Status
 
 Stable.  
