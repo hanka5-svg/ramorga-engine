@@ -128,6 +128,7 @@ PipelineV13 enforces:
 - **FIELD.STATE.*** — state continuity  
 - **FIELD.SAFETY.001** — non‑escalation  
 
+All state transitions MUST satisfy FieldState invariants and pass snapshot consistency tests.
 ---
 
 ## 5. Notes
@@ -142,6 +143,7 @@ PipelineV13 enforces:
 
 PipelineV13 is called only from the REGULATE phase of the runtime loop.
 
+---
 
 ## 6. Status
 
