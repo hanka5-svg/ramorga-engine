@@ -104,12 +104,19 @@ class RamorgaRuntime:
     """
 
     def __init__(self, config=None):
-        self.core = StableCore()
-        self.adaptive = AdaptiveLayer()
-        self.checkpoint = DriftCheckpoint()
-        self.memory = LongTermMemory()
+    """
+    Runtime RAMORGI może przyjąć opcjonalną konfigurację.
+    Minimalny przykład przekazuje 'config', więc akceptujemy go tutaj.
+    """
+    self.config = config
 
-        print("RAMORGA runtime initialized (PipelineV12)")
+    self.core = StableCore()
+    self.adaptive = AdaptiveLayer()
+    self.checkpoint = DriftCheckpoint()
+    self.memory = LongTermMemory()
+
+    print("RAMORGA runtime initialized (PipelineV12)")
+
 
     # --------------------------------------------------------
 
