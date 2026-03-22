@@ -320,8 +320,8 @@ The RAMORGA Engine executes the following architecture-defined regulation loop:
                  │   updated constraints             │
                  └──────────────────────────────────┘
 
-                 
-
+ ---
+ 
 ## Homeostatic Loop — RAMORGA Engine
 
 ┌──────────────────────────┐
@@ -376,7 +376,7 @@ The RAMORGA Engine executes the following architecture-defined regulation loop:
 Homeostatic Loop to podstawowy cykl regulacyjny RAMORGI.
 Nie optymalizuje, nie przewiduje, nie kompresuje — utrzymuje homeostazę pola.
 
-Etapy:
+### Etapy:
 Input  
 Sygnał wejściowy: tekst, impuls, stan relacyjny.
 
@@ -407,6 +407,21 @@ Echo, adaptive_state, rezonans relacyjny.
 
 Next Input  
 Pole i użytkownik tworzą kolejny impuls.
+
+---
+
+## Core Specifications
+
+RAMORGA Engine uses stabilized, deterministic interfaces for both input and output.
+Pełne specyfikacje dostępne są w dokumentacji:
+
+- [Stabilized Prompt](docs/stabilized_prompt.md)
+- [Stabilized Output](docs/stabilized_output.md)
+- [Case Studies](docs/case_studies/)
+- [Pipeline V13 — Pseudocode](pipeline_v13/pseudocode.md)
+- [Homeostatic Loop](docs/homeostatic_loop.md)
+
+Każdy moduł jest zgodny z meta‑inwariantami pola (FIELD.*) i testowany w CI.
 
 ---
 
