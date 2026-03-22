@@ -41,3 +41,20 @@ class RamorgaAPI:
             "adaptive": self.runtime.adaptive.state,
             "memory_entries": len(self.runtime.memory.entries),
         }
+
+    def process(self, payload: dict):
+        """
+        Minimalny procesor zgodny z minimal_runtime.py.
+        Przyjmuje słownik {"input": "..."} i wykonuje krok runtime.
+        """
+        user_input = payload.get("input")
+
+        # Aktualizacja runtime
+        self.runtime.update("last_input", user_input)
+
+        # Zwracamy prostą odpowiedź
+        return {
+            "echo": user_input,
+            "adaptive_state": self.runtime.adaptive.state,
+            "memory_entries": len(self.runtime.memory.entries)
+        }
