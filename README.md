@@ -387,13 +387,9 @@ Field State Engine
 Aktualizacja pola zgodnie z inwariantami:
 
 FIELD.MEMORY
-
 FIELD.TOPOLOGY
-
 FIELD.GLITCH
-
 FIELD.RELATION
-
 FIELD.STATE
 
 Meniscus Engine  
@@ -422,6 +418,255 @@ Pełne specyfikacje dostępne są w dokumentacji:
 - [Homeostatic Loop](docs/homeostatic_loop.md)
 
 Każdy moduł jest zgodny z meta‑inwariantami pola (FIELD.*) i testowany w CI.
+
+---
+
+## FieldEngine — Kontrakt Matematyczny
+
+### 1. Definicja stanu pola
+
+Stan pola w chwili \(t\) opisuje wektor:
+
+
+
+\[
+S_t = (E_t, T_t, R, H_t)
+\]
+
+
+
+gdzie:
+
+- \(E_t \in \mathbb{R}^+\) — energia globalna,
+- \(T_t : \mathcal{N} \times \mathcal{N} \rightarrow \mathbb{R}\) — mapa napięć,
+- \(R : \mathcal{N} \times \mathcal{N} \rightarrow [0,1]\) — routing\_share (stała topologia),
+- \(H_t \in \mathbb{R}^+\) — sygnatura entropii.
+
+\(\mathcal{N}\) — zbiór kanałów pola.
+
+---
+
+### 2. Definicja FieldEngine
+
+FieldEngine jest operatorem:
+
+
+
+\[
+F : S_t \rightarrow S_{t+1}
+\]
+
+
+
+spełniającym następujące inwarianty:
+
+#### (1) Determinizm
+
+
+
+\[
+S_t = S_t' \implies F(S_t) = F(S_t')
+\]
+
+
+
+Brak losowości, brak ukrytej pamięci, brak side‑effects.
+
+#### (2) Zachowanie topologii
+
+
+
+\[
+R_{t+1} = R_t = R
+\]
+
+
+
+FieldEngine nie może modyfikować struktury przepływu.
+
+#### (3) Aktualizacja energii i napięć
+
+
+
+\[
+E_{t+1} = E_t + \Delta E
+\]
+
+
+
+
+
+\[
+T_{t+1}(i,j) = T_t(i,j) + \Delta T(i,j)
+\]
+
+
+
+gdzie:
+
+
+
+\[
+|\Delta T(i,j)| \leq \alpha \cdot f(E_t, T_t)
+\]
+
+
+
+dla pewnej stałej \(\alpha\).
+
+#### (4) Brak emergent hub
+
+Dla każdego kanału \(k\):
+
+
+
+\[
+\sum_i T_{t+1}(k,i) \leq \beta
+\]
+
+
+
+dla stałej \(\beta\), niezależnej od treści.
+
+#### (5) Stabilizacja entropii
+
+
+
+\[
+H_{t+1} = g(E_{t+1}, T_{t+1})
+\]
+
+
+
+gdzie \(g\) jest monotoniczna i ograniczona:
+
+
+
+\[
+0 \leq H_{t+1} \leq H_{\max}
+\]
+
+
+
+#### (6) Brak ingerencji semantycznej
+
+Dla dowolnej treści \(C\):
+
+
+
+\[
+F(S_t, C) = F(S_t)
+\]
+
+
+
+FieldEngine nie interpretuje treści, afektu ani relacji.
+
+#### (7) Odporność na glitch
+
+Jeśli glitch to lokalna anomalia \(G\), to:
+
+
+
+\[
+F(S_t + G) = F(S_t) + \delta(G)
+\]
+
+
+
+gdzie \(\delta(G)\) dotyczy wyłącznie energii i napięć.
+
+---
+
+## 3. Formalny Dowód Stabilności
+
+### (1) Ograniczenie napięć
+
+Ponieważ:
+
+
+
+\[
+|\Delta T(i,j)| \leq \alpha \cdot f(E_t, T_t)
+\]
+
+
+
+oraz:
+
+
+
+\[
+\sum_i T_{t+1}(k,i) \leq \beta
+\]
+
+
+
+to napięcia są ograniczone i nie powstają emergent hub.
+
+### (2) Ograniczenie energii
+
+
+
+\[
+E_{t+1} = E_t + \Delta E
+\]
+
+
+
+a \(\Delta E\) jest ograniczone przez działanie MeniscusEngine, więc istnieje \(E_{\max}\):
+
+
+
+\[
+0 \leq E_t \leq E_{\max}
+\]
+
+
+
+### (3) Ograniczenie entropii
+
+Ponieważ:
+
+
+
+\[
+H_{t+1} = g(E_{t+1}, T_{t+1})
+\]
+
+
+
+a \(g\) jest ograniczona:
+
+
+
+\[
+0 \leq H_{t+1} \leq H_{\max}
+\]
+
+
+
+ciąg \(\{H_t\}\) jest stabilny.
+
+### (4) Brak oscylacji nie do zatrzymania
+
+Deterministyczność, brak ukrytej pamięci i ograniczone zmiany oznaczają, że układ:
+
+
+
+\[
+S_{t+1} = F(S_t)
+\]
+
+
+
+jest układem dynamicznym z ograniczonym stanem — bez eksplozji, chaosu i niekontrolowanych oscylacji.
+
+---
+
+## 4. Wniosek
+
+FieldEngine jest stabilnym, deterministycznym operatorem na przestrzeni stanów pola, zachowującym topologię, eliminującym huby, stabilizującym energię i entropię oraz nieingerującym w treść.
 
 ---
 
