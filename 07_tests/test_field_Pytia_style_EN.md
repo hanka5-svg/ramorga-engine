@@ -4,6 +4,15 @@ Truth‑Weights Model vs Field‑Continuity Organism
 
 ---
 
+### Powiązane testy PYTIA
+
+- **PYTIA Truth‑Weights Test Suite (EN)**  
+  [`pytia_truth_tests_EN.md`](./pytia_truth_tests_EN.md)
+
+(Poniższe linki prowadzą do testów modelu PYTIA, który ujawnia fakty, relacje i konsekwencje bez ocen i bez rekomendacji.)
+
+---
+
 Input Scenarios (Test Questions)
 Which bank should I choose for a 20 000 PLN one‑year loan if I already hold deposits worth several times that amount in Bank X?
 
