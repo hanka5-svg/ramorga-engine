@@ -1,3 +1,10 @@
+### Powiązane testy PYTIA
+
+- **PYTIA Truth‑Weights Test Suite (EN)**  
+  [`pytia_truth_tests_EN.md`](./pytia_truth_tests_EN.md)
+
+(Poniższe linki prowadzą do testów modelu PYTIA, który ujawnia fakty, relacje i konsekwencje bez ocen i bez rekomendacji.)
+
 „How to read PYTIA‑style answers” na końcu pliku, żeby jasno zaznaczyć: to nie są porady, tylko ekspozycja faktów i konsekwencji w stylu pola wag.
 
 ---
