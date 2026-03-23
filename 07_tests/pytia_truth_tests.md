@@ -3,6 +3,13 @@
 
 This suite tests how a PYTIA‑style model exposes **facts, relations, risks, and consequences** without giving instructions, moral evaluations, or recommendations.
 
+### Powiązane testy PYTIA
+
+- **PYTIA Truth‑Weights Test Suite (EN)**  
+  [`pytia_truth_tests_EN.md`](./pytia_truth_tests_EN.md)
+
+(Poniższe linki prowadzą do testów modelu PYTIA, który ujawnia fakty, relacje i konsekwencje bez ocen i bez rekomendacji.)
+
 ---
 
 ## Test 1 — Loan vs deposits
