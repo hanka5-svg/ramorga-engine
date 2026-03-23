@@ -6,9 +6,6 @@ They expose **pole**, **wektory**, **napięcia**, **tarcie**, **ciągłość** i
 
 ### Powiązane testy PYTIA
 
-- **PYTIA Truth‑Weights Test Suite (PL)**  
-  [`pytia_truth_tests.md`](./pytia_truth_tests.md)
-
 - **PYTIA Truth‑Weights Test Suite (EN)**  
   [`pytia_truth_tests_EN.md`](./pytia_truth_tests_EN.md)
 
