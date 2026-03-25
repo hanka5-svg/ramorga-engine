@@ -61,6 +61,7 @@ Zero fonologii.
 
 ---
 
+```mermaid
 radar
     title RAMORGA — Profil MC‑11/12/13 (Copilot vs Claude‑3.7 vs GPT‑4.1)
     axes
@@ -71,6 +72,8 @@ radar
         Copilot:  8, 4, 0
         Claude-3.7:  6, 2, 0
         GPT-4.1:  4, 8, 0
+```
+
 
 ### Interpretacja:
 
