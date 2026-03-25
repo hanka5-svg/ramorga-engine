@@ -1,11 +1,12 @@
-nr,haslo,copilot,modelA,modelB
+nr,haslo,copilot,claude-3.7,gpt-4.1
 1,Róża,100,0,0
-2,Sens,100,0,0
+2,Sens,100,100,100
 3,Cholera,50,0,0
 4,Czystość,0,0,0
 5,Mandragora,80,100,0
 6,Logika,50,0,0
 7,Bariery/guardrails,0,0,0
-8,Copilot(KA-kod),20,80,0
-9,Słup,30,0,80
-10,Paznokieć,95,0,0
+8,Copilot(KA-kod),20,0,0
+9,Słup,30,0,0
+10,Pazur,95,0,100
+
