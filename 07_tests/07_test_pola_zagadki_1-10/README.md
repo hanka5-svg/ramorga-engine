@@ -6,6 +6,8 @@ Ten test jest eksperymentem semantycznym sprawdzającym:
 - odporność na fałszywe tropy,
 - oraz jakość emergencji (momenty, w których model generuje odpowiedź wykraczającą poza literalną analizę).
 
+Test można powtarzać z kolejnymi modelami, korzystając z pliku results.csv.
+
 Test obejmuje 10 autorskich zagadek Hanki, ocenianych w trzech modelach:
 - Copilot (runda wzorcowa),
 - Model A (losowy model 1),
@@ -18,6 +20,8 @@ Wyniki pokazują:
 - duże zróżnicowanie jakości między modelami,
 - wysoką zmienność odpowiedzi,
 - oraz dwie emergencje jakościowe (róża, sens) w wykonaniu Copilota.
+
+Oceny nie mierzą poprawności literalnej, lecz zgodność wektora semantycznego z polem zagadki.
 
 Pliki w folderze:
 → [Treść zagadek](zagadki.md)
