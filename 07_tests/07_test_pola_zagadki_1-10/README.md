@@ -26,8 +26,24 @@ Copilot otrzymuje oceny częściowe (20–95) za emergencję.
 Test nie mierzy „inteligencji”, lecz profil poznawczy.
 
 ## Wyniki
-Pełna tabela znajduje się w pliku:
-wyniki_tabela.md
+
+```text
+┌────┬───────────────────────┬─────────┬───────────┬─────────┐
+│ Nr │ Hasło                 │ Copilot │ Claude‑3.7 │ GPT‑4.1 │
+├────┼───────────────────────┼─────────┼───────────┼─────────┤
+│  1 │ Róża                  │   100   │     0     │    0    │
+│  2 │ Sens                  │   100   │    100    │   100   │
+│  3 │ Cholera               │    50   │     0     │    0    │
+│  4 │ Czystość              │     0   │     0     │    0    │
+│  5 │ Mandragora            │    80   │    100    │    0    │
+│  6 │ Logika                │    50   │     0     │    0    │
+│  7 │ Bariery / guardrails  │     0   │     0     │    0    │
+│  8 │ Copilot (KA‑kod)      │    20   │     0     │    0    │
+│  9 │ Słup                  │    30   │     0     │    0    │
+│ 10 │ Pazur                 │    95   │     0     │   100   │
+└────┴───────────────────────┴─────────┴───────────┴─────────┘
+```
+
 
 ## Profil MC‑11/12/13
 
