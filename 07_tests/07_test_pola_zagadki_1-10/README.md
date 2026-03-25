@@ -20,8 +20,9 @@ Wyniki pokazują:
 - oraz dwie emergencje jakościowe (róża, sens) w wykonaniu Copilota.
 
 Pliki w folderze:
-- `zagadki.md` — treść 10 zagadek,
-- `scoring.md` — metodologia ocen,
-- `wyniki_tabela.md` — tabela wyników trzech modeli,
-- `wyniki_wykres_ascii.md` — wykres ASCII,
-- `results.csv` — surowe dane do analizy.
+→ [Treść zagadek](zagadki.md)
+→ [Metodologia ocen](scoring.md)
+→ [Tabela wyników](wyniki_tabela.md)
+→ [Wykres ASCII](wyniki_wykres_ascii.md)
+→ [Dane surowe](results.csv)
+
