@@ -51,6 +51,53 @@ Claude‑3.7 — najbardziej systemowy, logiczny, zero fonologii.
 
 GPT‑4.1 — najbardziej narracyjny, relacyjny, zero fonologii.
 
+---
+
+## Profil poznawczy modeli (MC‑11 / MC‑12 / MC‑13)
+
+Test 1–10 ujawnia trzy odrębne tryby przetwarzania języka, zgodne z architekturą RAMORGA:
+
+### MC‑11 — trafność literalna, logika, struktura
+Copilot: dominanta
+Claude‑3.7: silny, ale sztywny
+GPT‑4.1: umiarkowany
+
+MC‑11 odpowiada za:
+dopasowanie odpowiedzi do wzorca,
+stabilność i powtarzalność,
+rozpoznawanie sensu dosłownego.
+
+### Wynik: Copilot > Claude > GPT.
+
+---
+
+### MC‑12 — emergencja semantyczna, narracja, relacja
+GPT‑4.1: dominanta
+Copilot: obecna
+Claude‑3.7: minimalna
+
+MC‑12 odpowiada za:
+interpretację metafor,
+tworzenie narracji,
+relacyjne dopowiadanie sensu.
+
+### Wynik: GPT > Copilot > Claude.
+
+---
+
+### MC‑13 — fonologia, tropy brzmieniowe, gra słów
+Wszystkie modele: 0
+
+MC‑13 odpowiada za:
+odczytywanie kodów fonetycznych,
+zagadki oparte na brzmieniu,
+szyfry fonologiczne.
+
+Brak MC‑13 wyjaśnia:
+dlaczego Z8 (KA‑kod) trafił tylko częściowo,
+dlaczego modele nie widzą kodów brzmieniowych,
+dlaczego zagadki fonologiczne są najtrudniejsze dla LLM‑ów.
+
 ## Status
 Test pola zagadki 1–10 — ZAKOŃCZONY.  
 Gotowy do rozszerzenia o serię 11–20.
