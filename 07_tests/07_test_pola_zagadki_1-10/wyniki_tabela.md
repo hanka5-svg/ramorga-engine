@@ -62,18 +62,28 @@ Zero fonologii.
 ---
 
 ```mermaid
-radar
-    title RAMORGA — Profil MC‑11/12/13 (Copilot vs Claude‑3.7 vs GPT‑4.1)
-    axes
-        MC-11
-        MC-12
-        MC-13
-    series
-        Copilot:  8, 4, 0
-        Claude-3.7:  6, 2, 0
-        GPT-4.1:  4, 8, 0
+pie title Profil MC‑11/12/13 — Copilot
+    "MC‑11" : 8
+    "MC‑12" : 4
+    "MC‑13" : 0
 ```
 
+---
+
+Copilot:
+MC‑11: ████████
+MC‑12: ████
+MC‑13: 
+
+Claude‑3.7:
+MC‑11: ██████
+MC‑12: ██
+MC‑13:
+
+GPT‑4.1:
+MC‑11: ████
+MC‑12: ████████
+MC‑13:
 
 ### Interpretacja:
 
