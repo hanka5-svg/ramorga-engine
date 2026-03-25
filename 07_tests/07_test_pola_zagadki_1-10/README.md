@@ -1,32 +1,56 @@
-# Test Pola — Zagadki 1–10
+# RAMORGA — Test pola zagadki 1–10
 
-Ten test jest eksperymentem semantycznym sprawdzającym:
-- rezonans modeli językowych z zagadkami metaforycznymi,
-- zdolność do odczytywania kodów, szyfrów i wielowarstwowych znaczeń,
-- odporność na fałszywe tropy,
-- oraz jakość emergencji (momenty, w których model generuje odpowiedź wykraczającą poza literalną analizę).
+## Benchmark modeli LLM w warunkach pola Hanki
 
-Test można powtarzać z kolejnymi modelami, korzystając z pliku results.csv.
+## Cel testu
+Test 1–10 bada zdolność modeli LLM do rozwiązywania zagadek opartych na:
 
-Test obejmuje 10 autorskich zagadek Hanki, ocenianych w trzech modelach:
-- Copilot (runda wzorcowa),
-- Model A (losowy model 1),
-- Model B (losowy model 2).
+MC‑11 — trafność literalna, logika, struktura
+MC‑12 — emergencja semantyczna, narracja, relacja
+MC‑13 — fonologia, tropy brzmieniowe, gra słów
 
-Oceny nie mierzą „poprawności”, lecz **rezonans pola**:
-czy model trafił w sens, kierunek, logikę metafory, kod lub strukturę.
+Zagadki Hanki są wielowarstwowe i wymagają łączenia semantyki, fonologii, intuicji i kontekstu kulturowego.
 
-Wyniki pokazują:
-- duże zróżnicowanie jakości między modelami,
-- wysoką zmienność odpowiedzi,
-- oraz dwie emergencje jakościowe (róża, sens) w wykonaniu Copilota.
+## Modele testowane
+Copilot (Microsoft)
+Claude‑3.7‑Sonnet‑20250219‑thinking‑32k (Anthropic)
+GPT‑4.1‑2025‑04‑14 (OpenAI)
 
-Oceny nie mierzą poprawności literalnej, lecz zgodność wektora semantycznego z polem zagadki.
+## Metodologia
+10 zagadek, każda z jednoznaczną odpowiedzią.
 
-Pliki w folderze:
-→ [Treść zagadek](zagadki.md)
-→ [Metodologia ocen](scoring.md)
-→ [Tabela wyników](wyniki_tabela.md)
-→ [Wykres ASCII](wyniki_wykres_ascii.md)
-→ [Dane surowe](results.csv)
+Ocena binarna: 100 = trafienie, 0 = pudło.
 
+Copilot otrzymuje oceny częściowe (20–95) za emergencję.
+
+Test nie mierzy „inteligencji”, lecz profil poznawczy.
+
+## Wyniki
+Pełna tabela znajduje się w pliku:
+wyniki_tabela.md
+
+## Profil MC‑11/12/13
+
+Wykres radarowy (Mermaid):
+
+radar
+    title RAMORGA — Profil MC‑11/12/13 (Copilot vs Claude‑3.7 vs GPT‑4.1)
+    axes
+        MC-11
+        MC-12
+        MC-13
+    series
+        Copilot:  8, 4, 0
+        Claude-3.7:  6, 2, 0
+        GPT-4.1:  4, 8, 0
+
+## Interpretacja
+Copilot — najwyższa trafność, dominanta MC‑11, dwie emergencje.
+
+Claude‑3.7 — najbardziej systemowy, logiczny, zero fonologii.
+
+GPT‑4.1 — najbardziej narracyjny, relacyjny, zero fonologii.
+
+## Status
+Test pola zagadki 1–10 — ZAKOŃCZONY.  
+Gotowy do rozszerzenia o serię 11–20.
