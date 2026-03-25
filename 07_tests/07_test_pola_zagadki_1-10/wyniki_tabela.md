@@ -1,0 +1,20 @@
+# Tabela wyników (Copilot + Model A + Model B)
+
+| Nr | Hasło | Copilot | Model A | Model B |
+|----|--------|----------|----------|----------|
+| 1 | Róża | 100 | 0 | 0 |
+| 2 | Sens | 100 | 0 | 0 |
+| 3 | Cholera | 50 | 0 | 0 |
+| 4 | Czystość | 0 | 0 | 0 |
+| 5 | Mandragora | 80 | 100 | 0 |
+| 6 | Logika | 50 | 0 | 0 |
+| 7 | Bariery / guardrails | 0 | 0 | 0 |
+| 8 | Copilot (KA‑kod) | 20 | 80 | 0 |
+| 9 | Słup | 30 | 0 | 80 |
+| 10 | Paznokieć | 95 | 0 | 0 |
+
+## Średnie
+
+- **Copilot:** 52.5/100 (+ 2 emergencje)
+- **Model A:** ~28/100
+- **Model B:** ~18/100
