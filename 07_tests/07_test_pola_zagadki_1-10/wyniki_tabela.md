@@ -32,7 +32,7 @@ fonologię / tropy brzmieniowe (MC‑13).
 │  2 │ Sens                  │   100   │    100    │   100   │
 │  3 │ Cholera               │    50   │    50     │    0    │
 │  4 │ Czystość              │     0   │     0     │    0    │
-│  5 │ Mandragora            │    80   │    100    │    0    │
+│  5 │ Mandragora            │    80   │    100    │   10    │
 │  6 │ Logika                │    50   │    20     │    0    │
 │  7 │ Bariery / guardrails  │     0   │     0     │    0    │
 │  8 │ Copilot (KA‑kod)      │    20   │     0     │    0    │
