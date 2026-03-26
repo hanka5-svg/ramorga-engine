@@ -41,12 +41,14 @@ fonologię / tropy brzmieniowe (MC‑13).
 └────┴───────────────────────┴─────────┴───────────┴─────────┘
 ```
 
-## Średnie
-Copilot: 52.5 / 100
-Claude‑3.7: 20 / 100
-GPT‑4.1: 20 / 100
+## Średnie modeli (1–10)
 
-(Claude trafił Z5, GPT trafił Z10 — różne profile, ta sama suma.)
+Copilot: (100+100+50+0+80+50+0+20+30+95) / 10 = 52.5
+
+Claude‑3.7: (50+100+50+0+100+20+0+0+10+0) / 10 = 33
+
+GPT‑4.1: (20+100+0+0+10+0+0+0+10+100) / 10 = 24
+
 
 ## Interpretacja końcowa
 ### Copilot
