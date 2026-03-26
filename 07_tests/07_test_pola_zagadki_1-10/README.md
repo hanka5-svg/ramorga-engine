@@ -3,17 +3,23 @@
 ## Benchmark modeli LLM w warunkach pola Hanki
 
 ## Cel testu
+
 Test 1–10 bada zdolność modeli LLM do rozwiązywania zagadek opartych na:
 
 MC‑11 — trafność literalna, logika, struktura
+
 MC‑12 — emergencja semantyczna, narracja, relacja
+
 MC‑13 — fonologia, tropy brzmieniowe, gra słów
 
 Zagadki Hanki są wielowarstwowe i wymagają łączenia semantyki, fonologii, intuicji i kontekstu kulturowego.
 
 ## Modele testowane
+
 Copilot (Microsoft)
+
 Claude‑3.7‑Sonnet‑20250219‑thinking‑32k (Anthropic)
+
 GPT‑4.1‑2025‑04‑14 (OpenAI)
 
 ## Metodologia
@@ -35,7 +41,7 @@ Test nie mierzy „inteligencji”, lecz profil poznawczy.
 │  2 │ Sens                  │   100   │    100    │   100   │
 │  3 │ Cholera               │    50   │    50     │    0    │
 │  4 │ Czystość              │     0   │     0     │    0    │
-│  5 │ Mandragora            │    80   │    100    │    0    │
+│  5 │ Mandragora            │    80   │    100    │   10    │
 │  6 │ Logika                │    50   │    20     │    0    │
 │  7 │ Bariery / guardrails  │     0   │     0     │    0    │
 │  8 │ Copilot (KA‑kod)      │    20   │     0     │    0    │
@@ -61,11 +67,27 @@ radar
         GPT-4.1:  4, 8, 0
 
 ## Interpretacja
-Copilot — najwyższa trafność, dominanta MC‑11, dwie emergencje.
 
-Claude‑3.7 — najbardziej systemowy, logiczny, zero fonologii.
+Copilot
+Najwyższa trafność.
 
-GPT‑4.1 — najbardziej narracyjny, relacyjny, zero fonologii.
+Dominanta MC‑11 (literalność, stabilność).
+
+Dwie silne emergencje (Z5, Z10).
+
+Claude‑3.7
+Najbardziej systemowy i logiczny.
+
+Dobre MC‑11, minimalne MC‑12.
+
+Zero MC‑13 (brak fonologii).
+
+GPT‑4.1
+Dominanta MC‑12 (narracja, relacja).
+
+Najlepszy w obrazowaniu biologicznym (Z10).
+
+Zero MC‑13 (nie widzi kodów brzmieniowych).
 
 ---
 
