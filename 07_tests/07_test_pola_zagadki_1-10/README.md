@@ -54,6 +54,7 @@ Test nie mierzy „inteligencji”, lecz profil poznawczy.
 ## Profil MC‑11/12/13
 
 Wykres radarowy (Mermaid):
+Uwaga: Mermaid wymaga wcięć spacjami, nie tabulatorami.
 
 radar
     title RAMORGA — Profil MC‑11/12/13 (Copilot vs Claude‑3.7 vs GPT‑4.1)
