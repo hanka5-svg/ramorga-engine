@@ -58,10 +58,13 @@ Uwaga: Mermaid wymaga wcięć spacjami, nie tabulatorami.
 
 radar
     title RAMORGA — Profil MC‑11/12/13 (Copilot vs Claude‑3.7 vs GPT‑4.1)
+    
     axes
+    
         MC-11
         MC-12
         MC-13
+        
     series
         Copilot:  8, 4, 0
         Claude-3.7:  6, 2, 0
