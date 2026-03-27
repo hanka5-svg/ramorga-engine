@@ -39,7 +39,8 @@
 | 29 | zazdrość    |  C:100  | zazdrość – **100/100** | **100/100 + emergencja**  
 | Obie orkiestracje „szły jak po sznurku”, pełne trafienie w wektor afektu i kontekst Othella/Lukrecji. |
 
-| 30 | zapadka | C:60 | 0/100 | 0/100 |
+| 30 | zapadka | C:60 | 40/100 | 40/100 |
+
 
 ---
 
