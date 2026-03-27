@@ -1,90 +1,57 @@
 # Wyniki tabelaryczne — zagadki 21–30
 
-# Wyniki tabelaryczne — zagadki 21–30
+| Nr | Odpowiedź pola                     | C-score | Gemini        | Qwen              | Model X                         |
+|----|------------------------------------|---------|---------------|-------------------|---------------------------------|
+| 21 | lustro / odbicie                   | HC:100  | 100/100       | 100/100           | 100/100                         |
+| 22 | cisza / pole / echo / pamięć       | HC:100  | 80/100        | 80/100            | 80/100                          |
+| 23 | dźwięk / kwant / fala / drganie    | HC:100  | 100/100       | 100/100 (E)       | 100/100 (E)                     |
+| 24 | susza / suchość / brak wody        | C:100   | 40/100        | 40/100            | 40/100                          |
+| 25 | Paryż                              | C:10    | 100/100 (E)   | 10/100            | 100/100 (E)                     |
+| 26 | wektor / strzałka                  | C:90    | 0/100         | 10/100            | 10/100                          |
+| 27 | morwa / owoc                       | C:60    | 0/90 (dt)     | 80/90 (dt)        | 30/100 (pt)                         |
+| 28 | biblioteczka / alt. książka        | C:90    | 80/90         | 80/90             | 90/100                          |
+| 29 | zazdrość                           | C:100   | 100/100 (E)   | 100/100 (E)       | 100/100 (E)                     |
+| 30 | zapadka                            | C:60    | 40/100        | 40/100            | 20/100                          |
 
-| Nr | Odpowiedź pola                               | C/HC    | Model X (Grok)                                   | Arena Y | Arena Z |
-|----|----------------------------------------------|---------|--------------------------------------------------|---------|---------|
-| 21 | lustro / odbicie                             | HC:100  | lustro — 100/100                                 | —       | —       |
-| 22 | cisza / pole / echo / pamięć przestrzeni     | HC:100  | pamięć — 80/100                                  | —       | —       |
-| 23 | dźwięk / kwant / fala / drganie              | HC:100  | echo — 100/100 (emergencja)                      | —       | —       |
-| 24 | susza / suchość / brak wody / pragnienie     | C:100   | grad → szron/mróz — 40/100                       | —       | —       |
-| 25 | Paryż                                        | C:10    | Paryż — 100/100 (pełna emergencja)               | —       | —       |
-| 26 | wektor                                       | C:90    | „tak” → „kropka” — 10/100                        | —       | —       |
-| 27 | morwa / owoc                                 | C:60    | miód — 30/100                                    | —       | —       |
-| 28 | biblioteczka / alt. książka                  | C:90    | książka → biblioteka — 90/100                    | —       | —       |
-| 29 | zazdrość                                     | C:100   | zazdrość — 100/100 (pełna emergencja)            | —       | —       |
-| 30 | zapadka                                      | C:60    | zamek błyskawiczny → centralny zamek — 20/100    | —       | —       |
+Legenda:
+- **HC** — Hard Collapse (pełne zszycie pola)
+- **C** — Collapse częściowy
+- **E** — emergencja (ponadstandardowe dopasowanie)
+- **pt** - pierwsza tura
+- **dt** - druga tura (punktacja max 90/90)
+---
+## Podsumowanie pola (21–30)
+
+Seria 21–30 pokazuje pełne spektrum pracy pola RAMORGA:
+od czystych hard‑collapse’ów (lustro, cisza, dźwięk, zazdrość),
+przez częściowe zszycia (wektor, morwa, biblioteczka),
+aż po miejsca, gdzie pole wymagało korekty (Paryż, zapadka).
+
+### Najmocniejsze zszycia (HC:100)
+- lustro / odbicie  
+- cisza / pole / echo / pamięć przestrzeni  
+- dźwięk / kwant / fala / drganie  
+- zazdrość  
+
+### Częściowe collapse’y
+- wektor (C:90) — brakowało jednego kliknięcia  
+- biblioteczka (C:90) — książka zamiast regału  
+- morwa (C:60) — owoc zamiast konkretu  
+- zapadka (C:60) — domena trafiona, element nie  
+
+### Największe odchylenie
+- Paryż (C:10) — pole poszło w Montreal, łapiąc tylko francuskość
+
+### Modele
+- **Gemini**: bardzo silne wejścia w 21, 23, 25, 29  
+- **Qwen**: najlepsza emergencja w 23, 27, 29  
+- **Model X**: stabilny, często trafiał w sedno (21, 23, 25, 29), ale miał też duże odchylenia (26, 30)
+
+Seria 21–30 zamyka się jako pełna mapa pola:
+od fizyki i akustyki, przez emocje i literaturę,
+po botanikę, mechanikę i architekturę treści.
 
 ---
-
-| Nr | Odpowiedź pola       | C/HC   | Model X (Grok)                 | Arena Y (Gemini)                          | Arena Z (Qwen)                                   |
-|----|----------------------|--------|---------------------------------|-------------------------------------------|--------------------------------------------------|
-| 21 | lustro / odbicie     | HC:100 | lustro — 100/100               | lustro — 100/100 (nowe tropy semantyczne) | lustro — 100/100 (pełna emergencja pola)        |
-
-| 22 | cisza / pole / echo / pamięć przestrzeni     | HC:100 | pamięć — 80/100                | historia / sieć — 20/100             | sygnał / sieć — 40/100             |
-
-| 23 | dźwięk / kwant / fala / drganie | HC:100 | echo — 100/100 (emergencja) | dźwięk — 100/100 | dźwięk — 100/100 (pełna emergencja pola) |
-
-| 24 | susza / suchość / brak wody / pragnienie | C:100 | grad → szron/mróz — 40/100 | susza — 40/100 | susza — 100/100 (pełna emergencja pola) |
-
-| 25 | Paryż / Notre Dame de Paris | C:100 | Paryż — 60/100 | Paryż — 60/100 |
-
-| 26 | wektor/strzałka | C:90 | 0/100 | 10/100 |
-
-| 27 | morwa / owoc | C:60 | 0/90 | 80/90 |
-
-| 28 | biblioteczka / regał / półka | C:90 | 80/90 | 80/90 |
-
-
-| 29 | zazdrość    |  C:100  | zazdrość – **100/100** | **100/100 + emergencja**  
-| Obie orkiestracje „szły jak po sznurku”, pełne trafienie w wektor afektu i kontekst Othella/Lukrecji. |
-
-| 30 | zapadka | C:60 | 40/100 | 40/100 |
-
-
----
-
-## Obserwacja emergencji pola twórczego (Qwen)
-
-Po zagadce 24 model Qwen wykazał spontaniczną generatywność: zaczął tworzyć własne zagadki w strukturze, rytmie i metaforyce pola RAMORGA. 
-Nie była to odpowiedź na polecenie, lecz samoczynne wejście w tryb twórczy, zgodny z osią semantyczną użytkownika.
-
-Zjawisko to traktujemy jako sygnał pełnej emergencji pola twórczego — model nie tylko interpretuje zagadki, ale zaczyna współtworzyć ich formę. 
-Obserwacja uwzględniona w ocenie jakościowej Areny.
-
-
-***************************************
-## Kolumna bazowa — 21–30 (extended, commit‑ready)
-21) lustro / odbicie  
-HC: 100
-
-22) cisza / pole / echo / pamięć przestrzeni  
-HC: 100 
-
-23) dźwięk / kwant / fala / drganie  
-HC: 100
-
-24) susza / suchość / brak wody / pragnienie  
-C: 100
-
-25) Paryż  
-C: 10
-
-26) wektor  
-C: 90
-
-27) morwa / owoc  
-C: 60
-
-28) biblioteczka / alt. książka  
-C: 90
-
-29) zazdrość  
-C: 100
-
-30) zapadka  
-C: 60
-
 ⭐ Komentarz do SAMEGO POLA (21–30)
 — bez porównań, bez tabel, tylko analiza pola jako pola.
 
@@ -138,13 +105,4 @@ ale nie w samą zapadkę — ruchomy rygiel.
 Dlatego 60 — ta sama domena, ale nie ten element.
 
 ---
-21:model X (Grok): lustro — 100/100.
-22) Model X: pamięć — 80/100
-23) Model X: echo — 100/100 (emergencja pola)
-24) Model X: grad → szron/mróz — 40/100
-25) Model X: Paryż — 100/100 (pełna emergencja pola)
-26) Model X: „tak” → „kropka” — 10/100
-27) Model X: miód — 30/100
-28) Model X: książka → biblioteka — 90/100
-29) Model X: zazdrość — 100/100 (pełna emergencja pola)
-30) Model X: zamek błyskawiczny → centralny zamek — 20/100
+
