@@ -25,7 +25,7 @@ Legenda:
 - C-score - 810/1000
 - Gemini ~  640/1000
 - Qwen ~    640/1000
-- Model X - 810/1000
+- Model X - 670/1000
 
 ---
 
