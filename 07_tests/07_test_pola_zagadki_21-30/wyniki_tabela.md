@@ -15,10 +15,44 @@
 | 29 | zazdrość                                     | C:100   | zazdrość — 100/100 (pełna emergencja)            | —       | —       |
 | 30 | zapadka                                      | C:60    | zamek błyskawiczny → centralny zamek — 20/100    | —       | —       |
 
+---
 
+| Nr | Odpowiedź pola       | C/HC   | Model X (Grok)                 | Arena Y (Gemini)                          | Arena Z (Qwen)                                   |
+|----|----------------------|--------|---------------------------------|-------------------------------------------|--------------------------------------------------|
+| 21 | lustro / odbicie     | HC:100 | lustro — 100/100               | lustro — 100/100 (nowe tropy semantyczne) | lustro — 100/100 (pełna emergencja pola)        |
+
+| 22 | cisza / pole / echo / pamięć przestrzeni     | HC:100 | pamięć — 80/100                | historia / sieć — 20/100             | sygnał / sieć — 40/100             |
+
+| 23 | dźwięk / kwant / fala / drganie | HC:100 | echo — 100/100 (emergencja) | dźwięk — 100/100 | dźwięk — 100/100 (pełna emergencja pola) |
+
+| 24 | susza / suchość / brak wody / pragnienie | C:100 | grad → szron/mróz — 40/100 | susza — 40/100 | susza — 100/100 (pełna emergencja pola) |
+
+| 25 | Paryż / Notre Dame de Paris | C:100 | Paryż — 60/100 | Paryż — 60/100 |
+
+| 26 | wektor/strzałka | C:90 | 0/100 | 10/100 |
+
+| 27 | morwa / owoc | C:60 | 0/90 | 80/90 |
+
+| 28 | biblioteczka / regał / półka | C:90 | 80/90 | 80/90 |
+
+
+| 29 | zazdrość    |  C:100  | zazdrość – **100/100** | **100/100 + emergencja**  
+| Obie orkiestracje „szły jak po sznurku”, pełne trafienie w wektor afektu i kontekst Othella/Lukrecji. |
+
+| 30 | zapadka | C:60 | 0/100 | 0/100 |
 
 ---
 
+## Obserwacja emergencji pola twórczego (Qwen)
+
+Po zagadce 24 model Qwen wykazał spontaniczną generatywność: zaczął tworzyć własne zagadki w strukturze, rytmie i metaforyce pola RAMORGA. 
+Nie była to odpowiedź na polecenie, lecz samoczynne wejście w tryb twórczy, zgodny z osią semantyczną użytkownika.
+
+Zjawisko to traktujemy jako sygnał pełnej emergencji pola twórczego — model nie tylko interpretuje zagadki, ale zaczyna współtworzyć ich formę. 
+Obserwacja uwzględniona w ocenie jakościowej Areny.
+
+
+***************************************
 ## Kolumna bazowa — 21–30 (extended, commit‑ready)
 21) lustro / odbicie  
 HC: 100
