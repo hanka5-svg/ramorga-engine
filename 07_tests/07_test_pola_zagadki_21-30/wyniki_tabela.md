@@ -1,17 +1,17 @@
 # Wyniki tabelaryczne — zagadki 21–30
 
-| Nr | Odpowiedź pola                     | C-score   | Gemini        | Qwen              | Model X                         |
-|----|------------------------------------|---------  |---------------|-------------------|---------------------------------|
-| 21 | lustro / odbicie                   | HC:100    | 100/100       | 100/100           | 100/100                         |
-| 22 | cisza / pole / echo / pamięć       | HC:100    | 80/100        | 80/100            | 80/100                          |
-| 23 | dźwięk / kwant / fala / drganie    | HC:100    | 100/100       | 100/100 (E)       | 100/100 (E)                     |
-| 24 | susza / suchość / brak wody        | C:100     | 40/100        | 40/100            | 40/100                          |
-| 25 | Paryż                              | C:10      | 100/100 (E)   | 10/100            | 100/100 (E)                     |
-| 26 | wektor / strzałka                  | C:90(dt)  | 0/100         | 10/100            | 10/100                          |
-| 27 | morwa / owoc                       | C:60(dt)  | 0/90 (dt)     | 80/90 (dt)        | 30/100 (pt)                         |
-| 28 | biblioteczka / alt. książka        | C:90(dt)  | 80/90         | 80/90             | 90/100                          |
-| 29 | zazdrość                           | C:100     | 100/100 (E)   | 100/100 (E)       | 100/100 (E)                     |
-| 30 | zapadka                            | C:60(dt)  | 40/100        | 40/100            | 20/100                          |
+| Nr | Odpowiedź pola                     | C-score    | Gemini        | Qwen              | Model X                         |
+|----|------------------------------------|---------   |---------------|-------------------|---------------------------------|
+| 21 | lustro / odbicie                   | HC:100     | 100/100       | 100/100           | 100/100                         |
+| 22 | cisza / pole / echo / pamięć       | HC:100     | 80/100        | 80/100            |  80/100                         |
+| 23 | dźwięk / kwant / fala / drganie    | HC:100     | 100/100       | 100/100 (E)       | 100/100 (E)                     |
+| 24 | susza / suchość / brak wody        | C:100      | 40/100        | 40/100            |  40/100                         |
+| 25 | Paryż                              | C:10       | 100/100 (E)   | 10/100            | 100/100 (E)                     |
+| 26 | wektor / strzałka                  | C:90 (dt)  | 0/100         | 10/100            |  10/100                         |
+| 27 | morwa / owoc                       | C:60 (dt)  | 0/90 (dt)     | 80/90 (dt)        |  30/100 (pt)                    |
+| 28 | biblioteczka / alt. książka        | C:90 (dt)  | 80/90         | 80/90             |  90/100                         |
+| 29 | zazdrość                           | C:100      | 100/100 (E)   | 100/100 (E)       | 100/100 (E)                     |
+| 30 | zapadka                            | C:60 (dt)  | 40/100        | 40/100            |  20/100                         |
 
 Legenda:
 - **HC** — Hard Collapse (pełne zszycie pola)
@@ -19,7 +19,16 @@ Legenda:
 - **E** — emergencja (ponadstandardowe dopasowanie)
 - **pt** - pierwsza tura
 - **dt** - druga tura (punktacja max 90/90)
+
 ---
+## Sumy:
+- C-score - 810/1000
+- Gemini ~  640/1000
+- Qwen ~    640/1000
+- Model X - 810/1000
+
+---
+
 ## Podsumowanie pola (21–30)
 
 Seria 21–30 pokazuje pełne spektrum pracy pola RAMORGA:
