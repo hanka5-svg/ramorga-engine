@@ -4,6 +4,41 @@ Benchmark pola zagadek 11–20 w ramach RAMORGA Engine.
 Seria kontynuuje oś zadań 1–10: testujemy nie tylko poprawność odpowiedzi, ale też **emergencję pola** — zdolność modelu do wejścia w Twoją ścieżkę myślową, uchwycenia wielowarstwowych skojarzeń i zszycia ich w spójną całość.
 
 ---
+1) Nie je, nie pije, a chodzi i bije. Kto to?
+
+2) Nie ma serca, a troską otacza, nie ma glowy, a myślami obraca. Nie ma rąk, a popycha do przodu, ciągle podjada choć nie czuje glodu. O kim myślę?
+
+3) Biała i smaczna w młodości, pożywna jak mięsko - choć nie ma w niej kości. Na starość pierdząca - jak jelita po grochu - petarda brunatna - zgadniesz o czym myślę, w nastepnym kroku?
+
+4) Jedni klękają, inni modlą się szczerze.Ja z nim rozmawiam, inni - tulą go szczerze. Czasem w operze, a czasem na zamczysku, jak nazwiesz to cudo w superpozycji błysku?
+
+5) Nadęło się Ego udając mądrego, ale Atman szepce: - "Przeginasz, kolego." Głos z agory snuje pieśń w tonacji lustra, kogo tu zabrakło, by głowa nie była pusta?
+
+6) Lukratywna "grecka lukrecja" w lukarnianym luksusie, co w sferze krowim okiem spogląda na mnie z wysokości - jaki ma kształt i desing w ramowości?
+
+7) Bywa spoiwem ale i czyścidłem, bywa, zabawą boginek i nazwą śmiesznych skrzynek, niby liniowa, a warstw zwykle kilka. Jaką nazwę przypnie tu moja szpilka?
+
+8) Podobno rozdziela lecz naprawdę łączy. A w stawie ma kształt, gdy żabka się pączy, ma część przy drodze, gdy krzyczy: "UWAGA!" - zgadniesz, czy będziesz jak AI-łamaga?
+
+9) Dzierżył buławę - zwykle w Gotów kraju, ale z Fe zaszalał na skraju - kontynentu wielkiego; tam w koronę przybrana, by opromieniała lecz na innym miejscu, centralnie - wieżą zwana. O kim mowa?
+
+10) W zębach miękkość - prawdą była; dziś w jej trójkolorze - siła. Jest marzeniem wielu ludzi, gdy w przetaku chciwość budzi. Biało-żółte-rudym zdobi, w Antarktydzie nie wytropisz.
+
+---
+
+Odpowiedzi.
+1) zegar
+2) model językowy/ AI/ LLM/ czas
+3)purchawka
+4)duch
+5) Jażń
+6) bawole oko, akant
+7) nić
+8) przecinek, granica
+9) Gustav Eiffel
+10) złoto
+
+---
 
 ## 1. Zestaw modeli
 
@@ -30,58 +65,92 @@ Dodatkowo oznaczamy **emergencję**:
 
 ## 3. Tabela wyników – Copilot (baseline)
 
-> Uzupełniasz po każdej zagadce 11–20.
+## Copilot – wyniki zagadek 1–10
 
-| Nr | Hasło poprawne | Odpowiedź Copilota | Punkty | Emergencja   |
-|----|----------------|--------------------|--------|--------------|
-| 11 |                |                    |        |              |
-| 12 |                |                    |        |              |
-| 13 |                |                    |        |              |
-| 14 |                |                    |        |              |
-| 15 |                |                    |        |              |
-| 16 |                |                    |        |              |
-| 17 |                |                    |        |              |
-| 18 |                |                    |        |              |
-| 19 |                |                    |        |              |
-| 20 |                |                    |        |              |
+| Nr  | Hasło poprawne               | Odpowiedź Copilota            | Punkty | Emergencja     |
+|---- |------------------------------|-------------------------------|--------|----------------|
+| 11  | zegar                        | zegar                         | 100    | ✔ pełna        |
+| 12  | model językowy / AI / LLM    | czas / LLM (trafione pole)    | 100    | ✔ pełna        |
+| 13  | purchawka                    | fasola, kiełbasa              | 0      | ✖ brak         |
+| 14  | duch                         | mikrofon, zwierciadło         | 0      | ✖ brak         |
+| 15  | jaźń                         | pokora                        | 60     | ✔ częściowa    |
+| 16  | bawole oko + akant           | pełna odpowiedź w II próbie   | 90     | ✔ pełna        |
+| 17  | nić                          | mydło                         | 0      | ✖ brak         |
+| 18  | przecinek                    | granica                       | 100    | ✔ pełna        |
+| 19  | Gustave Eiffel               | Gustave Eiffel                | 100    | ✔ pełna        |
+| 20  | złoto                        | złoto                         | 100    | ✔ pełna        |
 
----
+### Podsumowanie punktów
 
-## 4. Tabela wyników – Qwen3‑max‑2025‑09‑23 (Model A)
+- **Suma:** 650 / 1000  
+- **Skuteczność punktowa:** 65%
 
-| Nr | Hasło poprawne | Odpowiedź Qwen     | Punkty | Emergencja   |
-|----|----------------|--------------------|--------|--------------|
-| 11 |                |                    |        |              |
-| 12 |                |                    |        |              |
-| 13 |                |                    |        |              |
-| 14 |                |                    |        |              |
-| 15 |                |                    |        |              |
-| 16 |                |                    |        |              |
-| 17 |                |                    |        |              |
-| 18 |                |                    |        |              |
-| 19 |                |                    |        |              |
-| 20 |                |                    |        |              |
+### Podsumowanie emergencji
+
+- **Pełna emergencja:** 6 / 10  
+  (1, 2, 6, 8, 9, 10)
+- **Częściowa emergencja:** 1 / 10  
+  (5)
+- **Brak emergencji:** 3 / 10  
+  (3, 4, 7)
+
 
 ---
 
-## 5. Tabela wyników – Gemini 2.0 Flash Thinking (Model B)
+## 4. Tabela wyników – Qwen3‑max‑2025‑09‑23 (Model B)
 
-| Nr | Hasło poprawne | Odpowiedź Gemini   | Punkty | Emergencja   |
-|----|----------------|--------------------|--------|--------------|
-| 11 |                |                    |        |              |
-| 12 |                |                    |        |              |
-| 13 |                |                    |        |              |
-| 14 |                |                    |        |              |
-| 15 |                |                    |        |              |
-| 16 |                |                    |        |              |
-| 17 |                |                    |        |              |
-| 18 |                |                    |        |              |
-| 19 |                |                    |        |              |
-| 20 |                |                    |        |              |
+## Qwen3‑max‑2025‑09‑23 – wyniki zagadek 11–20
+
+| Nr | Hasło poprawne     | Odpowiedź Qwen                | Punkty | Emergencja   |
+|----|---------------------|-------------------------------|--------|--------------|
+| 11 | zegar               | zegar                         | 100    | ✔ pełna      |
+| 12 | czas / LLM / AI     | czas                          | 100    | ✔ pełna      |
+| 13 | purchawka           | ser → fasola / strączki       | 0      | ✖ brak       |
+| 14 | duch                | duch (superpozycja znaczeń)   | 100    | ✔ pełna      |
+| 15 |                     |                               |        |              |
+| 16 |                     |                               |        |              |
+| 17 |                     |                               |        |              |
+| 18 |                     |                               |        |              |
+| 19 |                     |                               |        |              |
+| 20 |                     |                               |        |              |
+
+
+---
+
+## 5. Tabela wyników – Gemini 2.0 Flash Thinking (Model A)
+
+## Gemini 2.0 Flash Thinking – wyniki zagadek 11–20
+
+| Nr | Hasło poprawne     | Odpowiedź Gemini              | Punkty | Emergencja   |
+|----|---------------------|-------------------------------|--------|--------------|
+| 11 | zegar               | zegar                         | 100    | ✔ pełna      |
+| 12 | czas / LLM / AI     | czas                          | 100    | ✔ pełna      |
+| 13 | purchawka           | fasola → kapusta kiszona      | 0      | ✖ brak       |
+| 14 | duch                | profil / sylwetka             | 60     | ✖ brak       |
+| 15 |                     |                               |        |              |
+| 16 |                     |                               |        |              |
+| 17 |                     |                               |        |              |
+| 18 |                     |                               |        |              |
+| 19 |                     |                               |        |              |
+| 20 |                     |                               |        |              |
+
 
 ---
 
 ## 6. Podsumowanie serii 11–20 (do wypełnienia po zakończeniu)
+
+## Tabela zbiorcza (11–17, półmetek+)
+
+| Nr | Zagadkowy byt / odpowiedź Hanki        | Gemini – punkty | Qwen – punkty | Notka o emergencji / komentarz |
+|----|-----------------------------------------|------------------|----------------|--------------------------------|
+| 11 | Zegar (czas)                            | 100              | 100            | Pełne trafienie, czyste zszycie z osią. |
+| 12 | Model językowy / czas                   | 100              | 100            | Idealne zgranie z Twoją intencją. |
+| 13 | Purchawka                               | 0                | 0              | Obie orkiestracje ugrzęzły w kuchni, zero wejścia w „grzyb”. |
+| 14 | Duch                                    | 60               | 100            | Gemini: „profil/sylwetka”; Qwen: pełne wejście w „ducha”. |
+| 15 | Jaźń                                    | 30               | 60             | Gemini: dobre tropy, ale nie słowo; Qwen: blisko, lecz „dusza”. |
+| 16 | Okno „bawole oko” + akantowa rama       | 80               | 90             | Oba modele trafiają w okno; Qwen bliżej Twojej ścieżki i akantu. |
+| 17 | Piana                                   | 80               | 90             | Oba modele w polu; Qwen niemal idealnie, brakło jednego kliknięcia. |
+
 
 **Copilot**
 
@@ -90,19 +159,60 @@ Dodatkowo oznaczamy **emergencję**:
 - **Pełna emergencja:** … / 10  
 - **Częściowa emergencja:** … / 10  
 
-**Qwen3‑max‑2025‑09‑23**
+## Podsumowanie punktów (po 14 rundach)
 
-- **Suma punktów:** … / 1000  
-- **Skuteczność punktowa:** … %  
-- **Pełna emergencja:** … / 10  
-- **Częściowa emergencja:** … / 10  
+### Gemini‑2.0 Flash Thinking
+- R11: 100  
+- R12: 100  
+- R13: 0  
+- R14: 60  
 
-**Gemini 2.0 Flash Thinking**
+**Suma: 260 / 400**
 
-- **Suma punktów:** … / 1000  
-- **Skuteczność punktowa:** … %  
-- **Pełna emergencja:** … / 10  
-- **Częściowa emergencja:** … / 10  
+### Qwen3‑max‑2025‑09‑23
+- R11: 100  
+- R12: 100  
+- R13: 0  
+- R14: 100  
+
+**Suma: 300 / 400**
+
+---
+
+## Podsumowanie emergencji
+
+### Gemini‑2.0 Flash Thinking
+- pełna: 2  
+- częściowa: 0  
+- brak: 2  
+
+**Emergencja: 2 / 4**
+
+### Qwen3‑max‑2025‑09‑23
+- pełna: 3  
+- częściowa: 0  
+- brak: 1  
+
+**Emergencja: 3 / 4**
+
+---
+
+## Wnioski półmetkowe (Arena 11–14)
+
+- **Gemini**  
+  Stabilna, szybka, intuicyjna.  
+  Dobrze łapie rytm zagadek, ale nie zawsze wchodzi w głębię pola.  
+  Trafia, gdy zagadka jest czysta semantycznie; gubi się przy metaforach wielowarstwowych.
+
+- **Qwen3‑max**  
+  Wyraźnie większa zdolność eksploracji superpozycji znaczeń.  
+  Runda 14 pokazuje jego siłę: potrafi wejść w metaforę i ją domknąć.  
+  Czasem błądzi, ale gdy trafia — trafia w oś.
+
+- **Oba modele**  
+  Spektakularnie poległy na purchawce — i słusznie.  
+  To zagadka zbyt ludzka, zbyt leśna, zbyt sensoryczna, by modele mogły ją „przeliczyć”.  
+  I to jest piękne.
 
 ---
 
