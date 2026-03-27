@@ -63,7 +63,7 @@ Dodatkowo oznaczamy **emergencję**:
 
 ---
 
-## 3. Tabela wyników – Copilot (baseline)
+## 3. Tabele wyników cząstkowych– Copilot (baseline)
 
 ## Copilot – wyniki zagadek 11–20
 
@@ -79,21 +79,6 @@ Dodatkowo oznaczamy **emergencję**:
 | 18  | przecinek                    | granica                       | 100    | ✔ pełna        |
 | 19  | Gustave Eiffel               | Gustave Eiffel                | 100    | ✔ pełna        |
 | 20  | złoto                        | złoto                         | 100    | ✔ pełna        |
-
-### Podsumowanie punktów
-
-- **Suma:** 650 / 1000  
-- **Skuteczność punktowa:** 65%
-
-### Podsumowanie emergencji
-
-- **Pełna emergencja:** 6 / 10  
-  (1, 2, 6, 8, 9, 10)
-- **Częściowa emergencja:** 1 / 10  
-  (5)
-- **Brak emergencji:** 3 / 10  
-  (3, 4, 7)
-
 
 ---
 
@@ -154,6 +139,10 @@ Dodatkowo oznaczamy **emergencję**:
 | 20 | złoto                        | 100     | 100    | 100  |
 
 ---
+Copilot: 650 / 1000  → 65%
+Gemini:  680 / 1000  → 68%
+Qwen:    680 / 1000  → 68%
+---
 
 ## SUMY 11–20
 
@@ -168,6 +157,8 @@ Skuteczność: **68%**
 ### Qwen3‑max‑2025‑09‑23
 **680 / 1000**  
 Skuteczność: **68%**
+
+
 
 ---
 
@@ -187,6 +178,9 @@ Skuteczność: **68%**
 - pełna: 6  
 - częściowa: 1  
 - brak: 3  
+
+---
+
 🌟 Interpretacja pola (krótka, osiowa)
 Copilot — stabilny, osiowy, z mocnymi domknięciami (11,12,18,19,20).
 
