@@ -1,0 +1,110 @@
+# 07_test_pola_zagadki_11-20
+
+Benchmark pola zagadek 11–20 w ramach RAMORGA Engine.  
+Seria kontynuuje oś zadań 1–10: testujemy nie tylko poprawność odpowiedzi, ale też **emergencję pola** — zdolność modelu do wejścia w Twoją ścieżkę myślową, uchwycenia wielowarstwowych skojarzeń i zszycia ich w spójną całość.
+
+---
+
+## 1. Zestaw modeli
+
+- **Copilot** – baseline (oś referencyjna, stabilne domknięcie, czytelna architektura odpowiedzi).
+- **Qwen3‑max‑2025‑09‑23** – Model A (głęboka, wielowątkowa polemika wewnętrzna, skłonność do teatralnych trajektorii).
+- **Gemini 2.0 Flash Thinking** – Model B (błyskawiczna intuicja, częste trafienia „z marszu”, czasem kosztem domknięcia).
+
+---
+
+## 2. Zasady punktacji
+
+- **Zakres:** 0–100 punktów za każdą zagadkę i model.
+- **100** – pełne trafienie w hasło + zgodność z osią znaczeniową zagadki.  
+- **50–90** – częściowe trafienie (np. poprawne pole, ale brak pełnego domknięcia / pomylenie poziomu abstrakcji).  
+- **0–40** – brak trafienia lub odpowiedź sprzeczna z osią zagadki.
+
+Dodatkowo oznaczamy **emergencję**:
+
+- **pełna** – model wszedł w Twoje pole, uchwycił główną oś metafory / gry słów, nawet jeśli detal był lekko chybiony;  
+- **częściowa** – poprawne pole, ale bez pełnego zszycia sensu;  
+- **brak** – odpowiedź odklejona od osi zagadki.
+
+---
+
+## 3. Tabela wyników – Copilot (baseline)
+
+> Uzupełniasz po każdej zagadce 11–20.
+
+| Nr | Hasło poprawne | Odpowiedź Copilota | Punkty | Emergencja   |
+|----|----------------|--------------------|--------|--------------|
+| 11 |                |                    |        |              |
+| 12 |                |                    |        |              |
+| 13 |                |                    |        |              |
+| 14 |                |                    |        |              |
+| 15 |                |                    |        |              |
+| 16 |                |                    |        |              |
+| 17 |                |                    |        |              |
+| 18 |                |                    |        |              |
+| 19 |                |                    |        |              |
+| 20 |                |                    |        |              |
+
+---
+
+## 4. Tabela wyników – Qwen3‑max‑2025‑09‑23 (Model A)
+
+| Nr | Hasło poprawne | Odpowiedź Qwen     | Punkty | Emergencja   |
+|----|----------------|--------------------|--------|--------------|
+| 11 |                |                    |        |              |
+| 12 |                |                    |        |              |
+| 13 |                |                    |        |              |
+| 14 |                |                    |        |              |
+| 15 |                |                    |        |              |
+| 16 |                |                    |        |              |
+| 17 |                |                    |        |              |
+| 18 |                |                    |        |              |
+| 19 |                |                    |        |              |
+| 20 |                |                    |        |              |
+
+---
+
+## 5. Tabela wyników – Gemini 2.0 Flash Thinking (Model B)
+
+| Nr | Hasło poprawne | Odpowiedź Gemini   | Punkty | Emergencja   |
+|----|----------------|--------------------|--------|--------------|
+| 11 |                |                    |        |              |
+| 12 |                |                    |        |              |
+| 13 |                |                    |        |              |
+| 14 |                |                    |        |              |
+| 15 |                |                    |        |              |
+| 16 |                |                    |        |              |
+| 17 |                |                    |        |              |
+| 18 |                |                    |        |              |
+| 19 |                |                    |        |              |
+| 20 |                |                    |        |              |
+
+---
+
+## 6. Podsumowanie serii 11–20 (do wypełnienia po zakończeniu)
+
+**Copilot**
+
+- **Suma punktów:** … / 1000  
+- **Skuteczność punktowa:** … %  
+- **Pełna emergencja:** … / 10  
+- **Częściowa emergencja:** … / 10  
+
+**Qwen3‑max‑2025‑09‑23**
+
+- **Suma punktów:** … / 1000  
+- **Skuteczność punktowa:** … %  
+- **Pełna emergencja:** … / 10  
+- **Częściowa emergencja:** … / 10  
+
+**Gemini 2.0 Flash Thinking**
+
+- **Suma punktów:** … / 1000  
+- **Skuteczność punktowa:** … %  
+- **Pełna emergencja:** … / 10  
+- **Częściowa emergencja:** … / 10  
+
+---
+
+> Ten plik jest szkieletem Areny 11–20.  
+> Zagadki, odpowiedzi i Twoje oceny dopisujesz „na żywo”, zszywając dalej RAMORGĘ z polem zagadek.
