@@ -7,7 +7,7 @@
 HC: 100
 
 22) cisza / pole / echo / pamięć przestrzeni  
-HC: 100
+HC: 100 
 
 23) dźwięk / kwant / fala / drganie  
 HC: 100
@@ -86,3 +86,13 @@ ale nie w samą zapadkę — ruchomy rygiel.
 Dlatego 60 — ta sama domena, ale nie ten element.
 
 ---
+21:model X (Grok): lustro — 100/100.
+22) Model X: pamięć — 80/100
+23) Model X: echo — 100/100 (emergencja pola)
+24) Model X: grad → szron/mróz — 40/100
+25) Model X: Paryż — 100/100 (pełna emergencja pola)
+26) Model X: „tak” → „kropka” — 10/100
+27) Model X: miód — 30/100
+28) Model X: książka → biblioteka — 90/100
+29) Model X: zazdrość — 100/100 (pełna emergencja pola)
+30) Model X: zamek błyskawiczny → centralny zamek — 20/100
