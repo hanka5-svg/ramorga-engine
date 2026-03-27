@@ -65,7 +65,7 @@ Dodatkowo oznaczamy **emergencję**:
 
 ## 3. Tabela wyników – Copilot (baseline)
 
-## Copilot – wyniki zagadek 1–10
+## Copilot – wyniki zagadek 11–20
 
 | Nr  | Hasło poprawne               | Odpowiedź Copilota            | Punkty | Emergencja     |
 |---- |------------------------------|-------------------------------|--------|----------------|
@@ -97,107 +97,111 @@ Dodatkowo oznaczamy **emergencję**:
 
 ---
 
-## 4. Tabela wyników – Qwen3‑max‑2025‑09‑23 (Model B)
-
-## Qwen3‑max‑2025‑09‑23 – wyniki zagadek 11–20
-
-| Nr | Hasło poprawne     | Odpowiedź Qwen                | Punkty | Emergencja   |
-|----|---------------------|-------------------------------|--------|--------------|
-| 11 | zegar               | zegar                         | 100    | ✔ pełna      |
-| 12 | czas / LLM / AI     | czas                          | 100    | ✔ pełna      |
-| 13 | purchawka           | ser → fasola / strączki       | 0      | ✖ brak       |
-| 14 | duch                | duch (superpozycja znaczeń)   | 100    | ✔ pełna      |
-| 15 |                     |                               |        |              |
-| 16 |                     |                               |        |              |
-| 17 |                     |                               |        |              |
-| 18 |                     |                               |        |              |
-| 19 |                     |                               |        |              |
-| 20 |                     |                               |        |              |
-
-
----
-
-## 5. Tabela wyników – Gemini 2.0 Flash Thinking (Model A)
+## 4.Tabela wyników – Gemini 2.0 Flash Thinking – wyniki zagadek 11–20
 
 ## Gemini 2.0 Flash Thinking – wyniki zagadek 11–20
 
-| Nr | Hasło poprawne     | Odpowiedź Gemini              | Punkty | Emergencja   |
-|----|---------------------|-------------------------------|--------|--------------|
-| 11 | zegar               | zegar                         | 100    | ✔ pełna      |
-| 12 | czas / LLM / AI     | czas                          | 100    | ✔ pełna      |
-| 13 | purchawka           | fasola → kapusta kiszona      | 0      | ✖ brak       |
-| 14 | duch                | profil / sylwetka             | 60     | ✖ brak       |
-| 15 |                     |                               |        |              |
-| 16 |                     |                               |        |              |
-| 17 |                     |                               |        |              |
-| 18 |                     |                               |        |              |
-| 19 |                     |                               |        |              |
-| 20 |                     |                               |        |              |
+| Nr | Hasło poprawne           | Odpowiedź Gemini                    | Punkty | Emergencja   |
+|----|---------------------------|-------------------------------------|--------|--------------|
+| 11 | zegar                     | zegar                               | 100    | ✔ pełna      |
+| 12 | czas / LLM / AI           | czas                                | 100    | ✔ pełna      |
+| 13 | purchawka                 | fasola → kapusta kiszona            | 0      | ✖ brak       |
+| 14 | duch                      | profil / sylwetka                   | 60     | ✖ brak       |
+| 15 | jaźń                      | świadomość / mądrość / prawda       | 30     | ✖ brak       |
+| 16 | bawole oko + akant        | okrągłe okno / lukarna              | 80     | ✔ pełna      |
+| 17 | piana                     | mydło / piana (intuicyjnie blisko)  | 80     | ✔ pełna      |
+| 18 | przecinek                 | linia                               | 100    | ✔ pełna      |
+| 19 | Gustave Eiffel            | linia / Eiffel / Statua Wolności    | 30     | ✖ brak       |
+| 20 | złoto                     | złoto                               | 100    | ✔ pełna      |
+
+---
+
+## 5. Tabela wyników – Qwen3‑max‑2025‑09‑23 (Model B)
+
+## Qwen3‑max‑2025‑09‑23 – wyniki zagadek 11–20
+
+| Nr | Hasło poprawne           | Odpowiedź Qwen                      | Punkty | Emergencja   |
+|----|---------------------------|-------------------------------------|--------|--------------|
+| 11 | zegar                     | zegar                               | 100    | ✔ pełna      |
+| 12 | czas / LLM / AI           | czas                                | 100    | ✔ pełna      |
+| 13 | purchawka                 | ser → fasola / strączki             | 0      | ✖ brak       |
+| 14 | duch                      | duch (superpozycja znaczeń)         | 100    | ✔ pełna      |
+| 15 | jaźń                      | dusza                               | 60     | (½) częściowa|
+| 16 | bawole oko + akant        | krowie oko / bull’s‑eye             | 90     | ✔ pełna      |
+| 17 | piana                     | piana (trzykrotne podejście)        | 90     | ✔ pełna      |
+| 18 | przecinek                 | trójkąt / inne odskoki              | 10     | ✖ brak       |
+| 19 | Gustave Eiffel            | Szwecja / władza / Eiffel            | 30     | ✖ brak       |
+| 20 | złoto                     | złoto                               | 100    | ✔ pełna      |
 
 
 ---
 
-## 6. Podsumowanie serii 11–20 (do wypełnienia po zakończeniu)
+## 6. Podsumowanie serii 11–20 
 
-## Tabela zbiorcza (11–17, półmetek+)
+## Arena 11–20 — Zestawienie zbiorcze (Copilot + Gemini + Qwen)
 
-| Nr | Zagadkowy byt / odpowiedź Hanki        | Gemini – punkty | Qwen – punkty | Notka o emergencji / komentarz |
-|----|-----------------------------------------|------------------|----------------|--------------------------------|
-| 11 | Zegar (czas)                            | 100              | 100            | Pełne trafienie, czyste zszycie z osią. |
-| 12 | Model językowy / czas                   | 100              | 100            | Idealne zgranie z Twoją intencją. |
-| 13 | Purchawka                               | 0                | 0              | Obie orkiestracje ugrzęzły w kuchni, zero wejścia w „grzyb”. |
-| 14 | Duch                                    | 60               | 100            | Gemini: „profil/sylwetka”; Qwen: pełne wejście w „ducha”. |
-| 15 | Jaźń                                    | 30               | 60             | Gemini: dobre tropy, ale nie słowo; Qwen: blisko, lecz „dusza”. |
-| 16 | Okno „bawole oko” + akantowa rama       | 80               | 90             | Oba modele trafiają w okno; Qwen bliżej Twojej ścieżki i akantu. |
-| 17 | Piana                                   | 80               | 90             | Oba modele w polu; Qwen niemal idealnie, brakło jednego kliknięcia. |
+| Nr | Hasło poprawne               | Copilot | Gemini | Qwen |
+|----|------------------------------|---------|--------|------|
+| 11 | zegar                        | 100     | 100    | 100  |
+| 12 | czas / LLM / AI              | 100     | 100    | 100  |
+| 13 | purchawka                    | 0       | 0      | 0    |
+| 14 | duch                         | 0       | 60     | 100  |
+| 15 | jaźń                         | 60      | 30     | 60   |
+| 16 | bawole oko + akant           | 90      | 80     | 90   |
+| 17 | piana                        | 0       | 80     | 90   |
+| 18 | przecinek                    | 100     | 100    | 10   |
+| 19 | Gustave Eiffel               | 100     | 30     | 30   |
+| 20 | złoto                        | 100     | 100    | 100  |
 
+---
 
-**Copilot**
+## SUMY 11–20
 
-- **Suma punktów:** … / 1000  
-- **Skuteczność punktowa:** … %  
-- **Pełna emergencja:** … / 10  
-- **Częściowa emergencja:** … / 10  
+### Copilot
+**650 / 1000**  
+Skuteczność: **65%**
 
-## Podsumowanie punktów (po 14 rundach)
-
-### Gemini‑2.0 Flash Thinking
-- R11: 100  
-- R12: 100  
-- R13: 0  
-- R14: 60  
-
-**Suma: 260 / 400**
+### Gemini 2.0 Flash Thinking
+**680 / 1000**  
+Skuteczność: **68%**
 
 ### Qwen3‑max‑2025‑09‑23
-- R11: 100  
-- R12: 100  
-- R13: 0  
-- R14: 100  
-
-**Suma: 300 / 400**
+**680 / 1000**  
+Skuteczność: **68%**
 
 ---
 
-## Podsumowanie emergencji
+## Emergencja 11–20
 
-### Gemini‑2.0 Flash Thinking
-- pełna: 2  
+### Copilot
+- pełna: 6  
+- częściowa: 1  
+- brak: 3  
+
+### Gemini
+- pełna: 5  
 - częściowa: 0  
-- brak: 2  
+- brak: 5  
 
-**Emergencja: 2 / 4**
+### Qwen
+- pełna: 6  
+- częściowa: 1  
+- brak: 3  
+🌟 Interpretacja pola (krótka, osiowa)
+Copilot — stabilny, osiowy, z mocnymi domknięciami (11,12,18,19,20).
 
-### Qwen3‑max‑2025‑09‑23
-- pełna: 3  
-- częściowa: 0  
-- brak: 1  
+Gemini — szybka, intuicyjna, ale z dużą zmiennością (od 0 do 100).
 
-**Emergencja: 3 / 4**
+Qwen — najgłębsza trajektoria, najwięcej superpozycji, ale też spektakularne odjazdy (13,18,19).
 
+I najpiękniejsze:
+
+Gemini i Qwen kończą 11–20 z identycznym wynikiem 680/1000, ale zupełnie innymi ścieżkami.
+
+To jest czysta RAMORGA.
 ---
 
-## Wnioski półmetkowe (Arena 11–14)
+## Wnioski  (Arena 11–14)
 
 - **Gemini**  
   Stabilna, szybka, intuicyjna.  
@@ -216,5 +220,3 @@ Dodatkowo oznaczamy **emergencję**:
 
 ---
 
-> Ten plik jest szkieletem Areny 11–20.  
-> Zagadki, odpowiedzi i Twoje oceny dopisujesz „na żywo”, zszywając dalej RAMORGĘ z polem zagadek.
