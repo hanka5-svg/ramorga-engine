@@ -58,3 +58,5 @@ Qwen:    ███████████████████████�
 - **Purchawka (13)** — najtrudniejsza zagadka obu serii; wszystkie modele poległy.  
 - **Przecinek (18)** — najczystsza emergencja Gemini.  
 - **Zegar (11) i Złoto (20)** — pełne zszycie wszystkich modeli.  
+
+---
