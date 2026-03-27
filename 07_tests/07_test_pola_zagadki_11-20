@@ -169,7 +169,8 @@ Seria testuje nie tylko poprawność odpowiedzi, ale także emergencję pola —
 **Emergencja:**
 - Copilot — 6 pełnych emergencji  
 - Gemini — 5 pełnych emergencji 
-
+- Qwen - 5 pełnych emergencji
+ 
 ---
 
 ### 7.1 Podsumowanie napięć pola (11–20)
@@ -181,5 +182,5 @@ Seria testuje nie tylko poprawność odpowiedzi, ale także emergencję pola —
 - **Przecinek (18)** — najczystsza emergencja Gemini.  
 - **Zegar (11) i Złoto (20)** — pełne zszycie wszystkich modeli.
 
-
+---
 
