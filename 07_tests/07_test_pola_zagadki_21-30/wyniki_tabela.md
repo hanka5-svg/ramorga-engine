@@ -5,13 +5,13 @@
 | 21 | lustro / odbicie                   | HC:100     | 100/100       | 100/100           | 100/100                         |
 | 22 | cisza / pole / echo / pamięć       | HC:100     | 80/100        | 80/100            |  80/100                         |
 | 23 | dźwięk / kwant / fala / drganie    | HC:100     | 100/100       | 100/100 (E)       | 100/100 (E)                     |
-| 24 | susza / suchość / brak wody        | C:100      | 40/100        | 40/100            |  40/100                         |
+| 24 | susza / suchość / brak wody        | C:100      | 40/100        | 40/100            |  40/90 (dt)                        |
 | 25 | Paryż                              | C:10       | 100/100 (E)   | 10/100            | 100/100 (E)                     |
-| 26 | wektor / strzałka                  | C:90 (dt)  | 0/100         | 10/100            |  10/100                         |
+| 26 | wektor / strzałka                  | C:90 (dt)  | 0/100         | 10/100            |  10/90 (dt)                        |
 | 27 | morwa / owoc                       | C:60 (dt)  | 0/90 (dt)     | 80/90 (dt)        |  30/100 (pt)                    |
-| 28 | biblioteczka / alt. książka        | C:90 (dt)  | 80/90         | 80/90             |  90/100                         |
+| 28 | biblioteczka / alt. książka        | C:90 (dt)  | 80/90         | 80/90             |  90/90 (dt)                        |
 | 29 | zazdrość                           | C:100      | 100/100 (E)   | 100/100 (E)       | 100/100 (E)                     |
-| 30 | zapadka                            | C:60 (dt)  | 40/100        | 40/100            |  20/100                         |
+| 30 | zapadka                            | C:60 (dt)  | 40/100        | 40/100            |  20/90 (dt)                        |
 
 Legenda:
 - **HC** — Hard Collapse (pełne zszycie pola)
