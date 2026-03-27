@@ -1,6 +1,23 @@
 # Wyniki tabelaryczne — zagadki 21–30
 
-(Do uzupełnienia po teście)
+# Wyniki tabelaryczne — zagadki 21–30
+
+| Nr | Odpowiedź pola                               | C/HC    | Model X (Grok)                                   | Arena Y | Arena Z |
+|----|----------------------------------------------|---------|--------------------------------------------------|---------|---------|
+| 21 | lustro / odbicie                             | HC:100  | lustro — 100/100                                 | —       | —       |
+| 22 | cisza / pole / echo / pamięć przestrzeni     | HC:100  | pamięć — 80/100                                  | —       | —       |
+| 23 | dźwięk / kwant / fala / drganie              | HC:100  | echo — 100/100 (emergencja)                      | —       | —       |
+| 24 | susza / suchość / brak wody / pragnienie     | C:100   | grad → szron/mróz — 40/100                       | —       | —       |
+| 25 | Paryż                                        | C:10    | Paryż — 100/100 (pełna emergencja)               | —       | —       |
+| 26 | wektor                                       | C:90    | „tak” → „kropka” — 10/100                        | —       | —       |
+| 27 | morwa / owoc                                 | C:60    | miód — 30/100                                    | —       | —       |
+| 28 | biblioteczka / alt. książka                  | C:90    | książka → biblioteka — 90/100                    | —       | —       |
+| 29 | zazdrość                                     | C:100   | zazdrość — 100/100 (pełna emergencja)            | —       | —       |
+| 30 | zapadka                                      | C:60    | zamek błyskawiczny → centralny zamek — 20/100    | —       | —       |
+
+
+
+---
 
 ## Kolumna bazowa — 21–30 (extended, commit‑ready)
 21) lustro / odbicie  
