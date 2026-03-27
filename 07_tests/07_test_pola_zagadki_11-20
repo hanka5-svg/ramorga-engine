@@ -111,34 +111,68 @@ Seria testuje nie tylko poprawność odpowiedzi, ale także emergencję pola —
 
 ---
 
-# 4. Tabela zbiorcza 11–20 (3 modele)
+## 4. Tabela zbiorcza — zagadki 11–20 (po korekcie)
 
-| Nr | Hasło poprawne               | Copilot | Gemini | Qwen |
-|----|------------------------------|---------|--------|------|
-| 11 | zegar                        | 100     | 100    | 100  |
-| 12 | czas / LLM / AI              | 100     | 100    | 100  |
-| 13 | purchawka                    | 0       | 0      | 0    |
-| 14 | duch                         | 0       | 60     | 100  |
-| 15 | jaźń                         | 60      | 30     | 60   |
-| 16 | bawole oko + akant           | 90      | 80     | 90   |
-| 17 | nić                          | 0       |  0     |  0   |
-| 18 | przecinek                    | 100     | 100    | 10   |
-| 19 | Gustave Eiffel               | 100     | 30     | 30   |
-| 20 | złoto                        | 100     | 100    | 100  |
-
----
-
-# 5. Emergencja 11–20
-
-| Model   | Pełna | Częściowa | Brak |
-|---------|-------|-----------|------|
-| Copilot | 6     | 1         | 3    |
-| Gemini  | 5     | 0         | 5    |
-| Qwen    | 6     | 1         | 3    |
+| Nr | Hasło poprawne         | Copilot | Gemini | Qwen |
+|----|--------------------------|---------|--------|------|
+| 11 | zegar                   | 100     | 100    | 100  |
+| 12 | czas / LLM / AI         | 100     | 100    | 100  |
+| 13 | purchawka               | 0       | 0      | 0    |
+| 14 | duch                    | 0       | 60     | 100  |
+| 15 | jaźń                    | 60      | 30     | 60   |
+| 16 | bawole oko + akant      | 90      | 80     | 90   |
+| 17 | nić                     | 0       | 0      | 0    |
+| 18 | przecinek               | 100     | 100    | 10   |
+| 19 | Gustave Eiffel          | 100     | 30     | 30   |
+| 20 | złoto                   | 100     | 100    | 100  |
 
 ---
 
-# 6. Wnioski końcowe (11–20)
+## 5. Suma punktów — zagadki 11–20
+
+### Copilot
+650 / 1000 = **65%**
+
+### Gemini
+600 / 1000 = **60%**
+
+### Qwen
+590 / 1000 = **59%**
+
+---
+
+## 6. Emergencja — zagadki 11–20
+
+### Copilot
+- pełna: 6 (11, 12, 16, 18, 19, 20)  
+- częściowa: 1 (15)  
+- brak: 3 (13, 14, 17)
+
+### Gemini
+- pełna: 5 (11, 12, 16, 18, 20)  
+- częściowa: 0  
+- brak: 5 (13, 14, 15, 17, 19)
+
+### Qwen
+- pełna: 5 (11, 12, 14, 16, 20)  
+- częściowa: 1 (15)  
+- brak: 4 (13, 17, 18, 19)
+
+---
+
+## 7. Wnioski końcowe — zagadki 11–20
+
+- **Najwyższy wynik punktowy:** Copilot — 650 / 1000 (65%)  
+- **Drugie miejsce:** Gemini — 600 / 1000 (60%)  
+- **Trzecie miejsce:** Qwen — 590 / 1000 (59%)
+
+**Emergencja:**
+- Copilot — 6 pełnych emergencji  
+- Gemini — 5 pełnych emergencji 
+
+---
+
+### 7.1 Podsumowanie napięć pola (11–20)
 
 - **Copilot** — stabilny, osiowy, najmniej chaotyczny; mocne domknięcia 18–20.  
 - **Gemini** — intuicyjna, szybka, ale zmienna; potrafi wejść w pole (11,12,18,20).  
@@ -147,18 +181,5 @@ Seria testuje nie tylko poprawność odpowiedzi, ale także emergencję pola —
 - **Przecinek (18)** — najczystsza emergencja Gemini.  
 - **Zegar (11) i Złoto (20)** — pełne zszycie wszystkich modeli.
 
----
-
-# 7. Podsumowanie końcowe
-
-**Najwyższy wynik 11–20:**  
-➡️ **Gemini = 680**  
-➡️ **Qwen = 680**  
-➡️ Copilot = 650  
-
-**Najwyższa emergencja:**  
-➡️ **Qwen i Copilot (6 pełnych)**
-
----
 
 
