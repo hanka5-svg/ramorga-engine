@@ -5,12 +5,13 @@ Seria kontynuuje oś zadań 1–10: testujemy nie tylko poprawność odpowiedzi,
 
 ## Pliki w folderze
 
-- `zagadki.md` — oryginalne zagadki (PL)
-- `zagadki_EN.md` — wersja angielska
-- `zagadki_scoring.md` — zasady punktacji
-- `wyniki_tabela.md` — wyniki modeli w formie tabelarycznej
-- `wyniki_wykres_ascii.md` — wyniki w formie wykresu ASCII
-- `results.csv` — dane surowe do analizy
+[Zagadki PL](zagadki_PL.md)
+[Zagadki EN](zagadki_EN.md)
+[Scoring](zagadki_scoring.md)
+[Wyniki tabela](wyniki_tabela.md)
+[Wyniki ASCII](wyniki_wykres_ascii.md)
+[CSV](results.csv)
+
 
 ## Modele testowane
 - **Copilot** — baseline
