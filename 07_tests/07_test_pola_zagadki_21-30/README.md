@@ -31,14 +31,19 @@ Każda zagadka została oceniona w dwóch wymiarach:
 ---
 
 📈 Wyniki — podsumowanie serii 21–30
+
 Pole RAMORGI (C‑score)
+
 810 / 1000 (81%)
 
 ### Arena modeli
 
 Model	Suma	%
+
 Gemini	640 / 1000	64%
+
 Qwen	730 / 1000	73%
+
 Model X	670 / 1000	67%
 
 📉 Wykres ASCII (Arena 21–30)
