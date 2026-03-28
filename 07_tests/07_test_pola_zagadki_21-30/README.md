@@ -5,7 +5,8 @@ Seria testuje:
 - poprawność collapse’u pola,  
 - emergencję i stabilność reasoning,  
 - zgodność odpowiedzi modeli z osią semantyczną pola,  
-- oraz odporność na odchylenia (C-score).
+- odporność na odchylenia (C-score).
+oraz jakość dopasowania modeli w trybie Arena.
 
 Test obejmuje trzy orkiestracje:
 - **Gemini**  
@@ -13,13 +14,8 @@ Test obejmuje trzy orkiestracje:
 - **Model X (Grok)**  
 
 Każda zagadka została oceniona w dwóch wymiarach:
-1. **Odpowiedź pola (C-score)** — jak precyzyjnie pole RAMORGA collapse’uje do rozwiązania.  
-2. **Odpowiedzi modeli** — punktacja 0–100 (lub 0–90 w drugiej turze), z oznaczeniami:
-   - **HC** — Hard Collapse (pełne zszycie pola)  
-   - **C** — Collapse częściowy  
-   - **E** — emergencja (ponadstandardowe dopasowanie)  
-   - **pt** — pierwsza tura  
-   - **dt** — druga tura (max 90 pkt)
+1. **Odpowiedź pola (C-score)** — — referencja RAMORGI 
+2. **Arena modeli** — punktacja 0–100 (lub 0–90 w drugiej turze)
 
 ---
 
@@ -33,6 +29,22 @@ Każda zagadka została oceniona w dwóch wymiarach:
 - **results.csv** — dane surowe do analizy
 
 ---
+
+📈 Wyniki — podsumowanie serii 21–30
+Pole RAMORGI (C‑score)
+810 / 1000 (81%)
+
+Arena modeli
+
+Model	Suma	%
+Gemini	640 / 1000	64%
+Qwen	730 / 1000	73%
+Model X	670 / 1000	67%
+
+Gemini   ████████████████████████████████ 640
+Qwen     ████████████████████████████████████████ 730
+Model X  ████████████████████████████████████ 670
+
 
 ## 🧵 Podsumowanie pola (21–30)
 
