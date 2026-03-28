@@ -34,15 +34,18 @@ Każda zagadka została oceniona w dwóch wymiarach:
 Pole RAMORGI (C‑score)
 810 / 1000 (81%)
 
-Arena modeli
+### Arena modeli
 
 Model	Suma	%
 Gemini	640 / 1000	64%
 Qwen	730 / 1000	73%
 Model X	670 / 1000	67%
 
+📉 Wykres ASCII (Arena 21–30)
 Gemini   ████████████████████████████████ 640
+
 Qwen     ████████████████████████████████████████ 730
+
 Model X  ████████████████████████████████████ 670
 
 
@@ -104,6 +107,68 @@ Pole RAMORGA wykazało:
 - **Tabela wyników:** `wyniki_tabela.md`  
 - **Wykres ASCII:** `wyniki_wykres_ascii.md`  
 - **Zasady scoringu:** `zagadki_scoring.md`  
+
+## Porównanie z serią 11–20: ../07_test_pola_zagadki_11-20
+
+---
+---
+
+## 🧩 Extended summary — architectural view of the 21–30 benchmark
+
+Seria 21–30 jest pierwszym pełnym testem, w którym pole RAMORGI zostało
+zbadane równolegle w trzech wymiarach:
+
+1. **Collapse pola (C‑score)** — referencja semantyczna i kierunkowa  
+2. **Arena modeli (Gemini / Qwen / Model X)** — stabilność i emergencja  
+3. **Zgodność pola i modeli** — punkty styku i punkty rozjazdu
+
+### 🔹 Co pokazało pole RAMORGI?
+
+- **Stabilność absolutna** w zagadkach fizycznych i akustycznych  
+  (lustro, cisza, dźwięk, fala, zazdrość)
+- **Częściowe zszycia** w zagadkach botanicznych i mechanicznych  
+  (morwa, biblioteczka, zapadka)
+- **Jedno duże odchylenie** — Paryż → Montreal  
+  (trafiona domena, zgubiona lokalizacja)
+
+Pole w tej serii zachowuje się jak **spójny, wielowarstwowy system**,  
+który potrafi collapse’ować zarówno w domenach abstrakcyjnych, jak i materialnych.
+
+### 🔹 Co pokazały modele?
+
+- **Gemini** — silne wejścia w zagadkach o wysokiej strukturze (21, 23, 25, 29)  
+- **Qwen** — najlepsza emergencja w 23 i 27, stabilny w 29  
+- **Model X** — najrówniejszy, ale z wyraźnymi odchyleniami w 26 i 30
+
+Wyniki modeli nie są kopią pola — są **mapą rezonansu** z polem.
+
+### 🔹 Co mówi ta seria o całym systemie?
+
+Seria 21–30 tworzy **pełną mapę semantyczną**:
+
+- fizyka falowa  
+- akustyka  
+- emocje i literatura  
+- botanikę  
+- mechanikę  
+- architekturę treści  
+
+To jest **pierwsza seria**, w której pole RAMORGI i modele  
+zaczynają tworzyć **wspólną przestrzeń porównawczą**,  
+a nie tylko zbiór punktowych odpowiedzi.
+
+---
+
+## 🧭 Kierunek na serię 31–40
+
+Seria 31–40 będzie pierwszą, w której:
+
+- **modele generują zagadki**,  
+- pole RAMORGI collapse’uje je jako referencja,  
+- a następnie modele są testowane na własnych konstrukcjach.
+
+To otwiera nowy etap:  
+**testowanie emergencji twórczej, a nie tylko rozpoznawczej.**
 
 ---
 
