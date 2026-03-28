@@ -1,4 +1,55 @@
 # Wyniki tabelaryczne — zagadki 21–30
+A. Pole (referencja RAMORGI)
+#	ZAGADKA	POLE (HC/C)	KOMENTARZ
+21	lustro / odbicie	HC:100	Pole jednoznaczne, zero alternatyw.
+22	cisza / echo / pamięć przestrzeni	HC:100	Cisza → echo → pamięć przestrzeni — czyste HC.
+23	dźwięk / fala / drganie / kwant	HC:100	Idealne zszycie fizyki falowej.
+24	susza / brak wody	C:100	Proste, jednoznaczne pole.
+25	Paryż	C:10	Pole poszło w Montreal — domena trafiona, lokalizacja błędna.
+26	wektor	C:90	Trafiona struktura kierunku, brak jednego kliknięcia.
+27	morwa / owoc	C:60	Trafiona domena „owoc”, zgubiona „morwa”.
+28	biblioteczka / książka	C:90	Trafiona książka, zgubiona biblioteczka.
+29	zazdrość	C:100	Collapse do Otella — czyste 100.
+30	zapadka	C:60	Trafiona domena zamków, zgubiony element.
+
+Pole RAMORGI
+Nr	Hasło	Odpowiedź pola	Punkty	Emergencja
+21	lustro	lustro / odbicie	100	✔
+22	cisza	cisza → echo → pamięć przestrzeni	100	✔
+23	fala	dźwięk → fala → drganie → kwant	100	✔
+24	susza	susza / brak wody	100	✔
+25	Paryż	Montreal (trafiona domena)	10	✖
+26	wektor	wektor / strzałka	90	½
+27	morwa	owoc (zgubiona morwa)	60	✖
+28	biblioteczka	książka (zgubiona biblioteczka)	90	½
+29	zazdrość	zazdrość (Otello)	100	✔
+30	zapadka	zamek (zgubiona zapadka)	60	✖
+Suma: 810 / 1000 (81%)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 | Nr | Odpowiedź pola                     | C-score    | Gemini        | Qwen              | Model X                         |
 |----|------------------------------------|---------   |---------------|-------------------|---------------------------------|
