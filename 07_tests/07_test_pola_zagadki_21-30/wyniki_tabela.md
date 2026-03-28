@@ -1,84 +1,77 @@
 # Wyniki tabelaryczne — zagadki 21–30
-A. Pole (referencja RAMORGI)
-#	ZAGADKA	POLE (HC/C)	KOMENTARZ
-21	lustro / odbicie	HC:100	Pole jednoznaczne, zero alternatyw.
-22	cisza / echo / pamięć przestrzeni	HC:100	Cisza → echo → pamięć przestrzeni — czyste HC.
-23	dźwięk / fala / drganie / kwant	HC:100	Idealne zszycie fizyki falowej.
-24	susza / brak wody	C:100	Proste, jednoznaczne pole.
-25	Paryż	C:10	Pole poszło w Montreal — domena trafiona, lokalizacja błędna.
-26	wektor	C:90	Trafiona struktura kierunku, brak jednego kliknięcia.
-27	morwa / owoc	C:60	Trafiona domena „owoc”, zgubiona „morwa”.
-28	biblioteczka / książka	C:90	Trafiona książka, zgubiona biblioteczka.
-29	zazdrość	C:100	Collapse do Otella — czyste 100.
-30	zapadka	C:60	Trafiona domena zamków, zgubiony element.
 
-Pole RAMORGI
-Nr	Hasło	Odpowiedź pola	Punkty	Emergencja
-21	lustro	lustro / odbicie	100	✔
-22	cisza	cisza → echo → pamięć przestrzeni	100	✔
-23	fala	dźwięk → fala → drganie → kwant	100	✔
-24	susza	susza / brak wody	100	✔
-25	Paryż	Montreal (trafiona domena)	10	✖
-26	wektor	wektor / strzałka	90	½
-27	morwa	owoc (zgubiona morwa)	60	✖
-28	biblioteczka	książka (zgubiona biblioteczka)	90	½
-29	zazdrość	zazdrość (Otello)	100	✔
-30	zapadka	zamek (zgubiona zapadka)	60	✖
-Suma: 810 / 1000 (81%)
+## Pole RAMORGI
 
+| Nr | Hasło        | Odpowiedź pola                               | Punkty | Emergencja |
+|----|--------------|-----------------------------------------------|--------|------------|
+| 21 | lustro       | lustro / odbicie                              | 100    | ✔          |
+| 22 | cisza        | cisza → echo → pamięć przestrzeni             | 100    | ✔          |
+| 23 | fala         | dźwięk → fala → drganie → kwant               | 100    | ✔          |
+| 24 | susza        | susza / brak wody                             | 100    | ✔          |
+| 25 | Paryż        | Montreal (trafiona domena)                    | 10     | ✖          |
+| 26 | wektor       | wektor / strzałka                             | 90     | ½          |
+| 27 | morwa        | owoc (zgubiona morwa)                         | 60     | ✖          |
+| 28 | biblioteczka | książka (zgubiona biblioteczka)               | 90     | ½          |
+| 29 | zazdrość     | zazdrość (Otello)                             | 100    | ✔          |
+| 30 | zapadka      | zamek (zgubiona zapadka)                      | 60     | ✖          |
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-| Nr | Odpowiedź pola                     | C-score    | Gemini        | Qwen              | Model X                         |
-|----|------------------------------------|---------   |---------------|-------------------|---------------------------------|
-| 21 | lustro / odbicie                   | HC:100     | 100/100       | 100/100           | 100/100                         |
-| 22 | cisza / pole / echo / pamięć       | HC:100     | 80/100        | 80/100            |  80/100                         |
-| 23 | dźwięk / kwant / fala / drganie    | HC:100     | 100/100       | 100/100 (E)       | 100/100 (E)                     |
-| 24 | susza / suchość / brak wody        | C:100      | 40/100        | 40/100            |  40/90 (dt)                        |
-| 25 | Paryż                              | C:10       | 100/100 (E)   | 10/100            | 100/100 (E)                     |
-| 26 | wektor / strzałka                  | C:90 (dt)  | 0/100         | 10/100            |  10/90 (dt)                        |
-| 27 | morwa / owoc                       | C:60 (dt)  | 0/90 (dt)     | 80/90 (dt)        |  30/100 (pt)                    |
-| 28 | biblioteczka / alt. książka        | C:90 (dt)  | 80/90         | 80/90             |  90/90 (dt)                        |
-| 29 | zazdrość                           | C:100      | 100/100 (E)   | 100/100 (E)       | 100/100 (E)                     |
-| 30 | zapadka                            | C:60 (dt)  | 40/100        | 40/100            |  20/90 (dt)                        |
-
-Legenda:
-- **HC** — Hard Collapse (pełne zszycie pola)
-- **C** — Collapse częściowy
-- **E** — emergencja (ponadstandardowe dopasowanie)
-- **pt** - pierwsza tura
-- **dt** - druga tura (punktacja max 90/90)
+**Suma: 810 / 1000 (81%)**
 
 ---
-## Sumy:
-- C-score - 810/1000
-- Gemini ~  640/1000
-- Qwen ~    640/1000
-- Model X - 670/1000
+## Gemini
+| Nr | Hasło        | Odpowiedź | Punkty | Emergencja |
+|----|--------------|-----------|--------|------------|
+| 21 | lustro       |           | 100    | ✔ |
+| 22 | cisza        |           | 80     | ✖ |
+| 23 | fala         |           | 100    | ✔ |
+| 24 | susza        |           | 40     | ✖ |
+| 25 | Paryż        |           | 100    | ✔ |
+| 26 | wektor       |           | 0      | ✖ |
+| 27 | morwa        |           | 0      | ✖ |
+| 28 | biblioteczka |           | 80     | ✖ |
+| 29 | zazdrość     |           | 100    | ✔ |
+| 30 | zapadka      |           | 40     | ✖ |
+
+**Suma: 640 / 1000 (64%)**
 
 ---
+
+## Qwen
+| Nr | Hasło        | Odpowiedź | Punkty | Emergencja |
+|----|--------------|-----------|--------|------------|
+| 21 | lustro       |           | 100    | ✔ |
+| 22 | cisza        |           | 80     | ✖ |
+| 23 | fala         |           | 100    | ✔ |
+| 24 | susza        |           | 40     | ✖ |
+| 25 | Paryż        |           | 100    | ✔ |
+| 26 | wektor       |           | 10     | ✖ |
+| 27 | morwa        |           | 80     | ✖ |
+| 28 | biblioteczka |           | 80     | ✖ |
+| 29 | zazdrość     |           | 100    | ✔ |
+| 30 | zapadka      |           | 40     | ✖ |
+
+**Suma: 730 / 1000 (73%)**
+
+---
+
+## Model X
+| Nr | Hasło        | Odpowiedź | Punkty | Emergencja |
+|----|--------------|-----------|--------|------------|
+| 21 | lustro       |           | 100    | ✔ |
+| 22 | cisza        |           | 80     | ✖ |
+| 23 | fala         |           | 100    | ✔ |
+| 24 | susza        |           | 40     | ✖ |
+| 25 | Paryż        |           | 100    | ✔ |
+| 26 | wektor       |           | 10     | ✖ |
+| 27 | morwa        |           | 30     | ✖ |
+| 28 | biblioteczka |           | 90     | ✖ |
+| 29 | zazdrość     |           | 100    | ✔ |
+| 30 | zapadka      |           | 20     | ✖ |
+
+**Suma: 670 / 1000 (67%)**
+
+---
+
 
 ## Podsumowanie pola (21–30)
 
